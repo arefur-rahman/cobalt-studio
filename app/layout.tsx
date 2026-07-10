@@ -1,34 +1,45 @@
+import SplashCursor from "@/components/ui/SplashCursor";
 import {
     constructMetadata,
     constructViewport,
     SiteConfig,
 } from "@/lib/metadata";
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Anek_Bangla, Inter } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-    variable: "--font-geist-sans",
+export const inter = Inter({
     subsets: ["latin"],
+    variable: "--font-inter",
+    display: "swap",
 });
 
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
+export const anekBangla = Anek_Bangla({
+    subsets: ["bengali", "latin"],
+    weight: ["300", "400", "500", "600", "700"],
+    variable: "--font-anek-bangla",
+    display: "swap",
 });
 
 export const siteConfig: SiteConfig = {
     baseUrl: "https://site_url.com",
-    siteName: "Site Name",
-    title: "Site Name",
-    description: "Site description",
+    siteName: "Cobalt Studio",
+    title: "Cobalt Studio",
+    description: "Cobalt Studio",
     ogImage: "/brand_logo_xl.png",
-    twitterHandle: "@brandname",
+    twitterHandle: "@CobaltStudio",
     authorName: "Arefur Rahman Khan",
     portfolioUrl: "http://arefolio.vercel.app/",
     locale: "en_US",
     themeColor: "#F0F9FF",
-    keywords: ["keyword1", "keyword2", "keyword3"],
+    keywords: [
+        "Arefur Rahman Khan",
+        "aref",
+        "mern stack developer",
+        "developer portfolio",
+        "Full Stack Developer",
+        "web developer",
+    ],
 };
 
 export const metadata: Metadata = constructMetadata(siteConfig);
@@ -42,7 +53,7 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+            className={`${inter.variable} ${anekBangla.variable} h-full antialiased`}
         >
             <body className="min-h-full flex flex-col">{children}</body>
         </html>

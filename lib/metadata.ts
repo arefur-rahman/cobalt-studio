@@ -28,7 +28,7 @@ export function constructMetadata(config: SiteConfig): Metadata {
         siteName,
         title,
         description,
-        ogImage = "/brand_logo_xl.png",
+        ogImage = "/favicon.png",
         twitterHandle = "@brandName",
         authorName = "MD. Arefur Rahman Khan",
         portfolioUrl = "http://arefolio.vercel.app/",
