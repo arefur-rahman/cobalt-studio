@@ -71,7 +71,7 @@ const Hero = () => {
         {
             icon: <IconAward className="size-6 text-purple-400" />,
             bgColor: "bg-purple-500/10",
-            value: "7+ YRS",
+            value: "3+ YRS",
             label: "Experience",
         },
         {

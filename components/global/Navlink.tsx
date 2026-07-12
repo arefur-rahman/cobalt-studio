@@ -8,10 +8,12 @@ const Navlink = ({
     href,
     children,
     className,
+    isScrolled = false,
 }: {
     href: string;
     children: React.ReactNode;
     className?: string;
+    isScrolled?: boolean;
 }) => {
     const pathName = usePathname();
     const isActive = pathName === href;
@@ -19,10 +21,14 @@ const Navlink = ({
         <Link
             href={href}
             className={cn(
-                "transition-colors duration-200 text-sm font-medium",
+                "transition-colors duration-300 text-sm font-medium",
                 isActive
-                    ? "text-white group-[.header-scrolled]:text-zinc-950! dark:group-[.header-scrolled]:text-white!"
-                    : "text-white/60 hover:text-white! group-[.header-scrolled]:text-zinc-500 group-[.header-scrolled]:hover:text-zinc-950! dark:group-[.header-scrolled]:text-zinc-400 dark:group-[.header-scrolled]:hover:!text-zinc-100",
+                    ? isScrolled
+                        ? "text-foreground"
+                        : "text-white"
+                    : isScrolled
+                      ? "text-foreground/50 hover:text-foreground!"
+                      : "text-white/60 hover:text-white!",
                 className,
             )}
         >

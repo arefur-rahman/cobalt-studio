@@ -3,9 +3,11 @@ import { H2, H3, Span } from "./Texts";
 const SectionHeader = ({
     subtitle,
     title,
+    titlePrimary,
 }: {
     subtitle?: string;
     title: string;
+    titlePrimary?: string;
 }) => {
     return (
         <div className="max-w-2xl space-y-4 mb-12">
@@ -16,10 +18,7 @@ const SectionHeader = ({
             )}
             {title && (
                 <H2 className="text-[clamp(32px,5vw,52px)] font-semibold text-foreground dark:text-white capitalize leading-none tracking-tighter">
-                    {title.split(" ").slice(0, -1).join(" ")}{" "}
-                    <Span className="text-primary">
-                        {title.split(" ").at(-1)}
-                    </Span>
+                    {title} <Span className="text-primary">{titlePrimary}</Span>
                 </H2>
             )}
         </div>

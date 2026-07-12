@@ -35,7 +35,14 @@ const Footer = () => (
                         alt="Cobalt Studio logo"
                         width={150}
                         height={40}
-                        className="h-9 w-auto object-contain"
+                        className="h-9 w-auto object-contain dark:hidden"
+                    />
+                    <Image
+                        src="/cobalt-studio-dark.png"
+                        alt="Cobalt Studio logo"
+                        width={150}
+                        height={40}
+                        className="h-9 w-auto object-contain hidden dark:block"
                     />
                     <P className="text-sm text-muted-foreground leading-relaxed max-w-[200px]">
                         It&apos;s about strategic storytelling and human
@@ -192,7 +199,7 @@ const Footer = () => (
                     width={1920}
                     height={80}
                     loading="lazy"
-                    className="w-full h-auto object-contain opacity-70"
+                    className="w-full h-auto object-contain opacity-70 rounded-lg"
                 />
             </div>
         </div>

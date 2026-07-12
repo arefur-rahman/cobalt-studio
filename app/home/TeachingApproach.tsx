@@ -44,7 +44,8 @@ const TeachingApproach = () => {
                     {/* Left Column - Header & Timeline */}
                     <div className="lg:col-span-6 space-y-10">
                         <SectionHeader
-                            title="our teaching approach"
+                            title="our teaching"
+                            titlePrimary="approach"
                             subtitle="methods"
                         />
 
@@ -63,7 +64,7 @@ const TeachingApproach = () => {
                                         )}
 
                                         {/* Icon Container */}
-                                        <div className="relative z-10 flex items-center justify-center w-12 h-12 rounded-xl border border-muted-foreground/20 bg-background shadow-sm text-primary transition-all duration-300 group-hover:border-primary/80 group-hover:bg-blue-50 shrink-0">
+                                        <div className="relative z-10 flex items-center justify-center w-12 h-12 rounded-xl border border-muted-foreground/20 bg-background shadow-sm text-primary transition-all duration-300 group-hover:border-primary/80 group-hover:dark:border-transparent group-hover:bg-blue-50 group-hover:dark:bg-background group-hover:dark:text-white shrink-0">
                                             <IconComponent className="size-5" />
                                         </div>
 
@@ -72,7 +73,7 @@ const TeachingApproach = () => {
                                             <H3 className="text-lg font-bold text-foreground tracking-tight transition-colors duration-300 group-hover:text-primary">
                                                 {method.title}
                                             </H3>
-                                            <P className="text-sm md:text-base text-muted-foreground/80 font-normal leading-relaxed">
+                                            <P className="text-sm md:text-base text-muted-foreground/80 dark:text-zinc-300/70 leading-relaxed">
                                                 {method.description}
                                             </P>
                                         </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import { H3, Span } from "@/components/global/Texts";
 import {
     Accordion,
@@ -5,7 +7,22 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
+import { motion, type Variants } from "motion/react";
 import { FileText, PlayCircle } from "lucide-react";
+
+const containerVariants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.1,
+        },
+    },
+};
+
+const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 24 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
 
 const OutlineAccordion = () => {
     const outlineInformation = [
@@ -85,14 +102,19 @@ const OutlineAccordion = () => {
         },
     ];
     return (
-        <div>
+        <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+        >
             <Accordion type="single" collapsible className="space-y-4">
                 {outlineInformation.map((outline) => (
-                    <AccordionItem
-                        key={outline?.id}
-                        value={outline?.id}
-                        className="border-none"
-                    >
+                    <motion.div key={outline?.id} variants={itemVariants}>
+                        <AccordionItem
+                            value={outline?.id}
+                            className="border-none"
+                        >
                         <AccordionTrigger className="w-full border border-muted-foreground/30 hover:border-primary/80 rounded-xl px-5 md:px-8 py-5 transition-all duration-300 data-[state=open]:border-primary data-[state=open]:rounded-b-none">
                             <div className="flex items-center w-full gap-4">
                                 <Span className="text-2xl md:text-3xl font-semibold transition-colors duration-300 text-muted-foreground dark:text-muted-foreground group-hover/accordion-trigger:text-primary/80 group-aria-expanded/accordion-trigger:text-primary">
@@ -131,10 +153,11 @@ const OutlineAccordion = () => {
                                 this module
                             </p>
                         </AccordionContent>
-                    </AccordionItem>
+                        </AccordionItem>
+                    </motion.div>
                 ))}
             </Accordion>
-        </div>
+        </motion.div>
     );
 };
 
