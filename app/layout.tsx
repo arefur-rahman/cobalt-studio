@@ -1,13 +1,13 @@
-import SplashCursor from "@/components/ui/SplashCursor";
+import ScrollToTop from "@/components/global/ScrollToTop";
 import {
     constructMetadata,
     constructViewport,
     SiteConfig,
 } from "@/lib/metadata";
+import { ThemeProvider } from "@/providers/theme-provider";
 import type { Metadata, Viewport } from "next";
 import { Anek_Bangla, Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/providers/theme-provider";
 
 export const inter = Inter({
     subsets: ["latin"],
@@ -58,7 +58,10 @@ export default function RootLayout({
             suppressHydrationWarning
         >
             <body className="min-h-full flex flex-col">
-                <ThemeProvider>{children}</ThemeProvider>
+                <ThemeProvider>
+                    {children}
+                    <ScrollToTop />
+                </ThemeProvider>
             </body>
         </html>
     );

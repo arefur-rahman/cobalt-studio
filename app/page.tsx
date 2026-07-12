@@ -8,7 +8,6 @@ import Hero from "./home/Hero";
 import JoinTheLab from "./home/JoinTheStudio";
 import LearnFromSource from "./home/LearnFromSource";
 import TeachingApproach from "./home/TeachingApproach";
-import ScrollToTop from "@/components/global/ScrollToTop";
 
 export default function Home() {
     return (
@@ -23,7 +22,6 @@ export default function Home() {
             <JoinTheLab />
             <AreYouTheRightFit />
             <Footer />
-            <ScrollToTop />
             {/* <CursorMashroom /> */}
         </div>
     );
