@@ -7,7 +7,7 @@ import {
     AvatarGroup,
     AvatarImage,
 } from "@/components/ui/avatar";
-import enToBnNumber from "@/lib/numberEn2Bn";
+import getStartDateStr from "@/lib/getClosestMondayStr";
 import {
     IconArrowUpRight,
     IconAward,
@@ -23,30 +23,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Hero = () => {
-    const getStartDateStr = () => {
-        const date = new Date();
-        date.setDate(date.getDate() + 7);
-        const day = date.getDate();
-        const month = date.getMonth();
-
-        const banglaMonths = [
-            "জানুয়ারি",
-            "ফেব্রুয়ারি",
-            "মার্চ",
-            "এপ্রিল",
-            "মে",
-            "জুন",
-            "জুলাই",
-            "আগস্ট",
-            "সেপ্টেম্বর",
-            "অক্টোবর",
-            "নভেম্বর",
-            "ডিসেম্বর",
-        ];
-
-        return `${enToBnNumber(day)} ${banglaMonths[month]}`;
-    };
-
     const ratingsAvatars = [
         "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80",
         "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80",

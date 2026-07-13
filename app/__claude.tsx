@@ -1,65 +1,92 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "motion/react";
-import { IconMoodPuzzled } from "@tabler/icons-react";
-import { ArrowLeft, Home } from "lucide-react";
+import {
+    IconUsers,
+    IconVideo,
+    IconBriefcase2,
+    IconSparkles,
+} from "@tabler/icons-react";
 
-export default function NotFound() {
+const FEATURES = [
+    {
+        number: "01",
+        icon: IconUsers,
+        color: "text-rose-500",
+        title: "Voice of Dhaka-র ইন্ট্রাক্টর",
+        description:
+            "৭২৮k সাবস্ক্রাইবার চ্যানেলের মূল ইন্ট্রাক্টর থেকে সরাসরি শেখার সুযোগ, যার কাজ দেখে আপনি অনুপ্রাণিত হয়েছেন।",
+    },
+    {
+        number: "02",
+        icon: IconVideo,
+        color: "text-blue-500",
+        title: "২৬টি লাইভ ক্লাস",
+        description:
+            "রেকর্ডেড ভিডিওর ভিড়ে হারিয়ে যাওয়া নয়, সরাসরি প্রশ্ন করুন এবং রিয়েল-টাইম ফিডব্যাক নিয়ে স্কিল ঝালাই করুন।",
+    },
+    {
+        number: "03",
+        icon: IconBriefcase2,
+        color: "text-emerald-500",
+        title: "৬টি পোর্টফোলিও প্রজেক্ট",
+        description:
+            "কোর্স শেষে আপনার হাতে থাকবে ৬টি প্রফেশনাল প্রজেক্ট, যা দিয়ে ইন্টারন্যাশনালি ক্লায়েন্ট ধরা অনেক সহজ হবে।",
+    },
+    {
+        number: "04",
+        icon: IconSparkles,
+        color: "text-violet-500",
+        title: "AI Workflow + YouTube Growth",
+        description:
+            "শুধু এডিটিং নয়, AI টুলস ব্যবহার এবং ইউটিউব এসইও সহ ভবিষ্যতের এডিটর হওয়ার কমপ্লিট রোডম্যাপ।",
+    },
+];
+
+export default function FeatureHighlights() {
     return (
-        <section className="relative flex min-h-[80vh] w-full items-center justify-center overflow-hidden px-6">
-            {/* ambient glow */}
-            <div className="pointer-events-none absolute left-1/2 top-1/3 h-80 w-80 -translate-x-1/2 rounded-full bg-primary/20 blur-[120px]" />
+        <div className="w-full py-16 md:py-24">
+            <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-6 sm:grid-cols-2">
+                {FEATURES.map(
+                    ({ number, icon: Icon, color, title, description }, i) => (
+                        <motion.div
+                            key={number}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-60px" }}
+                            transition={{
+                                duration: 0.5,
+                                ease: "easeOut",
+                                delay: i * 0.1,
+                            }}
+                            className="relative overflow-hidden rounded-2xl border border-border/40 bg-muted/40 p-8 dark:border-border/50 dark:bg-card"
+                        >
+                            {/* faint background number */}
+                            <span
+                                aria-hidden
+                                className="pointer-events-none absolute -right-2 bottom-2 select-none text-8xl font-black leading-none text-foreground/5"
+                            >
+                                {number}
+                            </span>
 
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                className="relative z-10 flex flex-col items-center text-center"
-            >
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.85 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                    className="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10"
-                >
-                    <IconMoodPuzzled
-                        className="h-10 w-10 text-primary"
-                        stroke={1.6}
-                    />
-                </motion.div>
+                            <div className="relative z-10">
+                                <Icon
+                                    className={`h-7 w-7 ${color}`}
+                                    stroke={1.8}
+                                />
 
-                <h1 className="text-7xl font-extrabold tracking-tight text-foreground sm:text-8xl">
-                    404
-                </h1>
+                                <h3 className="font-bengali mt-6 text-xl font-bold text-foreground md:text-2xl">
+                                    {title}
+                                </h3>
 
-                <p className="mt-3 text-lg font-semibold text-foreground md:text-xl">
-                    Page not found
-                </p>
-
-                <p className="mt-2 max-w-md text-sm text-muted-foreground md:text-base">
-                    The page you&apos;re looking for might have been moved,
-                    renamed, or never existed in the first place.
-                </p>
-
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                    <Link
-                        href="/"
-                        className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-colors hover:bg-primary/90"
-                    >
-                        <Home className="h-4 w-4" strokeWidth={2.2} />
-                        Back to home
-                    </Link>
-
-                    <button
-                        onClick={() => window.history.back()}
-                        className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-transparent px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-accent"
-                    >
-                        <ArrowLeft className="h-4 w-4" strokeWidth={2.2} />
-                        Go back
-                    </button>
-                </div>
-            </motion.div>
-        </section>
+                                <p className="font-bengali mt-3 max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
+                                    {description}
+                                </p>
+                            </div>
+                        </motion.div>
+                    ),
+                )}
+            </div>
+        </div>
     );
 }

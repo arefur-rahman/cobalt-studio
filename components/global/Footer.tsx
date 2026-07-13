@@ -199,7 +199,7 @@ const Footer = () => (
                     width={1920}
                     height={80}
                     loading="lazy"
-                    className="w-full h-auto object-contain opacity-70 rounded-lg"
+                    className="w-full h-auto object-contain dark:opacity-70 rounded-lg"
                 />
             </div>
         </div>

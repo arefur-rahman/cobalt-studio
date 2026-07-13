@@ -67,14 +67,15 @@ const CourseContent = () => {
                             <Button className="flex-1 h-11 rounded-xl bg-primary text-primary-foreground font-semibold shadow-md shadow-primary/20 hover:bg-primary/90 dark:shadow-primary/30 transition-colors">
                                 Enroll now
                             </Button>
-                            <Link href={"/courses/batch-1"}>
-                                <Button
-                                    variant="secondary"
-                                    className="flex-1 h-11 rounded-xl font-semibold bg-muted text-foreground hover:bg-muted/70 dark:bg-white/5 dark:text-primary dark:border dark:border-white/10 dark:hover:bg-white/10 transition-colors"
-                                >
+                            <Button
+                                asChild
+                                variant="secondary"
+                                className="flex-1 h-11 rounded-xl font-semibold bg-muted text-foreground hover:bg-muted/70 dark:bg-white/5 dark:text-primary dark:border dark:border-white/10 dark:hover:bg-white/10 transition-colors"
+                            >
+                                <Link href={"/courses/batch-1"}>
                                     Details
-                                </Button>
-                            </Link>
+                                </Link>
+                            </Button>
                         </CardFooter>
                     </Card>
                 </div>
