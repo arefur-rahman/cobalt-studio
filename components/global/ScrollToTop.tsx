@@ -1,6 +1,6 @@
 "use client";
 
-import { IconArrowUpSquareFilled } from "@tabler/icons-react";
+import { IconArrowUpSquare } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 
 export default function ScrollToTop() {
@@ -31,7 +31,7 @@ export default function ScrollToTop() {
                 ${visible ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-4 pointer-events-none"}
             `}
         >
-            <IconArrowUpSquareFilled className="size-6" />
+            <IconArrowUpSquare className="size-6" />
         </button>
     );
 }

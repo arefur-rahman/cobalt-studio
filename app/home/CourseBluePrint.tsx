@@ -1,7 +1,7 @@
 import GradientTopBorder from "@/components/global/GradientTopBorder";
 import SectionHeader from "@/components/global/SectionHeader";
 import SectionSeparator from "@/components/global/SectionSeparator";
-import OutlineAccordion from "./OutlineAccordion";
+import OutlineAccordion from "@/components/global/OutlineAccordion";
 
 const CourseBluePrint = () => {
     return (

@@ -6,20 +6,31 @@ const CourseSectionHeader = ({
     sectionTitle,
     sectionSubtitle,
     sectionDescription,
+    singleLineHeader = true,
 }: {
     badgeText: string;
     sectionTitle: string;
     sectionSubtitle: string;
     sectionDescription?: string;
+    singleLineHeader?: boolean;
 }) => {
     return (
-        <div className="flex flex-col items-center gap-4 md:gap-6">
+        <div className="flex flex-col items-center gap-3">
             <PillBadge>{badgeText}</PillBadge>
-            <H2 className="text-center font-bold text-[clamp(30px,5vw,48px)] max-w-[560px] flex flex-col items-center justify-center">
-                <Span>{sectionTitle}</Span>
-                <Span className="text-primary">{sectionSubtitle}</Span>
-            </H2>
-            <P>{sectionDescription}</P>
+            {singleLineHeader ? (
+                <H2 className="text-center font-bold text-[clamp(30px,5vw,48px)] flex items-center gap-3.5">
+                    <Span>{sectionTitle}</Span>
+                    <Span className="text-primary">{sectionSubtitle}</Span>
+                </H2>
+            ) : (
+                <div className="flex flex-col items-center">
+                    <H2 className="text-center font-bold text-[clamp(30px,5vw,48px)] flex flex-col items-center gap-2">
+                        <Span>{sectionTitle}</Span>
+                        <Span className="text-primary">{sectionSubtitle}</Span>
+                    </H2>
+                </div>
+            )}
+            <P className="-mt-2">{sectionDescription}</P>
         </div>
     );
 };

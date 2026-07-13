@@ -112,9 +112,8 @@ const Hero = () => {
                             post-production techniques from industry
                             professionals at{" "}
                             <Span className="text-primary font-semibold">
-                                Cobalt Studio
+                                Cobalt Studio.
                             </Span>
-                            .
                         </P>
 
                         {/* Action Buttons & Bengali date */}
