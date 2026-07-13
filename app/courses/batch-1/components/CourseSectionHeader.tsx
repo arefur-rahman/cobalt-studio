@@ -15,7 +15,7 @@ const CourseSectionHeader = ({
     return (
         <div className="flex flex-col items-center gap-4 md:gap-6">
             <PillBadge>{badgeText}</PillBadge>
-            <H2 className="text-center font-bold text-[clamp(30px,5vw,48px)] max-w-[560px] flex flex-col items-center gap-2">
+            <H2 className="text-center font-bold text-[clamp(30px,5vw,48px)] max-w-[560px] flex flex-col items-center justify-center">
                 <Span>{sectionTitle}</Span>
                 <Span className="text-primary">{sectionSubtitle}</Span>
             </H2>

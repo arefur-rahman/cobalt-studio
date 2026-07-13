@@ -46,7 +46,7 @@ const WhyUsGrid = () => {
     ];
 
     return (
-        <div className="w-full pt-16 md:pt-24">
+        <div className="w-full pt-16 md:pt-18">
             <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-6 sm:grid-cols-2">
                 {FEATURES.map(
                     ({ number, icon: Icon, color, title, description }, i) => (
@@ -60,7 +60,7 @@ const WhyUsGrid = () => {
                                 ease: "easeOut",
                                 delay: i * 0.1,
                             }}
-                            className="relative overflow-hidden rounded-2xl border border-border/40 bg-muted/40 p-8 dark:border-border/50 dark:bg-card"
+                            className="relative overflow-hidden rounded-2xl border border-border/40 bg-card p-8 dark:border-border/50 dark:bg-card"
                         >
                             {/* faint background number */}
                             <Span
@@ -76,7 +76,7 @@ const WhyUsGrid = () => {
                                     stroke={1.8}
                                 />
 
-                                <H3 className="font-bengali mt-6 text-xl font-bold text-foreground md:text-2xl">
+                                <H3 className="mt-6 text-xl font-bold text-foreground md:text-2xl">
                                     {title}
                                 </H3>
 
