@@ -13,7 +13,7 @@ import {
     IconArrowUp,
 } from "@tabler/icons-react";
 import NavBarSticky from "@/components/global/NavBarSticky";
-import BackNavigation from "../components/BackNavigation";
+import BackNavigation from "./tools/components/BackNavigation";
 
 // ---------- JWT decoding (pure utility, outside component) ----------
 
