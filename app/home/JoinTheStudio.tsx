@@ -11,7 +11,7 @@ const JoinTheStudio = () => {
     return (
         <SectionSeparator className="bg-background relative">
             <GradientTopBorder />
-            <div className="w-full px-6 py-4 md:py-8">
+            <div className="w-full md:py-8">
                 <motion.div
                     initial={{ opacity: 0, y: 24 }}
                     whileInView={{ opacity: 1, y: 0 }}

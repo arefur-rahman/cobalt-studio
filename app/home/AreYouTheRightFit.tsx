@@ -41,7 +41,7 @@ const AreYouTheRightFit = () => {
         show: { opacity: 1, x: 0, transition: { duration: 0.35 } },
     };
     return (
-        <SectionSeparator className="bg-background relative mx-30">
+        <SectionSeparator className="bg-background relative">
             <GradientTopBorder />
             <SectionHeader
                 title="Are you the"

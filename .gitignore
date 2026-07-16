@@ -41,5 +41,5 @@ yarn-error.log*
 next-env.d.ts
 
 # ai code files
-__claude
+__claude.*
 app/__claude.tsx

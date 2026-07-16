@@ -1,16 +1,18 @@
 "use client";
 
-import { motion } from "motion/react";
+import PillBadge from "@/components/global/PillBadge";
+import { H2, P, Span } from "@/components/global/Texts";
+import enToBnNumber from "@/lib/numberEn2Bn";
 import {
-    Wand2,
     Compass,
+    Layers,
     Mic,
     Users,
-    Layers,
+    Wand2,
     type LucideIcon,
 } from "lucide-react";
+import { motion } from "motion/react";
 import CourseSectionHeader from "./CourseSectionHeader";
-import enToBnNumber from "@/lib/numberEn2Bn";
 
 type BonusItem = {
     icon: LucideIcon;
@@ -72,16 +74,17 @@ const Bonus = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="p-24"
+            className="md:p-24 p-5"
         >
             <CourseSectionHeader
+                singleLineHeader
                 badgeText="বোনাস"
                 sectionTitle="নাইট আউলে"
                 sectionSubtitle="বোনাস পাচ্ছেন"
-                sectionDescription="কোর্সের সাথে ৳১১,৫০০+ টাকার বোনাস সম্পূর্ণ ফ্রি।"
+                sectionDescription="৳১১,৫০০+ টাকার বোনাস সম্পূর্ণ ফ্রি"
             />
-            <div className="w-full py-16">
-                <div className="mx-auto max-w-5xl px-6">
+            <div className="w-full py-7 md:py-16">
+                <div className="mx-auto max-w-5xl md:px-6">
                     <div className="flex flex-col gap-4">
                         {BONUSES.map(
                             (

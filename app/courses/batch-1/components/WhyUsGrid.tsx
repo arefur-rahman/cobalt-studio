@@ -47,7 +47,7 @@ const WhyUsGrid = () => {
 
     return (
         <div className="w-full pt-16 md:pt-18">
-            <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-6 sm:grid-cols-2">
+            <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-3 md:px-6 sm:grid-cols-2">
                 {FEATURES.map(
                     ({ number, icon: Icon, color, title, description }, i) => (
                         <motion.div

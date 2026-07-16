@@ -17,18 +17,18 @@ const NavBarWithPageHeader = ({
         <>
             <TopNavBar />
             <section>
-                <div className="h-[40vh] flex justify-center items-center bg-muted">
-                    <div className="flex flex-col items-center justify-center">
-                        <P className="text-primary tracking-[0.3em] text-[10px] md:text-sm uppercase mb-4 opacity-70">
+                <div className="flex items-center justify-center bg-muted pt-20 pb-10 md:pb-16 md:pt-32">
+                    <div className="mx-auto flex max-w-7xl flex-col items-center px-6 text-center md:px-8 w-full">
+                        <P className="text-xs md:text-sm uppercase tracking-[0.35em] text-primary/70">
                             {sectionTag}
                         </P>
-                        <H2 className="text-4xl md:text-7xl font-semibold text-zinc-900 dark:text-white leading-[0.9] tracking-tight pb-6">
+                        <H2 className="font-semibold leading-[0.95] tracking-tight text-zinc-900 dark:text-white text-[clamp(1.8rem,7vw,5.5rem)]">
                             {mainHeading}
-                            <Span className="text-primary ml-2.5">
+                            <Span className="ml-2 text-primary">
                                 {subHeading}
                             </Span>
                         </H2>
-                        <div className="h-0.5 w-full bg-linear-to-r max-w-5xl from-zinc-900/10 via-transparent to-zinc-900/10 dark:from-white/20 dark:to-white/20" />
+                        <div className="mt-8 h-px w-full max-w-4xl bg-linear-to-r from-transparent via-zinc-300 dark:via-white/20 to-transparent" />
                     </div>
                 </div>
                 {children}

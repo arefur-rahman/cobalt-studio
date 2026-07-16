@@ -52,7 +52,7 @@ const NightOwlOffer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="bg-muted px-24 py-28 space-y-16"
+            className="bg-muted md:px-24 px-3 py-7 md:py-28 space-y-6 md:space-y-16"
         >
             <CourseSectionHeader
                 badgeText="লিমিটেড নাইট আউল অফার"

@@ -17,7 +17,7 @@ const MeetYourMentor = () => {
                 sectionSubtitle="mentor"
                 sectionDescription="এই কোর্সের মেন্টর হলেন বাংলাদেশের শীর্ষস্থানীয় ইনফোটেইনমেন্ট চ্যানেল Voice of Dhaka-র ফাউন্ডার ও প্রধান ভিডিও এডিটর। তার কাছ থেকে শেখার সুযোগ পেয়ে আপনি নিজেকে ভাগ্যবান মনে করবেন।"
             />
-            <div className="pt-20 px-30">
+            <div className="pt-10 px-7 md:pt-20 md:px-30">
                 <MentorDetails />
             </div>
         </motion.section>

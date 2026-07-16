@@ -21,7 +21,7 @@ const page = () => {
         <>
             <TopNavBar />
             <div>
-                <div className="pt-14 md:pt-28">
+                <div className="pt-24 md:pt-28">
                     <motion.section
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}

@@ -46,7 +46,7 @@ const Faq = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="px-24 py-28 space-y-16"
+            className="md:px-24 px-3 py-7 md:py-28 space-y-6 md:space-y-16 bg-muted"
         >
             <CourseSectionHeader
                 badgeText="FAQ"
@@ -55,7 +55,7 @@ const Faq = () => {
                 sectionDescription="কোর্স সম্পর্কে সবচেয়ে সাধারণ প্রশ্নগুলোর উত্তর এখানে দেওয়া হলো।"
             />
             <div className="w-full">
-                <div className="mx-auto max-w-3xl px-6">
+                <div className="mx-auto max-w-3xl md:px-6">
                     <div className="overflow-hidden rounded-3xl border border-border/60 bg-card">
                         <Accordion
                             type="single"

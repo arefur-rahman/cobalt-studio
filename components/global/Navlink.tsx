@@ -24,8 +24,8 @@ const Navlink = ({
                 "transition-colors duration-300 text-sm font-medium",
                 isActive
                     ? isScrolled
-                        ? "text-foreground"
-                        : "text-white"
+                        ? "text-foreground border-b-2 border-primary"
+                        : "text-white border-b-2 border-primary"
                     : isScrolled
                       ? "text-foreground/50 hover:text-foreground!"
                       : "text-white/60 hover:text-white!",
