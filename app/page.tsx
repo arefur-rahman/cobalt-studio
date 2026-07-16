@@ -1,5 +1,5 @@
 import Footer from "@/components/global/Footer";
-import TopNavBar from "@/components/global/Header";
+import TopNavBar from "@/components/global/TopNavBar";
 import AreYouTheRightFit from "./home/AreYouTheRightFit";
 import Batch1 from "./home/Batch1";
 import CourseBluePrint from "./home/CourseBluePrint";

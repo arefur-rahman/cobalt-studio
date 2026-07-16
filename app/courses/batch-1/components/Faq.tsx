@@ -1,10 +1,11 @@
-import CourseSectionHeader from "./CourseSectionHeader";
 import {
     Accordion,
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
+import { motion } from "motion/react";
+import CourseSectionHeader from "./CourseSectionHeader";
 
 const Faq = () => {
     type FaqItem = {
@@ -40,7 +41,13 @@ const Faq = () => {
     ];
 
     return (
-        <section className="px-24 py-28 space-y-16">
+        <motion.section
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="px-24 py-28 space-y-16"
+        >
             <CourseSectionHeader
                 badgeText="FAQ"
                 sectionTitle="সাধারণ"
@@ -76,7 +83,7 @@ const Faq = () => {
                     </div>
                 </div>
             </div>
-        </section>
+        </motion.section>
     );
 };
 

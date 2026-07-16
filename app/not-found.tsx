@@ -1,6 +1,6 @@
 "use client";
 
-import TopNavBar from "@/components/global/Header";
+import TopNavBar from "@/components/global/TopNavBar";
 import { H1, P } from "@/components/global/Texts";
 import { Button } from "@/components/ui/button";
 import { IconMoodPuzzled } from "@tabler/icons-react";

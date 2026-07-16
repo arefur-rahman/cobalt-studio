@@ -1,9 +1,16 @@
 import MentorDetails from "@/components/global/MentorDetails";
 import CourseSectionHeader from "./CourseSectionHeader";
+import { motion } from "motion/react";
 
 const MeetYourMentor = () => {
     return (
-        <section className="bg-muted py-24">
+        <motion.section
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="bg-muted py-24"
+        >
             <CourseSectionHeader
                 badgeText="Meet Your Mentor"
                 sectionTitle="Meet Your"
@@ -13,7 +20,7 @@ const MeetYourMentor = () => {
             <div className="pt-20 px-30">
                 <MentorDetails />
             </div>
-        </section>
+        </motion.section>
     );
 };
 

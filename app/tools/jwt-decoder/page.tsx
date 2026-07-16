@@ -1,18 +1,18 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { motion } from "motion/react";
+import NavBarSticky from "@/components/global/NavBarSticky";
 import { Button } from "@/components/ui/button";
 import {
-    IconKey,
-    IconCopy,
-    IconCheck,
     IconAlertCircle,
-    IconClock,
-    IconWand,
     IconArrowUp,
+    IconCheck,
+    IconClock,
+    IconCopy,
+    IconKey,
+    IconWand,
 } from "@tabler/icons-react";
-import NavBarSticky from "@/components/global/NavBarSticky";
+import { motion } from "motion/react";
+import { useMemo, useState } from "react";
 import BackNavigation from "../components/BackNavigation";
 
 // ---------- JWT decoding (pure utility, outside component) ----------
@@ -25,17 +25,6 @@ function base64UrlDecode(segment: string): string {
         "=",
     );
     return atob(padded);
-}
-
-function base64UrlEncodeString(str: string): string {
-    return btoa(str).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-}
-
-function base64UrlEncodeBytes(bytes: Uint8Array): string {
-    const binary = Array.from(bytes)
-        .map((b) => String.fromCharCode(b))
-        .join("");
-    return base64UrlEncodeString(binary);
 }
 
 type DecodedJwt = {
@@ -84,6 +73,17 @@ function formatClaimValue(key: string, value: unknown): string {
 
 // ---------- JWT generation (HS256, via Web Crypto — runs entirely client-side) ----------
 
+function base64UrlEncodeString(str: string): string {
+    return btoa(str).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+function base64UrlEncodeBytes(bytes: Uint8Array): string {
+    const binary = Array.from(bytes)
+        .map((b) => String.fromCharCode(b))
+        .join("");
+    return base64UrlEncodeString(binary);
+}
+
 async function signHS256(
     headerObj: Record<string, unknown>,
     payloadObj: Record<string, unknown>,
@@ -123,23 +123,61 @@ const DEFAULT_GEN_PAYLOAD = () =>
         2,
     );
 
+// which field's "Copied" checkmark is currently showing — one state
+// instead of three separate booleans
+type CopiedField = "header" | "payload" | "token" | null;
+
+// the generator's async lifecycle, collapsed into one tagged union so
+// loading/success/error can never contradict each other
+type GenState =
+    | { status: "idle" }
+    | { status: "loading" }
+    | { status: "success"; token: string }
+    | { status: "error"; message: string };
+
 // ---------- Component ----------
 
-const SAMPLE_JWT =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFyZWYiLCJpYXQiOjE1MTYyMzkwMjIsImV4cCI6MTgwMDAwMDAwMH0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U";
+const JwtDecoder = () => {
+    const [input, setInput] = useState("");
+    const [now] = useState(() => Date.now());
+    const [copiedField, setCopiedField] = useState<CopiedField>(null);
 
-export default function JwtDecoder() {
-    const [input, setInput] = useState(SAMPLE_JWT);
-    const [copiedHeader, setCopiedHeader] = useState(false);
-    const [copiedPayload, setCopiedPayload] = useState(false);
-
-    // generator state
     const [genPayload, setGenPayload] = useState(DEFAULT_GEN_PAYLOAD);
     const [genSecret, setGenSecret] = useState("your-256-bit-secret");
-    const [genOutput, setGenOutput] = useState("");
-    const [genError, setGenError] = useState<string | null>(null);
-    const [genLoading, setGenLoading] = useState(false);
-    const [genCopied, setGenCopied] = useState(false);
+    const [genState, setGenState] = useState<GenState>({ status: "idle" });
+
+    const handleCopy = (text: string, field: CopiedField) => {
+        navigator.clipboard.writeText(text);
+        setCopiedField(field);
+        setTimeout(() => setCopiedField(null), 1500);
+    };
+
+    const handleGenerate = async () => {
+        setGenState({ status: "loading" });
+        try {
+            const payloadObj = JSON.parse(genPayload);
+            const token = await signHS256(
+                { alg: "HS256", typ: "JWT" },
+                payloadObj,
+                genSecret || "secret",
+            );
+            setGenState({ status: "success", token });
+        } catch (err) {
+            setGenState({
+                status: "error",
+                message:
+                    err instanceof Error
+                        ? err.message
+                        : "Token generate করা যায়নি — payload valid JSON কিনা চেক করুন।",
+            });
+        }
+    };
+
+    const handleLoadIntoDecoder = () => {
+        if (genState.status !== "success") return;
+        setInput(genState.token);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
 
     const result = useMemo(() => {
         if (input.trim() === "") {
@@ -161,47 +199,12 @@ export default function JwtDecoder() {
     const expiryStatus = useMemo(() => {
         const exp = result.data?.payload?.exp;
         if (typeof exp !== "number") return null;
-        const isExpired = Date.now() >= exp * 1000;
+        const isExpired = now >= exp * 1000;
         return {
             isExpired,
             date: new Date(exp * 1000),
         };
-    }, [result.data]);
-
-    const handleCopy = (text: string, setFlag: (v: boolean) => void) => {
-        navigator.clipboard.writeText(text);
-        setFlag(true);
-        setTimeout(() => setFlag(false), 1500);
-    };
-
-    const handleGenerate = async () => {
-        setGenError(null);
-        setGenLoading(true);
-        try {
-            const payloadObj = JSON.parse(genPayload);
-            const token = await signHS256(
-                { alg: "HS256", typ: "JWT" },
-                payloadObj,
-                genSecret || "secret",
-            );
-            setGenOutput(token);
-        } catch (err) {
-            setGenOutput("");
-            setGenError(
-                err instanceof Error
-                    ? err.message
-                    : "Token generate করা যায়নি — payload valid JSON কিনা চেক করুন।",
-            );
-        } finally {
-            setGenLoading(false);
-        }
-    };
-
-    const handleLoadIntoDecoder = () => {
-        if (!genOutput) return;
-        setInput(genOutput);
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    };
+    }, [now, result.data?.payload?.exp]);
 
     return (
         <NavBarSticky>
@@ -287,8 +290,8 @@ export default function JwtDecoder() {
                             />
                             <span className="font-bengali">
                                 {expiryStatus.isExpired
-                                    ? `Token মেয়াদ শেষ হয়ে গেছে — ${expiryStatus.date.toUTCString()}`
-                                    : `Token এখনো valid — মেয়াদ শেষ হবে ${expiryStatus.date.toUTCString()}`}
+                                    ? `Token মেয়াদ শেষ হয়ে গেছে — ${expiryStatus.date.toLocaleString()}`
+                                    : `Token এখনো valid — মেয়াদ শেষ হবে ${expiryStatus.date.toLocaleString()}`}
                             </span>
                         </motion.div>
                     )}
@@ -317,12 +320,12 @@ export default function JwtDecoder() {
                                                     null,
                                                     2,
                                                 ),
-                                                setCopiedHeader,
+                                                "header",
                                             )
                                         }
                                         className="gap-1.5 rounded-lg"
                                     >
-                                        {copiedHeader ? (
+                                        {copiedField === "header" ? (
                                             <>
                                                 <IconCheck
                                                     className="h-4 w-4 text-emerald-500"
@@ -377,12 +380,12 @@ export default function JwtDecoder() {
                                                     null,
                                                     2,
                                                 ),
-                                                setCopiedPayload,
+                                                "payload",
                                             )
                                         }
                                         className="gap-1.5 rounded-lg"
                                     >
-                                        {copiedPayload ? (
+                                        {copiedField === "payload" ? (
                                             <>
                                                 <IconCheck
                                                     className="h-4 w-4 text-emerald-500"
@@ -483,30 +486,30 @@ export default function JwtDecoder() {
 
                                 <Button
                                     onClick={handleGenerate}
-                                    disabled={genLoading}
+                                    disabled={genState.status === "loading"}
                                     className="mt-3 gap-1.5 rounded-lg"
                                 >
                                     <IconWand className="h-4 w-4" stroke={2} />
-                                    {genLoading
+                                    {genState.status === "loading"
                                         ? "Generating..."
                                         : "Generate Token"}
                                 </Button>
 
-                                {genError && (
+                                {genState.status === "error" && (
                                     <div className="mt-2 flex items-center gap-2 text-xs text-destructive">
                                         <IconAlertCircle
                                             className="h-3.5 w-3.5 shrink-0"
                                             stroke={2}
                                         />
                                         <span className="font-bengali">
-                                            {genError}
+                                            {genState.message}
                                         </span>
                                     </div>
                                 )}
                             </div>
                         </div>
 
-                        {genOutput && (
+                        {genState.status === "success" && (
                             <motion.div
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -514,18 +517,18 @@ export default function JwtDecoder() {
                                 className="mt-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4"
                             >
                                 <p className="mb-2 break-all font-mono text-xs text-foreground">
-                                    {genOutput}
+                                    {genState.token}
                                 </p>
                                 <div className="flex flex-wrap gap-2">
                                     <Button
                                         variant="secondary"
                                         size="sm"
                                         onClick={() =>
-                                            handleCopy(genOutput, setGenCopied)
+                                            handleCopy(genState.token, "token")
                                         }
                                         className="gap-1.5 rounded-lg"
                                     >
-                                        {genCopied ? (
+                                        {copiedField === "token" ? (
                                             <>
                                                 <IconCheck
                                                     className="h-4 w-4 text-emerald-500"
@@ -562,4 +565,6 @@ export default function JwtDecoder() {
             </section>
         </NavBarSticky>
     );
-}
+};
+
+export default JwtDecoder;

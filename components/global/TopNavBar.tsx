@@ -19,8 +19,8 @@ const navLinks = [
     { label: "Home", href: "/" },
     { label: "Courses", href: "/courses" },
     { label: "Feedbacks", href: "/feedbacks" },
-    { label: "YouTube", href: "/youtube" },
-    { label: "Motion Tool", href: "/motion-tool" },
+    { label: "Resources", href: "/resources" },
+    { label: "Dev Tools", href: "/tools" },
 ];
 
 const TopNavBar = () => {

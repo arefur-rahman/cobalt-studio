@@ -44,7 +44,7 @@ const Footer = () => (
                         height={40}
                         className="h-9 w-auto object-contain hidden dark:block"
                     />
-                    <P className="text-sm text-muted-foreground leading-relaxed max-w-[200px]">
+                    <P className="text-sm text-muted-foreground dark:text-foreground leading-relaxed max-w-[200px]">
                         It&apos;s about strategic storytelling and human
                         judgment.
                     </P>

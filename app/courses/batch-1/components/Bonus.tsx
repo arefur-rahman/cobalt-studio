@@ -67,7 +67,13 @@ const Bonus = () => {
     ];
 
     return (
-        <section className="p-24">
+        <motion.section
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="p-24"
+        >
             <CourseSectionHeader
                 badgeText="বোনাস"
                 sectionTitle="নাইট আউলে"
@@ -157,7 +163,7 @@ const Bonus = () => {
                     </motion.div>
                 </div>
             </div>
-        </section>
+        </motion.section>
     );
 };
 

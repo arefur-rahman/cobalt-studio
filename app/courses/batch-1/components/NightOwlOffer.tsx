@@ -47,7 +47,13 @@ const NightOwlOffer = () => {
     ];
 
     return (
-        <section className="bg-muted px-24 py-28 space-y-16">
+        <motion.section
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="bg-muted px-24 py-28 space-y-16"
+        >
             <CourseSectionHeader
                 badgeText="লিমিটেড নাইট আউল অফার"
                 sectionTitle="ভিডিও এডিটিং ক্যারিয়ার শুরু"
@@ -154,7 +160,7 @@ const NightOwlOffer = () => {
                     </motion.div>
                 </div>
             </div>
-        </section>
+        </motion.section>
     );
 };
 
