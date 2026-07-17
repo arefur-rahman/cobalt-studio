@@ -125,7 +125,7 @@ const QUICK_PATTERNS: Array<{ label: string; pattern: string }> = [
 const DEFAULT_TEST_STRING = `Contact us at hello@cobaltstudio.dev or call 01712345678.
 Visit https://cobaltstudio.dev for more info. Published on 2026-07-16.`;
 
-export default function RegexTester() {
+const RegexTester = () => {
     const [pattern, setPattern] = useState("[\\w.+-]+@[\\w-]+\\.[a-zA-Z]{2,}");
     const [activeFlags, setActiveFlags] = useState<string[]>(["i"]);
     const [testString, setTestString] = useState(DEFAULT_TEST_STRING);
@@ -151,7 +151,7 @@ export default function RegexTester() {
 
     return (
         <NavBarSticky>
-            <section className="w-full py-16 md:py-24">
+            <section className="w-full pb-16 pt-24 md:py-24">
                 <div className="mx-auto max-w-3xl px-6">
                     {/* back navigation */}
                     <BackNavigation />
@@ -389,4 +389,6 @@ export default function RegexTester() {
             </section>
         </NavBarSticky>
     );
-}
+};
+
+export default RegexTester;

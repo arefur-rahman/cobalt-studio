@@ -106,11 +106,10 @@ const ObjectIdDecoder = () => {
 
     return (
         <NavBarSticky>
-            <section className="w-full py-16 md:py-24">
+            <section className="w-full pb-16 pt-24 md:py-24">
                 <div className="mx-auto max-w-2xl px-6">
                     {/* back navigation */}
                     <BackNavigation />
-
                     {/* header */}
                     <div className="mb-10 text-center">
                         <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10">
@@ -213,7 +212,7 @@ const ObjectIdDecoder = () => {
                             }}
                             className="mt-6 rounded-2xl border border-primary/20 bg-primary/5 p-6 sm:p-8"
                         >
-                            <div className="flex items-start justify-between gap-4">
+                            <div className="flex flex-col md:flex-row items-start justify-between gap-4">
                                 <div>
                                     <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                                         Created At
@@ -226,7 +225,7 @@ const ObjectIdDecoder = () => {
                                     </p>
                                 </div>
 
-                                <div className="flex shrink-0 flex-col gap-2">
+                                <div className="flex shrink-0 flex-row md:flex-col gap-2">
                                     <Button
                                         variant="secondary"
                                         size="sm"

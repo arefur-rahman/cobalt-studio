@@ -208,7 +208,7 @@ const JwtDecoder = () => {
 
     return (
         <NavBarSticky>
-            <section className="w-full py-16 md:py-24">
+            <section className="w-full pb-16 pt-24 md:py-24">
                 <div className="mx-auto max-w-4xl px-6">
                     {/* back navigation */}
                     <BackNavigation />

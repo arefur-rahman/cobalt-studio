@@ -56,7 +56,7 @@ NEXT_PUBLIC_FIREBASE_PROJECT_ID=cobalt-studio-prod
 NODE_ENV=development
 PORT=3000`;
 
-export default function EnvExampleGenerator() {
+const EnvExampleGenerator = () => {
     const [input, setInput] = useState(SAMPLE_ENV);
     const [copied, setCopied] = useState(false);
 
@@ -84,7 +84,7 @@ export default function EnvExampleGenerator() {
 
     return (
         <NavBarSticky>
-            <section className="w-full py-16 md:py-24">
+            <section className="w-full pb-16 pt-24 md:py-24">
                 <div className="mx-auto max-w-5xl px-6">
                     {/* back navigation */}
                     <BackNavigation />
@@ -200,4 +200,6 @@ export default function EnvExampleGenerator() {
             </section>
         </NavBarSticky>
     );
-}
+};
+
+export default EnvExampleGenerator;
