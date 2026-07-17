@@ -1,3 +1,4 @@
+import CursorMashroom from "@/components/global/CursorMashroom";
 import Footer from "@/components/global/Footer";
 import TopNavBar from "@/components/global/TopNavBar";
 import AreYouTheRightFit from "./home/AreYouTheRightFit";
@@ -22,7 +23,7 @@ export default function Home() {
             <JoinTheLab />
             <AreYouTheRightFit />
             <Footer />
-            {/* <CursorMashroom /> */}
+            <CursorMashroom />
         </div>
     );
 }
