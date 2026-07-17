@@ -6,6 +6,7 @@ import {
 } from "@/lib/metadata";
 import { ThemeProvider } from "@/providers/theme-provider";
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Anek_Bangla, Inter } from "next/font/google";
 import "./globals.css";
 
@@ -61,6 +62,7 @@ export default function RootLayout({
                 <ThemeProvider>
                     {children}
                     <ScrollToTop />
+                    <Analytics />
                 </ThemeProvider>
             </body>
         </html>
