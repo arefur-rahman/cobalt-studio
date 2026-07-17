@@ -69,12 +69,15 @@ const Hero = () => {
             {/* Background Image Container */}
             <div className="absolute inset-0 z-0 bg-black">
                 <div
-                    className="absolute inset-0 bg-cover bg-position-[center_top] md:bg-center lg:bg-position-[center_right_-20%] xl:bg-right bg-no-repeat opacity-50 md:opacity-85"
-                    style={{ backgroundImage: "url('/hero-bg.avif')" }}
+                    className="absolute inset-0 bg-cover bg-no-repeat opacity-70 md:opacity-90"
+                    style={{
+                        backgroundImage: "url('/hero-bg.avif')",
+                        backgroundPosition: "center -8%",
+                    }}
                 />
                 {/* Gradients to blend background & text */}
-                <div className="absolute inset-0 bg-linear-to-t from-black via-black/30 to-black/70" />
-                <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/40 to-transparent md:from-black md:via-black/55" />
+                <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-black/50" />
+                <div className="absolute inset-0 bg-linear-to-r from-black/90 via-black/50 to-transparent md:from-black md:via-black/40 md:to-transparent" />
             </div>
             {/* Main Content Area */}
             <div className="container mx-auto px-4 md:px-8 pt-5 md:pt-28 pb-10 grow flex flex-col justify-between relative z-10">
@@ -128,7 +131,7 @@ const Hero = () => {
                             <div className="flex items-center justify-center sm:justify-start gap-2 text-[#D9A05B]">
                                 <IconPlayerPlayFilled className="size-3.5" />
                                 <Span className="text-sm tracking-wide">
-                                    ক্লাস শুরু - {getStartDateStr()}
+                                    ক্লাস শুরু - {getStartDateStr()})
                                 </Span>
                             </div>
                         </div>
@@ -168,24 +171,47 @@ const Hero = () => {
                         </div>
                     </div>
 
-                    {/* Right Column: Floating Software Icons overlayed over Wizard's hand area */}
-                    <div className="lg:col-span-5 relative h-[300px] lg:h-[450px] w-full lg:flex items-center justify-center select-none pointer-events-none hidden lg:flex">
-                        {/* AE Floating Logo */}
+                    {/* Right Column: Floating Software Icons (Desktop) */}
+                    <div className="lg:col-span-5 relative h-[350px] lg:h-[480px] w-full lg:flex items-center justify-center select-none pointer-events-none hidden">
+                        {/* Cursor AI Logo — Main Highlight */}
                         <motion.div
-                            className="absolute right-[10%] top-[-14%] z-10 w-28 md:w-36 h-36 filter drop-shadow-[0_15px_30px_rgba(168,85,247,0.35)]"
+                            className="absolute md:right-[15%] top-[-8%] z-20 w-28 md:w-36 h-36 filter drop-shadow-[0_15px_35px_rgba(59,130,246,0.5)]"
                             animate={{
-                                y: [0, -12, 0],
-                                rotate: [4, 10, 4],
+                                y: [0, -15, 0],
+                                rotate: [0, 8, 0],
                             }}
                             transition={{
-                                duration: 6,
+                                duration: 5,
                                 repeat: Infinity,
                                 ease: "easeInOut",
                             }}
                         >
                             <Image
-                                src="/ae.png"
-                                alt="After Effects Logo"
+                                src="/cursor-ai.avif"
+                                alt="Cursor AI Logo by cobalt"
+                                fill
+                                className="object-contain"
+                                sizes="(max-width: 768px) 96px, 128px"
+                                priority
+                            />
+                        </motion.div>
+
+                        {/* Next.js Logo — Now clear and positioned */}
+                        <motion.div
+                            className="absolute right-[23%] top-[40%] opacity-70 z-10 w-24 md:w-32 h-32 filter drop-shadow-[0_15px_30px_rgba(56,189,248,0.3)]"
+                            animate={{
+                                y: [0, 12, 0],
+                                rotate: [-6, 6, -6],
+                            }}
+                            transition={{
+                                duration: 7,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                            }}
+                        >
+                            <Image
+                                src="/next-logo.avif"
+                                alt="Next.js Logo by cobalt"
                                 fill
                                 className="object-contain"
                                 sizes="(max-width: 768px) 112px, 144px"
@@ -193,45 +219,72 @@ const Hero = () => {
                             />
                         </motion.div>
 
-                        {/* PR Floating Logo */}
+                        {/* React Logo — Combined Spin and Pulse */}
                         <motion.div
-                            className="absolute right-[-3%] top-[-8%] z-5 blur-xs w-24 md:w-32 h-32 filter drop-shadow-[0_15px_30px_rgba(59,130,246,0.25)]"
+                            className="absolute left-[-30%] opacity-70 top-[-10%] z-10 w-24 md:w-30 h-30 filter drop-shadow-[0_15px_30px_rgba(14,165,233,0.35)]"
                             animate={{
-                                y: [0, -10, 0],
-                                rotate: [-8, -4, -8],
+                                y: [0, -15, 0], // উপরে-নিচে ভাসবে (Pulse)
+                                rotate: 360, // একটানা ঘুরবে (Spin)
                             }}
                             transition={{
-                                duration: 8,
-                                repeat: Infinity,
-                                ease: "easeInOut",
+                                y: {
+                                    duration: 4,
+                                    repeat: Infinity,
+                                    ease: "easeInOut",
+                                },
+                                rotate: {
+                                    duration: 12,
+                                    repeat: Infinity,
+                                    ease: "linear",
+                                },
                             }}
                         >
                             <Image
-                                src="/pr.png"
-                                alt="Premiere Pro Logo"
+                                src="/react-logo.avif"
+                                alt="React Logo"
                                 fill
                                 className="object-contain"
-                                sizes="(max-width: 768px) 96px, 128px"
+                                sizes="(max-width: 768px) 96px, 120px"
                                 priority
                             />
                         </motion.div>
                     </div>
 
-                    {/* Mobile-only floating logos — positioned absolute over the hero bg */}
-                    <div className="lg:hidden absolute top-16 right-0 w-full h-48 select-none pointer-events-none z-10">
-                        {/* AE — top right */}
+                    {/* Floating logos (Mobile & Tablet) */}
+                    <div className="lg:hidden absolute top-16 right-0 w-full h-56 select-none pointer-events-none z-10">
+                        {/* Next.js logo — top right */}
                         <motion.div
-                            className="absolute right-4 top-0 w-20 h-20 filter drop-shadow-[0_10px_20px_rgba(168,85,247,0.4)]"
-                            animate={{ y: [0, -8, 0], rotate: [4, 10, 4] }}
+                            className="absolute right-5 top-0 size-12 opacity-80 filter drop-shadow-[0_10px_22px_rgba(59,130,246,0.45)]"
+                            animate={{ y: [0, -8, 0], rotate: [0, 8, 0] }}
                             transition={{
-                                duration: 6,
+                                duration: 5,
                                 repeat: Infinity,
                                 ease: "easeInOut",
                             }}
                         >
                             <Image
-                                src="/ae.png"
-                                alt="After Effects Logo"
+                                src="/next-logo.avif"
+                                alt="Next.js Logo by cobalt"
+                                fill
+                                className="object-contain"
+                                sizes="64px"
+                                priority
+                            />
+                        </motion.div>
+
+                        {/* Cursor AI — slightly below and right, now clear */}
+                        <motion.div
+                            className="absolute right-5 bottom-2 size-14 opacity-80 filter drop-shadow-[0_10px_20px_rgba(56,189,248,0.3)]"
+                            animate={{ y: [0, 8, 0], rotate: [-6, 6, -6] }}
+                            transition={{
+                                duration: 7,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                            }}
+                        >
+                            <Image
+                                src="/cursor-ai.avif"
+                                alt="Cursor AI Logo"
                                 fill
                                 className="object-contain"
                                 sizes="80px"
@@ -239,19 +292,29 @@ const Hero = () => {
                             />
                         </motion.div>
 
-                        {/* PR — slightly below and further right, blurred */}
+                        {/* React — left side mobile, combined animation */}
                         <motion.div
-                            className="absolute right-0 top-10 w-16 h-16 blur-[1px] filter drop-shadow-[0_10px_20px_rgba(59,130,246,0.3)]"
-                            animate={{ y: [0, -6, 0], rotate: [-8, -4, -8] }}
+                            className="absolute left-4 top-10 size-12 opacity-75 filter drop-shadow-[0_10px_20px_rgba(14,165,233,0.35)]"
+                            animate={{
+                                y: [0, -6, 0],
+                                rotate: [0, 360],
+                            }}
                             transition={{
-                                duration: 8,
-                                repeat: Infinity,
-                                ease: "easeInOut",
+                                y: {
+                                    duration: 6,
+                                    repeat: Infinity,
+                                    ease: "easeInOut",
+                                },
+                                rotate: {
+                                    duration: 15,
+                                    repeat: Infinity,
+                                    ease: "linear",
+                                },
                             }}
                         >
                             <Image
-                                src="/pr.png"
-                                alt="Premiere Pro Logo"
+                                src="/react-logo.avif"
+                                alt="React Logo"
                                 fill
                                 className="object-contain"
                                 sizes="64px"
@@ -268,7 +331,7 @@ const Hero = () => {
                         {stats.map((stat, i) => (
                             <div
                                 key={i}
-                                className="bg-background/90 dark:bg-background/75 md:bg-zinc-950/40 backdrop-blur-md border border-zinc-800/40 p-4 rounded-2xl flex items-center gap-4 hover:border-zinc-700/60 hover:bg-zinc-900/30 transition-all duration-300 shadow-xl"
+                                className="bg-background/40 dark:bg-background/75 backdrop-blur-md border border-zinc-800/40 p-4 rounded-2xl flex items-center gap-4 hover:border-zinc-700/60 hover:bg-zinc-900/30 transition-all duration-300 shadow-xl"
                             >
                                 <div
                                     className={`p-3 rounded-xl ${stat.bgColor} flex items-center justify-center shrink-0`}
@@ -276,10 +339,10 @@ const Hero = () => {
                                     {stat.icon}
                                 </div>
                                 <div className="flex flex-col text-left">
-                                    <span className="text-foreground dark:text-white font-extrabold text-base sm:text-lg leading-tight tracking-tight">
+                                    <span className="text-background dark:text-white font-extrabold text-base sm:text-lg leading-tight tracking-tight">
                                         {stat.value}
                                     </span>
-                                    <span className="text-xs text-zinc-800/80 dark:text-zinc-400 font-medium leading-none mt-1">
+                                    <span className="text-xs text-background/70 dark:text-zinc-400 font-medium leading-none mt-1">
                                         {stat.label}
                                     </span>
                                 </div>
