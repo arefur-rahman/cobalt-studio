@@ -1,5 +1,13 @@
 "use client";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/providers/auth-provider";
 import {
@@ -13,6 +21,7 @@ import {
     IconX,
     IconZoomExclamation,
 } from "@tabler/icons-react";
+import { LayoutGrid, LogOut, User } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
@@ -45,6 +54,17 @@ const TopNavBar = () => {
     const { setTheme, resolvedTheme } = useTheme();
 
     const { user, logout } = useAuth();
+
+    const name = user?.displayName || user?.email?.split("@")[0] || "User";
+    const email = user?.email || "";
+    const initials =
+        name
+            .split(/\s+/)
+            .map((n) => n[0])
+            .join("")
+            .slice(0, 2)
+            .toUpperCase() || "U";
+    const role = "Student"; // Default role matching reference design
 
     useEffect(() => {
         if (!isRoot) return;
@@ -156,16 +176,98 @@ const TopNavBar = () => {
                         />
                     </Button>
                     {user ? (
-                        <Button
-                            variant="ghost"
-                            className={cn(
-                                iconBtnClass,
-                                "hidden md:flex cursor-pointer",
-                            )}
-                            onClick={logout}
-                        >
-                            <Span>Sign Out</Span>
-                        </Button>
+                        <div className="pl-2 border-l-2 border-l-primary/30">
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <button className="flex cursor-pointer focus:outline-none transition-transform hover:scale-105">
+                                        <Avatar className="size-8 rounded-lg after:rounded-lg bg-primary text-primary-foreground shadow-md shadow-primary/20">
+                                            {user.photoURL && (
+                                                <AvatarImage
+                                                    src={user.photoURL}
+                                                    alt={name}
+                                                    className="rounded-lg"
+                                                />
+                                            )}
+                                            <AvatarFallback className="rounded-lg bg-primary text-primary-foreground font-bold text-sm flex items-center justify-center">
+                                                {initials}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                    </button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent className="w-80 p-0 overflow-hidden rounded-2xl! bg-white dark:bg-[#0c0a09] border border-gray-100 dark:border-zinc-800 shadow-2xl transition-colors duration-200">
+                                    {/* Header Section */}
+                                    <div className="p-5 flex items-center gap-4 bg-linear-to-b from-primary/10 to-transparent dark:from-primary/20 dark:to-transparent">
+                                        {/* Avatar */}
+                                        <Avatar className="size-14 rounded-2xl after:rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/30">
+                                            {user.photoURL && (
+                                                <AvatarImage
+                                                    src={user.photoURL}
+                                                    alt={name}
+                                                    className="rounded-2xl"
+                                                />
+                                            )}
+                                            <AvatarFallback className="rounded-2xl bg-primary text-primary-foreground font-bold text-xl flex items-center justify-center">
+                                                {initials}
+                                            </AvatarFallback>
+                                        </Avatar>
+
+                                        {/* User Details */}
+                                        <div className="flex flex-col overflow-hidden">
+                                            <h3 className="font-bold text-base text-gray-900 dark:text-white truncate">
+                                                {name}
+                                            </h3>
+                                            <p className="text-xs text-gray-500 dark:text-zinc-400 truncate mb-1.5">
+                                                {email}
+                                            </p>
+                                            <span className="inline-block w-fit px-2.5 py-0.5 rounded-md bg-primary text-primary-foreground text-[11px] font-medium leading-tight">
+                                                {role}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {/* Navigation Options */}
+                                    <div className="py-2 px-3">
+                                        <DropdownMenuItem asChild>
+                                            <Link
+                                                href="/dashboard"
+                                                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-primary/10 text-foreground/80 hover:text-primary font-medium text-sm transition-colors cursor-pointer outline-none"
+                                            >
+                                                <LayoutGrid className="w-4 h-4 text-gray-500 dark:text-zinc-400" />
+                                                <span>Studio Dashboard</span>
+                                            </Link>
+                                        </DropdownMenuItem>
+
+                                        <DropdownMenuItem asChild>
+                                            <Link
+                                                href="/profile"
+                                                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-primary/10 text-foreground/80 hover:text-primary font-medium text-sm transition-colors cursor-pointer outline-none"
+                                            >
+                                                <User className="w-4 h-4 text-gray-500 dark:text-zinc-400" />
+                                                <span>Profile</span>
+                                            </Link>
+                                        </DropdownMenuItem>
+                                    </div>
+
+                                    {/* Divider */}
+                                    <DropdownMenuSeparator className="my-1" />
+
+                                    {/* Logout Action */}
+                                    <div className="p-3 pt-2">
+                                        <DropdownMenuItem asChild>
+                                            <button
+                                                onClick={logout}
+                                                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-destructive/10 text-foreground/80 hover:text-destructive font-medium text-sm transition-colors cursor-pointer outline-none"
+                                            >
+                                                <LogOut className="w-4 h-4 text-gray-500 dark:text-zinc-400 group-hover:text-destructive" />
+                                                <span className="tracking-wide">
+                                                    Logout
+                                                </span>
+                                            </button>
+                                        </DropdownMenuItem>
+                                    </div>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </div>
                     ) : (
                         <Link href={"/signin"}>
                             <Button
