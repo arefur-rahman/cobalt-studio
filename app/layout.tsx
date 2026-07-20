@@ -9,6 +9,8 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Anek_Bangla, Inter } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
+import { AuthProvider } from "@/providers/auth-provider";
 
 export const inter = Inter({
     subsets: ["latin"],
@@ -59,11 +61,18 @@ export default function RootLayout({
             suppressHydrationWarning
         >
             <body className="min-h-full flex flex-col">
-                <ThemeProvider>
-                    {children}
-                    <ScrollToTop />
-                    <Analytics />
-                </ThemeProvider>
+                <AuthProvider>
+                    <ThemeProvider>
+                        {children}
+                        <ScrollToTop />
+                        <Toaster
+                            position="top-center"
+                            richColors
+                            offset={{ top: 75 }}
+                        />
+                        <Analytics />
+                    </ThemeProvider>
+                </AuthProvider>
             </body>
         </html>
     );

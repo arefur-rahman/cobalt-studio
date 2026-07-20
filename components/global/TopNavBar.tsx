@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/providers/auth-provider";
 import {
     IconBookFilled,
     IconHomeFilled,
@@ -43,6 +44,8 @@ const TopNavBar = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { setTheme, resolvedTheme } = useTheme();
 
+    const { user, logout } = useAuth();
+
     useEffect(() => {
         if (!isRoot) return;
 
@@ -67,9 +70,9 @@ const TopNavBar = () => {
     return (
         <header
             className={cn(
-                "fixed top-0 left-0 w-full z-50 h-12 py-8 md:py-0 md:h-16 flex items-center border-b transition-[background-color,backdrop-filter,border-color,box-shadow] duration-500 ease-in-out",
+                "fixed top-0 left-0 w-full z-50 h-12 py-8 md:py-0 md:h-20 flex items-center border-b transition-all duration-500 ease-in-out",
                 scrolled
-                    ? "bg-background backdrop-blur-xl border-border shadow-lg"
+                    ? "bg-background backdrop-blur-xl border-border shadow-lg md:h-14"
                     : "bg-transparent backdrop-blur-none border-transparent shadow-none",
             )}
         >
@@ -89,7 +92,7 @@ const TopNavBar = () => {
                             width={140}
                             height={32}
                             priority
-                            className="hidden dark:block"
+                            className={cn("hidden", "dark:block")}
                         />
                         <Image
                             src="/cobalt-studio-light.png"
@@ -97,9 +100,10 @@ const TopNavBar = () => {
                             width={140}
                             height={32}
                             priority
-                            className={
-                                scrolled ? "block dark:hidden" : "hidden"
-                            }
+                            className={cn(
+                                scrolled ? "block" : "hidden",
+                                "dark:hidden",
+                            )}
                         />
                         <Image
                             src="/cobalt-studio-light-bg-dark.png"
@@ -107,11 +111,10 @@ const TopNavBar = () => {
                             width={140}
                             height={32}
                             priority
-                            className={
-                                scrolled
-                                    ? "hidden dark:hidden"
-                                    : "block dark:hidden"
-                            }
+                            className={cn(
+                                scrolled ? "hidden" : "block",
+                                "dark:hidden",
+                            )}
                         />
                     </Link>
                 </div>
@@ -155,12 +158,30 @@ const TopNavBar = () => {
                             className="hidden dark:block"
                         />
                     </Button>
-                    <Button
-                        variant="ghost"
-                        className={cn(iconBtnClass, "hidden md:flex")}
-                    >
-                        <Span>Login</Span>
-                    </Button>
+                    {user ? (
+                        <Button
+                            variant="ghost"
+                            className={cn(
+                                iconBtnClass,
+                                "hidden md:flex cursor-pointer",
+                            )}
+                            onClick={logout}
+                        >
+                            <Span>Sign Out</Span>
+                        </Button>
+                    ) : (
+                        <Link href={"/signin"}>
+                            <Button
+                                variant="ghost"
+                                className={cn(
+                                    iconBtnClass,
+                                    "hidden md:flex cursor-pointer",
+                                )}
+                            >
+                                <Span>Sign in</Span>
+                            </Button>
+                        </Link>
+                    )}
 
                     {/* Mobile menu — shadcn Drawer */}
                     <Drawer
@@ -236,20 +257,31 @@ const TopNavBar = () => {
                                     <span className="h-8 w-8 flex items-center justify-center rounded-md border border-border">
                                         <IconSunFilled
                                             size={15}
-                                            className="block dark:hidden"
+                                            className={cn("block dark:hidden")}
                                         />
                                         <IconMoonFilled
                                             size={15}
-                                            className="hidden dark:block"
+                                            className={cn("hidden dark:block")}
                                         />
                                     </span>
                                 </button>
-                                <Button
-                                    variant="secondary"
-                                    className="w-full rounded-lg"
-                                >
-                                    Login
-                                </Button>
+                                {user ? (
+                                    <Button
+                                        variant="secondary"
+                                        className="w-full rounded-lg cursor-pointer"
+                                    >
+                                        Sign out
+                                    </Button>
+                                ) : (
+                                    <Link href={"/signin"}>
+                                        <Button
+                                            variant="secondary"
+                                            className="w-full rounded-lg"
+                                        >
+                                            Sign in
+                                        </Button>
+                                    </Link>
+                                )}
                             </div>
                         </DrawerContent>
                     </Drawer>

@@ -1,7 +1,5 @@
 "use client";
 
-import PillBadge from "@/components/global/PillBadge";
-import { H2, P, Span } from "@/components/global/Texts";
 import enToBnNumber from "@/lib/numberEn2Bn";
 import {
     Compass,
