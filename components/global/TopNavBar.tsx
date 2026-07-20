@@ -82,10 +82,7 @@ const TopNavBar = () => {
             >
                 {/* Logo */}
                 <div>
-                    <Link
-                        href="/"
-                        className="relative block h-[32px] w-[140px]"
-                    >
+                    <Link href="/" className="relative block h-8 w-35">
                         <Image
                             src="/cobalt-studio-dark.png"
                             alt="cobalt studio logo"
