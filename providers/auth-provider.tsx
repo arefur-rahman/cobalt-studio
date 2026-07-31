@@ -1,8 +1,9 @@
 "use client";
 
-import { syncUserWithDb } from "@/app/server/auth";
+import { getUserInfo, syncUserCreationWithDb } from "@/app/server/auth";
 import { notify } from "@/components/global/Notify";
 import { app } from "@/firebase/firebase-config";
+import { Role } from "@/generated/prisma/enums";
 import {
     createUserWithEmailAndPassword,
     getAuth,
@@ -16,8 +17,15 @@ import {
 import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
+// Extends Firebase's User with fields stored in our database (e.g. role).
+export type ExtendedUser = User & {
+    role?: Role;
+    name?: string | null;
+    phoneNumber?: string | null;
+};
+
 interface AuthContextType {
-    user: User | null;
+    user: ExtendedUser | null;
     loading: boolean;
     logout: () => Promise<void>;
     googleSignIn: (redirectPath?: string) => Promise<void>;
@@ -40,7 +48,7 @@ export const auth = getAuth(app);
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<ExtendedUser | null>(null);
     const [loading, setLoading] = useState(true);
 
     const router = useRouter();
@@ -61,7 +69,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             );
             // console.log("user credential", userCredentials?.user);
 
-            await syncUserWithDb(
+            await syncUserCreationWithDb(
                 email,
                 phoneNumber,
                 name,
@@ -93,7 +101,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             );
             console.log("user credential", result?.user);
 
-            await syncUserWithDb(
+            await syncUserCreationWithDb(
                 result?.user?.email || "",
                 "",
                 result?.user?.displayName || "",
@@ -144,9 +152,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-            console.log("Current User: ", currentUser);
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+            if (currentUser) {
+                const userInfo = await getUserInfo(currentUser.uid);
+
+                const fullUserData = {
+                    ...currentUser,
+                    ...(userInfo ?? {}),
+                } as ExtendedUser;
+                setUser(fullUserData);
+                console.log(
+                    "Database & Firebase Combined User: ",
+                    fullUserData,
+                );
+            } else {
+                setUser(null);
+            }
             setLoading(false);
         });
 

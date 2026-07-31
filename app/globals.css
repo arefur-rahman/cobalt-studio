@@ -30,7 +30,7 @@
   --chart-4: oklch(0.8575 0.1752 88.4887);
   --chart-5: oklch(0.6340 0.2029 25.0867);
   --sidebar: oklch(1.0000 0 0);
-  --sidebar-foreground: oklch(0.4020 0.0104 271.1528);
+  --sidebar-foreground: oklch(40.199% 0.01041 271.16);
   --sidebar-primary: oklch(0.5607 0.2181 266.5346);
   --sidebar-primary-foreground: oklch(1.0000 0 0);
   --sidebar-accent: oklch(0.9708 0.0137 272.6935);
@@ -84,7 +84,7 @@
   --chart-4: oklch(0.8575 0.1752 88.4887);
   --chart-5: oklch(0.6340 0.2029 25.0867);
   --sidebar: oklch(0.2099 0.0039 286.0588);
-  --sidebar-foreground: oklch(0.7771 0.0115 274.8500);
+  --sidebar-foreground: oklch(77.711% 0.0116 274.829);
   --sidebar-primary: oklch(0.5607 0.2181 266.5346);
   --sidebar-primary-foreground: oklch(1.0000 0 0);
   --sidebar-accent: oklch(0.2500 0.0050 286.0181);
@@ -177,4 +177,49 @@
     @apply bg-background text-foreground;
     overflow-x: clip;
   }
+}
+
+@keyframes winDots {
+  0% {
+    left: 125%;
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  50% {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    left: -25%;
+    opacity: 0;
+  }
+}
+
+.animate-win-dot-1 {
+  animation: winDots 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 0s;
+}
+
+.animate-win-dot-2 {
+  animation: winDots 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 0.12s;
+}
+
+.animate-win-dot-3 {
+  animation: winDots 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 0.24s;
+}
+
+.animate-win-dot-4 {
+  animation: winDots 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 0.36s;
 }

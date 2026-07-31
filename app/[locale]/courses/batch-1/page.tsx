@@ -1,19 +1,19 @@
 "use client";
 
-import CountdownTimer from "@/app/courses/batch-1/components/CountdownTimer";
-import { motion } from "motion/react";
 import Footer from "@/components/global/Footer";
 import TopNavBar from "@/components/global/TopNavBar";
 import { Button } from "@/components/ui/button";
 import getStartDateStr from "@/lib/getClosestMondayStr";
 import { IconSparkles } from "@tabler/icons-react";
+import { motion } from "motion/react";
 import Bonus from "./components/Bonus";
+import CountdownTimer from "./components/CountdownTimer";
 import CourseContent from "./components/CourseContent";
 import CourseSectionHeader from "./components/CourseSectionHeader";
+import Faq from "./components/Faq";
 import MeetYourMentor from "./components/MeetYourMentor";
 import NightOwlOffer from "./components/NightOwlOffer";
 import OurSolution from "./components/OurSolution";
-import Faq from "./components/Faq";
 
 const page = () => {
     const endDate = getStartDateStr();

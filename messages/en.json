@@ -1,0 +1,16 @@
+{
+    "HomePage": {
+        "title": "Welcome to my app",
+        "description": "Building a multilingual app easily!"
+    },
+    "NotFound": {
+        "title": "Page not found",
+        "description": "The page you're looking for might have been moved, renamed, or never existed in the first place.",
+        "backToHome": "Back to home",
+        "goBack": "Go back",
+        "rights": "© 2026 Cobalt Studio | All rights reserved.",
+        "refundPolicy": "Refund Policy",
+        "privacy": "Privacy",
+        "404": "404"
+    }
+}

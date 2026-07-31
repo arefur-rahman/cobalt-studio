@@ -8,9 +8,13 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Anek_Bangla, Inter } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
 import { Toaster } from "sonner";
 import { AuthProvider } from "@/providers/auth-provider";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages, setRequestLocale } from "next-intl/server";
+import { routing } from "@/i18n/routing";
+import { notFound } from "next/navigation";
 
 export const inter = Inter({
     subsets: ["latin"],
@@ -49,30 +53,47 @@ export const siteConfig: SiteConfig = {
 export const metadata: Metadata = constructMetadata(siteConfig);
 export const viewport: Viewport = constructViewport(siteConfig);
 
-export default function RootLayout({
+export function generateStaticParams() {
+    return routing.locales.map((locale) => ({ locale }));
+}
+
+export default async function RootLayout({
     children,
+    params,
 }: Readonly<{
     children: React.ReactNode;
+    params: Promise<{ locale: string }>;
 }>) {
+    const { locale } = await params;
+
+    if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
+        notFound();
+    }
+
+    setRequestLocale(locale);
+    const messages = await getMessages();
+
     return (
         <html
-            lang="en"
+            lang={locale}
             className={`${inter.variable} ${anekBangla.variable} h-full antialiased`}
             suppressHydrationWarning
         >
             <body className="min-h-full flex flex-col">
-                <AuthProvider>
-                    <ThemeProvider>
-                        {children}
-                        <ScrollToTop />
-                        <Toaster
-                            position="top-center"
-                            richColors
-                            offset={{ top: 75 }}
-                        />
-                        <Analytics />
-                    </ThemeProvider>
-                </AuthProvider>
+                <NextIntlClientProvider locale={locale} messages={messages}>
+                    <AuthProvider>
+                        <ThemeProvider>
+                            {children}
+                            <ScrollToTop />
+                            <Toaster
+                                position="top-center"
+                                richColors
+                                offset={{ top: 75 }}
+                            />
+                            <Analytics />
+                        </ThemeProvider>
+                    </AuthProvider>
+                </NextIntlClientProvider>
             </body>
         </html>
     );

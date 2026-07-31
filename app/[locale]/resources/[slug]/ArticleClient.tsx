@@ -194,7 +194,7 @@ export default function ArticleClient({
 
             {/* Reading progress bar */}
             <motion.div
-                className="fixed top-0 left-0 right-0 h-[3px] bg-primary origin-[0%] z-50 shadow-[0_0_8px_var(--primary)]"
+                className="fixed top-0 left-0 right-0 h-0.75 bg-primary origin-[0%] z-50 shadow-[0_0_8px_var(--primary)]"
                 style={{ scaleX }}
             />
 

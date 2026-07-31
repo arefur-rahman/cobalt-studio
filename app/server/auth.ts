@@ -2,7 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 
-const syncUserWithDb = async (
+const syncUserCreationWithDb = async (
     email: string,
     phoneNumber: string,
     name: string,
@@ -27,4 +27,13 @@ const syncUserWithDb = async (
     return user;
 };
 
-export { syncUserWithDb };
+const getUserInfo = async (firebaseUid: string) => {
+    const user = await prisma.user.findUnique({
+        where: {
+            firebaseUid,
+        },
+    });
+    return user;
+};
+
+export { syncUserCreationWithDb, getUserInfo };

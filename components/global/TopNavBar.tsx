@@ -21,11 +21,12 @@ import {
     IconX,
     IconZoomExclamation,
 } from "@tabler/icons-react";
-import { LayoutGrid, LogOut, User } from "lucide-react";
+import { Globe, LayoutGrid, LogOut, User } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useLocale } from "next-intl";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import {
@@ -47,13 +48,35 @@ const navLinks = [
 ];
 
 const TopNavBar = () => {
+    const locale = useLocale();
+    const router = useRouter();
     const pathname = usePathname();
     const isRoot = pathname === "/";
     const [isScrolledDown, setIsScrolledDown] = useState(false);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { setTheme, resolvedTheme } = useTheme();
 
-    const { user, logout } = useAuth();
+    useEffect(() => {
+        const savedLocale = localStorage.getItem("preferred_locale");
+        if (
+            savedLocale &&
+            (savedLocale === "en" || savedLocale === "bn") &&
+            savedLocale !== locale
+        ) {
+            router.replace(pathname, { locale: savedLocale });
+        }
+    }, [locale, pathname, router]);
+
+    const toggleLanguage = () => {
+        const nextLocale = locale === "en" ? "bn" : "en";
+        localStorage.setItem("preferred_locale", nextLocale);
+        document.cookie = `NEXT_LOCALE=${nextLocale}; path=/; max-age=31536000; SameSite=Lax`;
+        router.replace(pathname, { locale: nextLocale });
+    };
+
+    const { user, logout, loading } = useAuth();
+
+    // console.log(user);
 
     const name = user?.displayName || user?.email?.split("@")[0] || "User";
     const email = user?.email || "";
@@ -64,7 +87,7 @@ const TopNavBar = () => {
             .join("")
             .slice(0, 2)
             .toUpperCase() || "U";
-    const role = "Student"; // Default role matching reference design
+    const role = user?.role;
 
     useEffect(() => {
         if (!isRoot) return;
@@ -175,19 +198,18 @@ const TopNavBar = () => {
                             className="hidden dark:block"
                         />
                     </Button>
-                    {user ? (
+                    {loading ? (
+                        <div className="relative w-12 h-8 flex items-center justify-center overflow-hidden">
+                            <span className="absolute size-1 bg-primary rounded-full animate-win-dot-1 shadow-[0_0_6px_rgba(59,130,246,0.6)]" />
+                            <span className="absolute size-1 bg-primary rounded-full animate-win-dot-2 shadow-[0_0_6px_rgba(59,130,246,0.6)]" />
+                            <span className="absolute size-1 bg-primary rounded-full animate-win-dot-3 shadow-[0_0_6px_rgba(59,130,246,0.6)]" />
+                        </div>
+                    ) : user ? (
                         <div className="pl-2 border-l-2 border-l-primary/30">
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <button className="flex cursor-pointer focus:outline-none transition-transform hover:scale-105">
                                         <Avatar className="size-8 rounded-lg after:rounded-lg bg-primary text-primary-foreground shadow-md shadow-primary/20">
-                                            {user.photoURL && (
-                                                <AvatarImage
-                                                    src={user.photoURL}
-                                                    alt={name}
-                                                    className="rounded-lg"
-                                                />
-                                            )}
                                             <AvatarFallback className="rounded-lg bg-primary text-primary-foreground font-bold text-sm flex items-center justify-center">
                                                 {initials}
                                             </AvatarFallback>
@@ -199,11 +221,12 @@ const TopNavBar = () => {
                                     <div className="p-5 flex items-center gap-4 bg-linear-to-b from-primary/10 to-transparent dark:from-primary/20 dark:to-transparent">
                                         {/* Avatar */}
                                         <Avatar className="size-14 rounded-2xl after:rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/30">
-                                            {user.photoURL && (
+                                            {user?.photoURL && (
                                                 <AvatarImage
-                                                    src={user.photoURL}
+                                                    src={user?.photoURL}
                                                     alt={name}
                                                     className="rounded-2xl"
+                                                    referrerPolicy="no-referrer"
                                                 />
                                             )}
                                             <AvatarFallback className="rounded-2xl bg-primary text-primary-foreground font-bold text-xl flex items-center justify-center">
@@ -260,7 +283,7 @@ const TopNavBar = () => {
                                             >
                                                 <LogOut className="w-4 h-4 text-gray-500 dark:text-zinc-400 group-hover:text-destructive" />
                                                 <span className="tracking-wide">
-                                                    Logout
+                                                    Sign out
                                                 </span>
                                             </button>
                                         </DropdownMenuItem>
@@ -281,6 +304,24 @@ const TopNavBar = () => {
                             </Button>
                         </Link>
                     )}
+                    <Button
+                        variant="ghost"
+                        className={cn(
+                            iconBtnClass,
+                            "cursor-pointer text-xs font-bold px-2.5 h-8 rounded-lg flex items-center gap-1.5",
+                        )}
+                        onClick={toggleLanguage}
+                        title={
+                            locale === "en"
+                                ? "Switch to Bangla"
+                                : "Switch to English"
+                        }
+                    >
+                        <Globe size={18} className="shrink-0" />
+                        <span className="uppercase">
+                            {locale === "en" ? "বাং" : "en"}
+                        </span>
+                    </Button>
 
                     {/* Mobile menu — shadcn Drawer */}
                     <Drawer
@@ -342,6 +383,16 @@ const TopNavBar = () => {
                             </nav>
 
                             <div className="mt-auto border-t border-border px-4 py-4 flex flex-col gap-2">
+                                <button
+                                    className="flex items-center justify-between w-full rounded-lg px-2 py-2 text-sm text-foreground/60 hover:text-foreground hover:bg-foreground/5 transition-colors cursor-pointer"
+                                    onClick={toggleLanguage}
+                                >
+                                    <Span className="text-lg">Language</Span>
+                                    <span className="h-8 px-2.5 flex items-center justify-center rounded-md border border-border text-xs font-bold uppercase gap-1.5">
+                                        <Globe size={14} />
+                                        {locale === "en" ? "bn" : "en"}
+                                    </span>
+                                </button>
                                 <button
                                     className="flex items-center justify-between w-full rounded-lg px-2 py-2 text-sm text-foreground/60 hover:text-foreground hover:bg-foreground/5 transition-colors"
                                     onClick={() =>

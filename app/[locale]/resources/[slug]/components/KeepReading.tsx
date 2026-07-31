@@ -41,7 +41,7 @@ export default function KeepReading({
                                 >
                                     {prevArticle.category}
                                 </Badge>
-                                <span className="text-xs text-zinc-400 group-hover:translate-x-[-2px] transition-transform font-semibold flex items-center gap-0.5">
+                                <span className="text-xs text-zinc-400 group-hover:-translate-x-0.5 transition-transform font-semibold flex items-center gap-0.5">
                                     Read
                                 </span>
                             </div>
@@ -66,7 +66,7 @@ export default function KeepReading({
                                 </h4>
                             </div>
                             <div className="flex items-center justify-between mt-4">
-                                <span className="text-xs text-zinc-455 group-hover:translate-x-[2px] transition-transform font-semibold flex items-center gap-0.5">
+                                <span className="text-xs text-zinc-455 group-hover:translate-x-0.5 transition-transform font-semibold flex items-center gap-0.5">
                                     Read
                                 </span>
                                 <Badge
