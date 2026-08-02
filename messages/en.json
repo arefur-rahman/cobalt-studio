@@ -1,7 +1,41 @@
 {
-    "HomePage": {
-        "title": "Welcome to my app",
-        "description": "Building a multilingual app easily!"
+    "TopNavBar": {
+        "Home": "Home",
+        "Courses": "Courses",
+        "Feedbacks": "Feedbacks",
+        "Resources": "Resources",
+        "Dev Tools": "Dev Tools"
+    },
+    "Home": {
+        "hero": {
+            "enrollmentIsOpen": "Enrollment is open now",
+            "heading1": "Let&apos;s Go",
+            "heading2": "Brighter",
+            "description": "Stop watching and start <bold>building</bold>. Master the modern web by developing complex <bold>Admin Dashboards</bold> and <bold>scalable CMS platforms</bold>. Learn cutting-edge <bold>MERN stack techniques</bold> from industry professionals at <primary>Cobalt Studio.</primary>",
+            "enrollNow": "Enroll Now",
+            "classStarts": "Class Starts - {date}",
+            "stats": {
+                "subscribersValue": "999K+",
+                "subscribersLabel": "Subscribers",
+                "studentsValue": "4,349+",
+                "studentsLabel": "Students",
+                "experienceValue": "3+ YRS",
+                "experienceLabel": "Experience",
+                "workflowValue": "AI-DRIVEN",
+                "workflowLabel": "Workflow"
+            }
+        },
+        "batch1": {
+            "structure": "Structure",
+            "performance": "Performance",
+            "scalability": "Scalability",
+            "description": "True full-stack engineering goes beyond framework knowledge. It's about optimizing performance, architecting seamless backend-frontend flow, and building robust web applications."
+        },
+        "bluePrint": {
+            "subTitle": "the blueprint",
+            "title": "choose your",
+            "titlePrimary": "mission"
+        }
     },
     "NotFound": {
         "title": "Page not found",
@@ -10,7 +44,6 @@
         "goBack": "Go back",
         "rights": "© 2026 Cobalt Studio | All rights reserved.",
         "refundPolicy": "Refund Policy",
-        "privacy": "Privacy",
-        "404": "404"
+        "privacy": "Privacy"
     }
 }

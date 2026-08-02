@@ -1,6 +1,6 @@
 import enToBnNumber from "@/lib/numberEn2Bn";
 
-const getStartDateStr = () => {
+const getStartDateStr = (locale: string = "bn") => {
     const date = new Date();
     const currentDay = date.getDay();
     // Offsets to the closest Monday (0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday)
@@ -9,6 +9,24 @@ const getStartDateStr = () => {
 
     const day = date.getDate();
     const month = date.getMonth();
+
+    if (locale === "en") {
+        const englishMonths = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+        ];
+        return `${day} ${englishMonths[month]}`;
+    }
 
     const banglaMonths = [
         "জানুয়ারি",

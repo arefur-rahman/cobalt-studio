@@ -37,8 +37,8 @@ const NotFound = () => {
                         />
                     </motion.div>
 
-                    <H1 className="text-7xl font-extrabold tracking-tight text-foreground sm:text-8xl">
-                        {t("404")}
+                    <H1 className="text-7xl font-extrabold text-bengali tracking-tight text-foreground sm:text-8xl">
+                        404
                     </H1>
 
                     <P className="mt-3 text-lg font-semibold text-foreground md:text-xl">

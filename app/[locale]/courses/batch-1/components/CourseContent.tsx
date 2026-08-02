@@ -1,3 +1,5 @@
+"use client";
+
 import OutlineAccordion from "@/components/global/OutlineAccordion";
 import CourseSectionHeader from "./CourseSectionHeader";
 import { motion } from "motion/react";

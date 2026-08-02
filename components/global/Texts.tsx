@@ -46,4 +46,4 @@ const H3 = createTypography("h3");
 const P = createTypography("p");
 const Span = createTypography("span");
 
-export { H1, H2, H3, P, Span };
+export { H1, H2, H3, P, Span, isBengali };

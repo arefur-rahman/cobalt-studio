@@ -19,10 +19,14 @@ import {
 } from "@tabler/icons-react";
 import { GraduationCap } from "lucide-react";
 import { motion } from "motion/react";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 
 const Hero = () => {
+    const translation = useTranslations("Home.hero");
+    const locale = useLocale();
+
     const ratingsAvatars = [
         "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80",
         "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80",
@@ -35,26 +39,26 @@ const Hero = () => {
         {
             icon: <IconUsers className="size-6 text-primary" />,
             bgColor: "bg-primary/10",
-            value: "700K+",
-            label: "Subscribers",
+            value: translation("stats.subscribersValue"),
+            label: translation("stats.subscribersLabel"),
         },
         {
             icon: <GraduationCap className="size-6 text-indigo-400" />,
             bgColor: "bg-indigo-500/10",
-            value: "4,349+",
-            label: "Students",
+            value: translation("stats.studentsValue"),
+            label: translation("stats.studentsLabel"),
         },
         {
             icon: <IconAward className="size-6 text-purple-400" />,
             bgColor: "bg-purple-500/10",
-            value: "3+ YRS",
-            label: "Experience",
+            value: translation("stats.experienceValue"),
+            label: translation("stats.experienceLabel"),
         },
         {
             icon: <IconCpu className="size-6 text-emerald-400" />,
             bgColor: "bg-emerald-500/10",
-            value: "AI-DRIVEN",
-            label: "Workflow",
+            value: translation("stats.workflowValue"),
+            label: translation("stats.workflowLabel"),
         },
     ];
 
@@ -92,38 +96,41 @@ const Hero = () => {
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                             </span>
                             <Span className="text-[10px] sm:text-xs font-semibold tracking-wider uppercase text-zinc-300">
-                                Enrollment is open now
+                                {translation("enrollmentIsOpen")}
                             </Span>
                         </div>
 
                         {/* Title Heading */}
-                        <H1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-extrabold tracking-tight uppercase leading-[0.95] mb-6">
-                            Welcome to <br />
-                            the{" "}
+
+                        <H1 className="text-4xl sm:text-5xl md:text-6xl md:flex md:flex-col md:gap-2.5 xl:text-7xl font-extrabold tracking-tight uppercase leading-[0.95] mb-6">
+                            <Span>{translation("heading1")}</Span>
                             <Span className="text-primary drop-shadow-[0_0_25px_rgba(86,96,242,0.3)]">
-                                Future
+                                {translation("heading2")}
                             </Span>
                         </H1>
 
                         {/* Subheading / Description */}
+
                         <P className="text-sm sm:text-base text-zinc-400 max-w-lg leading-relaxed mb-8">
-                            Elevate your editing style and master the art of{" "}
-                            <Span className="text-white font-semibold">
-                                visual storytelling
-                            </Span>
-                            . Learn cutting-edge motion graphics and
-                            post-production techniques from industry
-                            professionals at{" "}
-                            <Span className="text-primary font-semibold">
-                                Cobalt Studio.
-                            </Span>
+                            {translation.rich("description", {
+                                bold: (chunks) => (
+                                    <Span className="font-bold text-white">
+                                        {chunks}
+                                    </Span>
+                                ),
+                                primary: (chunks) => (
+                                    <Span className="text-primary font-semibold">
+                                        {chunks}
+                                    </Span>
+                                ),
+                            })}
                         </P>
 
                         {/* Action Buttons & Bengali date */}
                         <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8">
                             <Link href="/enroll">
                                 <button className="bg-primary hover:bg-primary/95 text-white font-semibold px-10 md:px-8 py-3 md:py-3.5 rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all duration-300 flex items-center gap-2 group w-full sm:w-fit justify-center cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0">
-                                    Enroll Now
+                                    {translation("enrollNow")}
                                     <IconArrowUpRight className="size-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
                                 </button>
                             </Link>
@@ -131,7 +138,9 @@ const Hero = () => {
                             <div className="flex items-center justify-center sm:justify-start gap-2 text-[#D9A05B]">
                                 <IconPlayerPlayFilled className="size-3.5" />
                                 <Span className="text-sm tracking-wide">
-                                    ক্লাস শুরু - {getStartDateStr()})
+                                    {translation("classStarts", {
+                                        date: getStartDateStr(locale),
+                                    })}
                                 </Span>
                             </div>
                         </div>
@@ -172,7 +181,7 @@ const Hero = () => {
                     </div>
 
                     {/* Right Column: Floating Software Icons (Desktop) */}
-                    <div className="lg:col-span-5 relative h-[350px] lg:h-[480px] w-full lg:flex items-center justify-center select-none pointer-events-none hidden">
+                    <div className="lg:col-span-5 relative h-87.5 lg:h-120 w-full lg:flex items-center justify-center select-none pointer-events-none hidden">
                         {/* Cursor AI Logo — Main Highlight */}
                         <motion.div
                             className="absolute md:right-[15%] top-[-8%] z-20 w-28 md:w-36 h-36 filter drop-shadow-[0_15px_35px_rgba(59,130,246,0.5)]"
@@ -223,8 +232,8 @@ const Hero = () => {
                         <motion.div
                             className="absolute left-[-30%] opacity-70 top-[-10%] z-10 w-24 md:w-30 h-30 filter drop-shadow-[0_15px_30px_rgba(14,165,233,0.35)]"
                             animate={{
-                                y: [0, -15, 0], // উপরে-নিচে ভাসবে (Pulse)
-                                rotate: 360, // একটানা ঘুরবে (Spin)
+                                y: [0, -15, 0],
+                                rotate: 360,
                             }}
                             transition={{
                                 y: {

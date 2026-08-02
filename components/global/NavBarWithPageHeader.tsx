@@ -1,6 +1,5 @@
 import { H2, P, Span } from "@/components/global/Texts";
-import Footer from "./Footer";
-import TopNavBar from "./TopNavBar";
+import NavBarSticky from "./NavBarSticky";
 
 const NavBarWithPageHeader = ({
     sectionTag,
@@ -14,8 +13,7 @@ const NavBarWithPageHeader = ({
     children?: React.ReactNode;
 }) => {
     return (
-        <>
-            <TopNavBar />
+        <NavBarSticky>
             <section>
                 <div className="flex items-center justify-center bg-muted pt-20 pb-10 md:pb-16 md:pt-32">
                     <div className="mx-auto flex max-w-7xl flex-col items-center px-6 text-center md:px-8 w-full">
@@ -33,8 +31,7 @@ const NavBarWithPageHeader = ({
                 </div>
                 {children}
             </section>
-            <Footer />
-        </>
+        </NavBarSticky>
     );
 };
 

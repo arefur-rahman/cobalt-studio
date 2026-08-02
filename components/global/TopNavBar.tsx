@@ -25,7 +25,7 @@ import { Globe, LayoutGrid, LogOut, User } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
@@ -55,6 +55,8 @@ const TopNavBar = () => {
     const [isScrolledDown, setIsScrolledDown] = useState(false);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { setTheme, resolvedTheme } = useTheme();
+
+    const translation = useTranslations("TopNavBar");
 
     useEffect(() => {
         const savedLocale = localStorage.getItem("preferred_locale");
@@ -173,7 +175,7 @@ const TopNavBar = () => {
                                     : "hover:bg-white/20",
                             )}
                         >
-                            {l.label}
+                            {translation(l.label)}
                         </Navlink>
                     ))}
                 </nav>

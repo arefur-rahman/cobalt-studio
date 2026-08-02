@@ -1,5 +1,3 @@
-"use client";
-
 // import CursorMashroom from "@/components/global/CursorMashroom";
 import Footer from "@/components/global/Footer";
 import TopNavBar from "@/components/global/TopNavBar";

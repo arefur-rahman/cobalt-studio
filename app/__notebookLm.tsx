@@ -1,142 +1,143 @@
-"use client";
-
-import { BookOpen, GraduationCap, PlayCircle, ShieldAlert } from "lucide-react";
-import { motion } from "motion/react";
-
-interface StudentDashboardProps {
-    userName?: string;
-    enrolledCount?: number;
-    inProgressCount?: number;
-    completedCount?: number;
-    isEmailVerified?: boolean;
-    onVerifyEmail?: () => void;
-    onBrowseCourses?: () => void;
-}
-
-const StudentDashboardMain = ({
-    userName = "MD Arefur Rahman Khan",
-    enrolledCount = 0,
-    inProgressCount = 0,
-    completedCount = 0,
-    isEmailVerified = false,
-    onVerifyEmail,
-    onBrowseCourses,
-}: StudentDashboardProps) => {
-    const stats = [
-        {
-            id: "enrolled",
-            label: "Enrolled",
-            value: enrolledCount,
-            icon: BookOpen,
-            iconBg: "bg-destructive/10 text-destructive dark:bg-destructive/20",
-        },
-        {
-            id: "in-progress",
-            label: "In Progress",
-            value: inProgressCount,
-            icon: PlayCircle,
-            iconBg: "bg-destructive/10 text-destructive dark:bg-destructive/20",
-        },
-        {
-            id: "completed",
-            label: "Completed",
-            value: completedCount,
-            icon: GraduationCap,
-            iconBg: "bg-destructive/10 text-destructive dark:bg-destructive/20",
-        },
-    ];
-
-    return (
-        <section className="w-full max-w-7xl mx-auto space-y-6 p-4 md:p-6 font-sans">
-            {/* Header Section */}
-            <header className="space-y-1">
-                <div className="flex items-center gap-2 text-foreground font-semibold text-lg md:text-xl">
-                    <GraduationCap className="w-5 h-5" />
-                    <h1>Student Dashboard</h1>
-                </div>
-                <p className="text-xs md:text-sm text-muted-foreground">
-                    Welcome back{" "}
-                    <span className="font-medium text-foreground">
-                        {userName}
-                    </span>
-                    ! Let&apos;s start!
-                </p>
-            </header>
-
-            {/* Email Verification Banner */}
-            {!isEmailVerified && (
-                <motion.div
-                    initial={{ opacity: 0, y: -8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="relative w-full rounded-xl border border-amber-500/30 bg-amber-500/10 dark:bg-amber-950/20 p-4 md:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-colors"
-                >
-                    <div className="flex items-center gap-3">
-                        <div className="p-2.5 rounded-full bg-amber-500 text-white dark:bg-amber-600 shrink-0">
-                            <ShieldAlert className="w-5 h-5" />
-                        </div>
-                        <div>
-                            <h3 className="font-bold text-foreground text-base md:text-lg">
-                                Email verification required!
-                            </h3>
-                            <p className="text-xs md:text-sm text-muted-foreground mt-0.5">
-                                Unlock the full learning experience, keep your
-                                account secure.
-                            </p>
-                        </div>
-                    </div>
-
-                    <button
-                        onClick={onVerifyEmail}
-                        className="w-full sm:w-auto px-5 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 dark:bg-amber-600 dark:hover:bg-amber-500 text-amber-950 dark:text-amber-50 font-semibold text-xs md:text-sm transition-colors cursor-pointer text-center whitespace-nowrap"
-                    >
-                        Verify Now
-                    </button>
-                </motion.div>
-            )}
-
-            {/* Stats Cards Grid */}
-            <section className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
-                {stats.map((stat) => {
-                    const Icon = stat.icon;
-                    return (
-                        <motion.div
-                            key={stat.id}
-                            whileHover={{ y: -2 }}
-                            className="relative p-5 md:p-6 rounded-xl border border-border bg-card text-card-foreground shadow-2xs flex items-center justify-between"
-                        >
-                            <div className="space-y-2">
-                                <span className="text-xs md:text-sm font-medium text-muted-foreground">
-                                    {stat.label}
-                                </span>
-                                <p className="text-3xl md:text-4xl font-extrabold text-foreground">
-                                    {stat.value}
-                                </p>
-                            </div>
-                            <div className={`p-3 rounded-xl ${stat.iconBg}`}>
-                                <Icon className="w-6 h-6" />
-                            </div>
-                        </motion.div>
-                    );
-                })}
-            </section>
-
-            {/* Empty State / Course Content Container */}
-            <section className="w-full min-h-75 md:min-h-90 rounded-xl border border-dashed border-border bg-card/50 dark:bg-card/20 p-8 flex flex-col items-center justify-center text-center">
-                <div className="p-4 rounded-2xl bg-muted/50 mb-3 text-muted-foreground/60">
-                    <BookOpen className="w-10 h-10 stroke-[1.5]" />
-                </div>
-                <p className="text-xs md:text-sm text-muted-foreground mb-4">
-                    No courses enrolled yet
-                </p>
-                <button
-                    onClick={onBrowseCourses}
-                    className="px-5 py-2.5 rounded-lg border border-border bg-secondary hover:bg-secondary/80 text-secondary-foreground font-medium text-xs md:text-sm transition-colors cursor-pointer shadow-2xs"
-                >
-                    Browse Courses
-                </button>
-            </section>
-        </section>
-    );
-};
-
-export default StudentDashboardMain;
+export const courseSyllabusBN = [
+    {
+        moduleNo: "০১",
+        title: "ওয়েব ফান্ডামেন্টালস: HTML5, CSS3 এবং রেসপন্সিভ ডিজাইন",
+        subtitle:
+            "স্ক্র্যাচ থেকে একটি আকর্ষণীয় ও আধুনিক ওয়েবসাইটের মূল স্ট্রাকচার ও ডিজাইন তৈরি।",
+        contents: [
+            "HTML5 সিম্যান্টিক এলিমেন্টস, ডকুমেন্ট স্ট্রাকচার ও অ্যাক্সেসিবিলিটি (a11y)",
+            "CSS3 ফান্ডামেন্টালস: বক্স মডেল, ফ্লেক্সবক্স ও গ্রিড লেআউট সিস্টেম",
+            "রেসপন্সিভ ওয়েব ডিজাইন, মিডিয়া কোয়েরি ও মোবাইল-ফার্স্ট অ্যাপ্রোচ",
+            "CSS ভ্যারিয়েবল, অ্যানিমেশন, ট্রানজিশন ও কাস্টম টাইপোগ্রাফি",
+            "হ্যান্ডস-অন প্রজেক্ট: রেসপন্সিভ পোর্টফোলিও ও ল্যান্ডিং পেজ",
+            "অ্যাসাইনমেন্ট-০১",
+        ],
+    },
+    {
+        moduleNo: "০২",
+        title: "মডার্ন টেইলউইন্ড সিএসএস (Tailwind v4) ও ইউআই ইঞ্জিনিয়ারিং",
+        subtitle:
+            "ইউটিলিটি-ফার্স্ট সিএসএস ফ্রেমওয়ার্ক দিয়ে দ্রুত ও চমৎকার ইউআই তৈরি।",
+        contents: [
+            "Tailwind CSS সেটআপ, ইউটিলিটি ক্লাস ও JIT ইঞ্জিনের ব্যবহার",
+            "কাস্টম থিম কনফিগারেশন, OKLCH কালার সিস্টেম ও CSS ভ্যারিয়েবল",
+            "shadcn/ui এবং Radix UI দিয়ে স্কেলেবল কম্পোনেন্ট তৈরি",
+            "হ্যান্ডস-অন প্রজেক্ট: হাই-কনভার্টিং SaaS ল্যান্ডিং পেজ ইউআই",
+            "অ্যাসাইনমেন্ট-০২",
+        ],
+    },
+    {
+        moduleNo: "০৩",
+        title: "জাভাস্ক্রিপ্ট কোর, ডিওএম এবং অ্যাসিঙ্ক্রোনাস প্রোগ্রামিং",
+        subtitle:
+            "জাভাস্ক্রিপ্টের মূল লজিক, ব্রাউজার এপিআই ও ডাইনামিক ইন্টারঅ্যাকশন শেখা।",
+        contents: [
+            "ডাটা টাইপ, স্কোপ, ক্লোজার এবং এক্সিকিউশন কনটেক্সট",
+            "DOM ম্যানিপুলেশন, ইভেন্ট ডেলিগেশন, বাবলিং এবং কাস্টম ইভেন্ট",
+            "মডার্ন ES6+ ফিচার: ডিস্ট্রাকচারিং, মডিউল, স্প্রেড/রেস্ট ও অ্যারো ফাংশন",
+            "অ্যাসিঙ্ক্রোনাস জাভাস্ক্রিপ্ট: প্রমিজ, অ্যাসিঙ্ক/অ্যাওয়েট ও ইভেন্ট লুপ",
+            "Fetch API, HTTP প্রোটোকল, REST স্ট্যান্ডার্ড ও JSON পার্সিং",
+            "গিট এবং গিটহাব ভার্সন কন্ট্রোল ওয়ার্কফ্লো ও ব্রাঞ্চিং স্ট্র্যাটেজি",
+            "হ্যান্ডস-অন প্রজেক্ট: ডাইনামিক টাস্ক ম্যানেজমেন্ট অ্যাপ (লোকাল স্টোরেজসহ)",
+            "অ্যাসাইনমেন্ট-০৩",
+        ],
+    },
+    {
+        moduleNo: "০৪",
+        title: "রিয়্যাক্ট.জেএস (React.js) কোর ও কম্পোনেন্ট আর্কিটেকচার",
+        subtitle:
+            "কম্পোনেন্ট ভিত্তিক আর্কিটেকচার দিয়ে ডাইনামিক সিঙ্গল পেজ অ্যাপ (SPA) তৈরি।",
+        contents: [
+            "JSX সিনট্যাক্স, ভার্চুয়াল ডিওএম, কম্পোনেন্ট লাইফসাইকেল ও রিকনসিলিয়েশন",
+            "স্টেট ও প্রপস: useState, useEffect, useRef এবং কাস্টম হুকস",
+            "React Hook Form দিয়ে ফর্ম ম্যানেজমেন্ট ও ডাটা ভ্যালিডেশন",
+            "React Router v6 দিয়ে ক্লায়েন্ট-সাইড রাউটিং ও ডাইনামিক রাউটস",
+            "হ্যান্ডস-অন প্রজেক্ট: ই-কমার্স ফ্রন্টএন্ড ও কার্ট স্টেট ম্যানেজমেন্ট",
+            "অ্যাসাইনমেন্ট-০৪",
+        ],
+    },
+    {
+        moduleNo: "০৫",
+        title: "এডভান্সড রিয়্যাক্ট স্টেট ম্যানেজমেন্ট ও ডাটা ফেচিং",
+        subtitle:
+            "এন্টারপ্রাইজ লেভেলের গ্লোবাল স্টেট এবং সার্ভার ডাটা সিঙ্ক্রোনাইজেশন।",
+        contents: [
+            "React Context API এবং Reducer দিয়ে গ্লোবাল স্টেট আর্কিটেকচার",
+            "Redux Toolkit (RTK): স্লাইস, AsyncThunks এবং স্টোর সেটআপ",
+            "TanStack Query (React Query) দিয়ে সার্ভার স্টেট ম্যানেজমেন্ট",
+            "হ্যান্ডস-অন প্রজেক্ট: রিয়েল-টাইম অ্যানালিটিক্স ড্যাশবোর্ড ইউআই",
+            "অ্যাসাইনমেন্ট-০৫",
+        ],
+    },
+    {
+        moduleNo: "০৬",
+        title: "ব্যাকএন্ড কোর: নোড.জেএস (Node.js) ও এক্সপ্রেস.জেএস (Express.js)",
+        subtitle:
+            "স্কেলেবল রেস্ট এপিআই সার্ভার এবং ব্যাকএন্ড আর্কিটেকচার তৈরি।",
+        contents: [
+            "Node.js রানটাইম আর্কিটেকচার, ইভেন্ট লুপ, V8 ইঞ্জিন ও মডিউল সিস্টেম",
+            "Express.js সার্ভার স্ট্রাকচার, কাস্টম মিডেলওয়্যার ও রিকোয়েস্ট লাইফসাইকেল",
+            "RESTful এপিআই ডিজাইন স্ট্যান্ডার্ড, HTTP মেথড ও স্ট্যাটাস কোড",
+            "সেন্ট্রালাইজড এরর হ্যান্ডলিং, অ্যাসিঙ্ক র‍্যাপার ও Zod ভ্যালিডেশন",
+            "Multer দিয়ে ফাইল আপলোড পাইপলাইন এবং Cloudinary ক্লাউড ইন্টিগ্রেশন",
+            "হ্যান্ডস-অন প্রজেক্ট: প্রোডাকশন-রেডি রেস্ট এপিআই সার্ভিস ইঞ্জিন",
+            "অ্যাসাইনমেন্ট-০৬",
+        ],
+    },
+    {
+        moduleNo: "০৭",
+        title: "ডাটাবেস ইঞ্জিনিয়ারিং: মঙ্গোডিবি (MongoDB) ও মাঙ্গুজ (Mongoose)",
+        subtitle:
+            "NoSQL ডাটাবেস ডিজাইন, জটিল কোয়েরি এক্সিকিউশন ও ডাটা এগ্রিগেশন।",
+        contents: [
+            "NoSQL ডাটাবেস ডিজাইন বনাম রিলেশনাল ডাটাবেস আর্কিটেকচার",
+            "Mongoose স্কিমা ডিজাইন, টাইপস, হুকস এবং ডাটা ভ্যালিডেশন",
+            "CRUD অপারেশন, কোয়েরি ইনডেক্সিং এবং ডাটাবেস পারফর্ম্যান্স অপটিমাইজেশন",
+            "ডাটা রিলেশনশিপ: এমবেডেড ডকুমেন্ট বনাম পপুলেশন ও রেফারেন্সিং",
+            "হ্যান্ডস-অন প্রজেক্ট: মাল্টি-টেন্যান্ট অ্যাপের ডাটাবেস সাবসিস্টেম",
+            "অ্যাসাইনমেন্ট-০৭",
+        ],
+    },
+    {
+        moduleNo: "০৮",
+        title: "ব্যাকএন্ড সিকিউরিটি, JWT অথেন্টিকেশন ও রোল-বেসড কন্ট্রোল",
+        subtitle:
+            "আধুনিক ওয়েব সিকিউরিটি ও সিকিউর অথেন্টিকেশন প্রটোকল বাস্তবায়ন।",
+        contents: [
+            "Bcrypt.js দিয়ে পাসওয়ার্ড হ্যাশিং ও JWT দিয়ে স্টেটলেস অথেন্টিকেশন",
+            "রোল-বেসড অ্যাক্সেস কন্ট্রোল (RBAC) ও প্রটেক্টেড মিডেলওয়্যার",
+            "ওয়েব সিকিউরিটি: CORS, Helmet, রেট লিমিটিং ও ইনপুট স্যানিটাইজেশন",
+            "হ্যান্ডস-অন প্রজেক্ট: এন্টারপ্রাইজ-গ্রেড অথেন্টিকেশন system",
+            "অ্যাসাইনমেন্ট-০৮",
+        ],
+    },
+    {
+        moduleNo: "০৯",
+        title: "নেক্সট.জেএস (Next.js) অ্যাপ রাউটার, SSR ও পারফর্ম্যান্স",
+        subtitle:
+            "Next.js 15+ ফিচার ব্যবহার করে মডার্ন ফুলস্ট্যাক প্ল্যাটফর্ম তৈরি।",
+        contents: [
+            "Next.js অ্যাপ রাউটার: সার্ভার কম্পোনেন্ট (RSC) বনাম ক্লায়েন্ট কম্পোনেন্ট",
+            "ডাটা ফেচিং স্ট্র্যাটেজি: SSR, SSG, ISR এবং সার্ভার অ্যাকশনস (Server Actions)",
+            "SEO অপটিমাইজেশন, মেটাডাটা এপিআই, OpenGraph ও ডাইনামিক JSON-LD",
+            "এপিআই রাউটস (API Routes), মিডেলওয়্যার এজ ফাংশন ও রাউট হ্যান্ডলার",
+            "হাইড্রেশন স্ট্র্যাটেজি, Suspense স্ট্রিম ও ইমেজ অপটিমাইজেশন",
+            "হ্যান্ডস-অন প্রজেক্ট: ফুলস্ট্যাক ব্লগ ও আর্টিকেল আর্কিটেকচার",
+            "অ্যাসাইনমেন্ট-০৯",
+        ],
+    },
+    {
+        moduleNo: "১০",
+        title: "প্রোডাকশন ডিপ্লয়মেন্ট, CI/CD এবং ক্যাপস্টোন প্রজেক্ট",
+        subtitle:
+            "পেমেন্ট গেটওয়ে, অটোমেশন এবং ক্লাউড ডিপ্লয়মেন্টসহ ফাইনাল প্রজেক্ট।",
+        contents: [
+            "পেমেন্ট গেটওয়ে ইন্টিগ্রেশন: SSLCommerz এবং Stripe Webhooks",
+            "এনভায়রনমেন্ট ভ্যারিয়েবল, CORS ও প্রোডাকশন কনফিগারেশন",
+            "মঙ্গোডিবি এটলাস (Atlas) ও সার্ভার ডিপ্লয়মেন্ট (Render/Vercel)",
+            "CI/CD ওয়ার্কফ্লো এবং GitHub Actions-এর মৌলিক ধারণা",
+            "ফাইনাল ক্যাপস্টোন প্রজেক্ট: রিয়েল-টাইম এন্টারপ্রাইজ ফুলস্ট্যাক SaaS প্ল্যাটফর্ম",
+            "অ্যাসাইনমেন্ট-১০",
+        ],
+    },
+];
