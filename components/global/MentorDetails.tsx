@@ -8,9 +8,11 @@ import {
 } from "@tabler/icons-react";
 import { Award, ShieldCheck } from "lucide-react";
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 const MentorDetails = () => {
+    const t = useTranslations("Home.mentorDetails");
     const SOCIALS = [
         { icon: IconBrandInstagram, href: "#", label: "Instagram" },
         { icon: IconBrandFacebook, href: "#", label: "Facebook" },
@@ -20,13 +22,13 @@ const MentorDetails = () => {
     const STATS = [
         {
             icon: Award,
-            title: "৪+ বছর অভিজ্ঞতা",
-            subtitle: "Industry Veteran",
+            title: t("badges.experience.title"),
+            subtitle: t("badges.experience.subtitle"),
         },
         {
             icon: ShieldCheck,
-            title: "সার্টিফাইড প্রো",
-            subtitle: "Adobe Workflow Expert",
+            title: t("badges.certified.title"),
+            subtitle: t("badges.certified.subtitle"),
         },
     ];
 
@@ -86,23 +88,19 @@ const MentorDetails = () => {
                 >
                     <div>
                         <H2 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-                            Arefur Rahman
+                            {t("name")}
                         </H2>
                         <P className="mt-2 text-lg font-medium text-primary">
-                            Founder &amp; Lead Mentor
+                            {t("position")}
                         </P>
                     </div>
 
                     <P className="font-bengali text-base leading-relaxed text-muted-foreground dark:text-foreground/90 md:text-lg pr-16 md:pr-30">
-                        বাংলাদেশের ইনফোগ্রাফিক কন্টেন্ট এর পুরো প্যাটার্ন পালটে
-                        দিয়েছি আমি{" "}
+                        {t("bio.text1")}
                         <Span className="font-semibold text-foreground">
-                            কোবাল্ট স্টূডিও
-                        </Span>{" "}
-                        এর হাত ধরে। সাথে বাংলাদেশের টপ সব চ্যানেলে নিয়মিত
-                        এডিটিং করে যাচ্ছে আমার নিজ হাতে তৈরি করা বহু এডিটর।
-                        ইন্টারন্যাশনাল মার্কেটপ্লেসেও নিজেদের আলাদা জায়গা করে
-                        নিয়েছে তারা।
+                            {t("bio.highlight")}
+                        </Span>
+                        {t("bio.text2")}
                     </P>
 
                     <div className="mt-2 grid grid-cols-2 gap-4">

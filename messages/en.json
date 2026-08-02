@@ -35,7 +35,114 @@
             "subTitle": "the blueprint",
             "title": "choose your",
             "titlePrimary": "mission"
+        },
+        "teachingApproach": {
+            "title": "How We",
+            "titlePrimary": "Teach",
+            "subTitle": "Learning Process",
+            "projectBasedLearning": "Project-Based Learning",
+            "projectBasedLearningDescription": "You learn just the syntax on YouTube—you build real-world, production-ready full-stack applications with industry-grade codebases.",
+            "deepDiving": "Deep-Dive Modules",
+            "deepDivingDescription": "Master every layer of the MERN stack—from React.js architecture and Node.js performance to MongoDB aggregation—hands-on.",
+            "codeReview": "Direct Code Reviews",
+            "codeReviewDescription": "Get your GitHub pull requests directly reviewed by mentors to fix bugs, optimize performance, and write clean code.",
+            "ai": "AI-Driven Productivity",
+            "aiDescription": "Learn how to leverage AI coding tools to debug faster, write tests, and boost your development speed by 5x.",
+            "quote": {
+                "paragraph1": {
+                    "text1": "Learning tools and syntax is simple, but ",
+                    "highlight": "building scalable system architectures",
+                    "text2": " requires a completely different mindset."
+                },
+                "paragraph2": {
+                    "text1": "Frameworks can be learned anywhere online, but solving real-world problems requires ",
+                    "highlight": "structured guidance and engineering judgment.",
+                    "text2": ""
+                },
+                "author": "COBALT TRAINING PRINCIPLE"
+            }
+        },
+        "courseFlow": {
+            "title": "Know The Course",
+            "titlePrimary": "Flow",
+            "subTitle": "Curriculum Topics",
+            "cards": {
+                "frontend": {
+                    "title": "Frontend Engineering",
+                    "description": "Master component architecture, state management, and high-performance UI/UX engineering."
+                },
+                "backend": {
+                    "title": "Backend & Database Systems",
+                    "description": "Architect scalable REST APIs, secure authentication systems, and optimized non-relational databases."
+                }
+            }
+        },
+        "learnFromSource": {
+            "title": "Learn From",
+            "titlePrimary": "Industry Experts",
+            "subtitle": "Arefur Rahman"
+        },
+        "mentorDetails": {
+            "name": "Arefur Rahman",
+            "position": "Founder & Lead Mentor",
+            "bio": {
+                "text1": "I am transforming how full-stack web development is taught through ",
+                "highlight": "Cobalt Studio.",
+                "text2": " Developers trained under my mentorship are currently working with top tech startups and platforms across the country. Beyond local markets, they have also established strong careers in global marketplaces and remote engineering roles."
+            },
+            "badges": {
+                "experience": {
+                    "title": "4+ Years Experience",
+                    "subtitle": "Software Engineering"
+                },
+                "certified": {
+                    "title": "Certified Pro",
+                    "subtitle": "MERN & React Architecture"
+                }
+            }
+        },
+        "cta": {
+            "title": {
+                "line1": "ESCAPE TUTORIAL HELL, ",
+                "line2": "START BUILDING REAL SYSTEMS."
+            },
+            "description": {
+                "text1": "Stop getting stuck in endless basic tutorials. Join ",
+                "highlight": "Cobalt Studio.",
+                "text2": " To master real-world MERN stack engineering, ship production-grade software, get your code reviewed by pros, and scale your career with an elite dev community."
+            },
+            "button": "Join to Cobalt"
+        },
+        "areYouRightFit": {
+            "title": "Are You The",
+            "titlePrimary": "Right Fit?",
+            "subTitle": "Eligibility Check",
+            "itsForYouIf": "It's for you, if...",
+            "forYou1": "You want the professional career as an web developer.",
+            "forYou2": "You are highly dedicated to learn about the industrial procedures of programming.",
+            "forYou3": "You will not be limited with any obstacles or excuses.",
+            "forYou4": "You are patient enough.",
+            "itsNotForYouIf": "It's not for you, if...",
+            "notForYou1": "If you think that it is a magic to be professional web developer or being rich overnight.",
+            "notForYou2": "You just want a sheet of paper labeled as a certificate.",
+            "notForYou3": "You want programming just as a hobby not as a profession.",
+            "notForYou4": "You don't have the capability to learn by yourself, or won't try."
         }
+    },
+    "footer": {
+        "brandTagline": "Empowering the next generation of engineers through scalable system architecture and hands-on full-stack development.",
+        "quickLink": "Quick Links",
+        "links": {
+            "home": "Home",
+            "about": "About Us",
+            "privacyPolicy": "Privacy Policy",
+            "terms": "Terms & Conditions",
+            "refund": "Refund Policy"
+        },
+        "info": "Info",
+        "support": "Support",
+        "allRightReserved": "© 2026 Cobalt Studio | All rights reserved.",
+        "privacy": "Privacy"
     },
     "NotFound": {
         "title": "Page not found",

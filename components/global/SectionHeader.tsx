@@ -13,7 +13,7 @@ const SectionHeader = ({
     const hasBn = isBengali(fullText);
 
     return (
-        <div className="max-w-2xl mb-12">
+        <div className="max-w-3xl mb-12">
             {subtitle && (
                 <H3
                     className={`text-xs font-bold text-primary leading-tight opacity-90 ${

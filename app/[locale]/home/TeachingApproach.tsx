@@ -3,31 +3,30 @@ import SectionHeader from "@/components/global/SectionHeader";
 import SectionSeparator from "@/components/global/SectionSeparator";
 import { H3, P, Span } from "@/components/global/Texts";
 import { MessageSquare, MousePointerClick, Target, Zap } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const TeachingApproach = () => {
+    const translation = useTranslations("Home.teachingApproach");
+
     const methods = [
         {
-            title: "Project-Based Learning",
-            description:
-                "ইউটিউবে শুধু টুলস পাওয়া যায়, আমরা আপনাকে দেবো রিয়েল ইন্ডাস্ট্রি প্রজেক্ট ফাইলস।",
+            title: translation("projectBasedLearning"),
+            description: translation("projectBasedLearningDescription"),
             icon: Target,
         },
         {
-            title: "Deep-Learning Module",
-            description:
-                "প্রিমিয়ার প্রো এবং আফটার ইফেক্টস-এর প্রতিটি টেকনিক হাতে-কলমে শেখানো হবে।",
+            title: translation("deepDiving"),
+            description: translation("deepDivingDescription"),
             icon: MousePointerClick,
         },
         {
-            title: "Direct Feedback",
-            description:
-                "আপনার করা এডিটিং-এ মেন্টর সরাসরি ভুল ধরিয়ে দেবেন এবং কারেকশন করাবেন।",
+            title: translation("codeReview"),
+            description: translation("codeReviewDescription"),
             icon: MessageSquare,
         },
         {
-            title: "AI Optimization",
-            description:
-                "কিভাবে AI টুলস ব্যবহার করে আপনার এডিটিং স্পিড ৫ গুণ বাড়িয়ে দেবেন।",
+            title: translation("ai"),
+            description: translation("aiDescription"),
             icon: Zap,
         },
     ];
@@ -37,16 +36,16 @@ const TeachingApproach = () => {
             {/* Gradient Top Border */}
             <GradientTopBorder />
             {/* Background Glow */}
-            <div className="absolute left-[-10%] top-1/2 w-[700px] h-[500px] bg-primary/25 rounded-full blur-[120px] pointer-events-none z-0" />
-            <div className="absolute right-[-10%] bottom-1/2 w-[778px] h-[500px] bg-primary/18 rounded-full blur-[120px] pointer-events-none z-0" />
+            <div className="absolute left-[-10%] top-1/2 w-175 h-125 bg-primary/25 rounded-full blur-[120px] pointer-events-none z-0" />
+            <div className="absolute right-[-10%] bottom-1/2 w-194.5 h-125 bg-primary/18 rounded-full blur-[120px] pointer-events-none z-0" />
             <div className="max-w-7xl mx-auto relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
                     {/* Left Column - Header & Timeline */}
                     <div className="lg:col-span-6 space-y-10">
                         <SectionHeader
-                            title="our teaching"
-                            titlePrimary="approach"
-                            subtitle="methods"
+                            title={translation("title")}
+                            titlePrimary={translation("titlePrimary")}
+                            subtitle={translation("subTitle")}
                         />
 
                         {/* Timeline */}
@@ -60,7 +59,7 @@ const TeachingApproach = () => {
                                     >
                                         {/* Vertical Line */}
                                         {index < methods.length - 1 && (
-                                            <div className="absolute left-[23px] top-12 bottom-[-72px] w-[2px] bg-primary/20" />
+                                            <div className="absolute left-5.75 top-12 -bottom-18 w-0.5 bg-primary/20" />
                                         )}
 
                                         {/* Icon Container */}
@@ -86,30 +85,34 @@ const TeachingApproach = () => {
                     {/* Right Column - Quote Card */}
                     <div className="lg:col-span-6 flex items-center justify-center lg:pt-24 w-full">
                         <div className="relative w-full max-w-xl bg-slate-50/50 dark:bg-zinc-900/50 border-l-4 border-primary rounded-tr-2xl rounded-bl-2xl p-8 md:p-10 shadow-xl">
-                            {/* Quotes Icon decoration */}
+                            {/* Decorative Quote Mark */}
                             <div className="absolute -top-6 left-6 text-primary/15 text-[120px] font-serif leading-none select-none pointer-events-none">
                                 “
                             </div>
 
                             <div className="space-y-6 text-foreground/90 font-medium text-lg md:text-xl leading-relaxed">
                                 <P>
-                                    একটা সফটওয়্যারের টুলস শেখা আর একটা{" "}
+                                    {translation("quote.paragraph1.text1")}
                                     <Span className="text-primary font-bold">
-                                        গল্পকে কিভাবে দাড় করানো যায়;
-                                    </Span>{" "}
-                                    এর মাঝে আকাশ পাতাল তফাৎ আছে।
+                                        {translation(
+                                            "quote.paragraph1.highlight",
+                                        )}
+                                    </Span>
+                                    {translation("quote.paragraph1.text2")}
                                 </P>
                                 <P>
-                                    টুলস ইউটিউব দেখেই শেখা যায়। কিন্তু
-                                    স্টোরিটেলিং এর জন্য প্রয়োজন{" "}
+                                    {translation("quote.paragraph2.text1")}
                                     <Span className="text-primary font-bold">
-                                        সঠিক গাইডলাইন।
+                                        {translation(
+                                            "quote.paragraph2.highlight",
+                                        )}
                                     </Span>
+                                    {translation("quote.paragraph2.text2")}
                                 </P>
                             </div>
 
                             <P className="text-xs font-semibold text-muted-foreground/70 tracking-widest uppercase mt-8">
-                                — Cobalt Training Principle
+                                — {translation("quote.author")}
                             </P>
                         </div>
                     </div>

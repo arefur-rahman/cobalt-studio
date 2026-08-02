@@ -207,7 +207,7 @@ const TopNavBar = () => {
                             <span className="absolute size-1 bg-primary rounded-full animate-win-dot-3 shadow-[0_0_6px_rgba(59,130,246,0.6)]" />
                         </div>
                     ) : user ? (
-                        <div className="pl-2 border-l-2 border-l-primary/30">
+                        <div className="md:pl-2 md:border-l-2 md:border-l-primary/30">
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <button className="flex cursor-pointer focus:outline-none transition-transform hover:scale-105">
@@ -310,7 +310,7 @@ const TopNavBar = () => {
                         variant="ghost"
                         className={cn(
                             iconBtnClass,
-                            "cursor-pointer text-xs font-bold px-2.5 h-8 rounded-lg flex items-center gap-1.5",
+                            "cursor-pointer text-xs font-bold px-2.5 h-8 rounded-lg md:flex items-center gap-1.5 hidden",
                         )}
                         onClick={toggleLanguage}
                         title={
@@ -392,7 +392,7 @@ const TopNavBar = () => {
                                     <Span className="text-lg">Language</Span>
                                     <span className="h-8 px-2.5 flex items-center justify-center rounded-md border border-border text-xs font-bold uppercase gap-1.5">
                                         <Globe size={14} />
-                                        {locale === "en" ? "bn" : "en"}
+                                        {locale === "en" ? "বাং" : "en"}
                                     </span>
                                 </button>
                                 <button

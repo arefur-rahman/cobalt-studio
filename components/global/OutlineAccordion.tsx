@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import getCourseBluePrint from "@/app/server/getCourseBluePrint";
 import { H3, Span } from "@/components/global/Texts";
 import {
     Accordion,
@@ -8,9 +8,9 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
-import { motion, type Variants } from "motion/react";
 import { FileText, PlayCircle } from "lucide-react";
-import getCourseBluePrint from "@/app/server/getCourseBluePrint";
+import { motion, type Variants } from "motion/react";
+import { useEffect, useState } from "react";
 
 export interface BluePrintItem {
     id: string;
@@ -42,8 +42,12 @@ const itemVariants: Variants = {
     },
 };
 
-const OutlineAccordion = ({ outlines: initialOutlines }: OutlineAccordionProps) => {
-    const [fetchedBluePrint, setFetchedBluePrint] = useState<BluePrintItem[]>([]);
+const OutlineAccordion = ({
+    outlines: initialOutlines,
+}: OutlineAccordionProps) => {
+    const [fetchedBluePrint, setFetchedBluePrint] = useState<BluePrintItem[]>(
+        [],
+    );
 
     useEffect(() => {
         if (!initialOutlines || initialOutlines.length === 0) {

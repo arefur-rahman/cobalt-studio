@@ -5,19 +5,17 @@ import SectionHeader from "@/components/global/SectionHeader";
 import SectionSeparator from "@/components/global/SectionSeparator";
 import { Check, ShieldAlert, X, Zap } from "lucide-react";
 import { motion, type Variants } from "motion/react";
+import { useTranslations } from "next-intl";
 
 const AreYouTheRightFit = () => {
-    const FOR_YOU = [
-        "আপনি একদম জিরো থেকে প্রফেশনাল এডিটিং ক্যারিয়ার গড়তে চান।",
-        "ইন্ডাস্ট্রি স্ট্যান্ডার্ড অ্যাডভান্সড টেকনিক শিখতে আপনি কঠোর পরিশ্রমী।",
-        "ইউটিউবার বা ফ্রিল্যান্সার হিসেবে নিজের কন্টেন্টকে ইন্টারন্যাশনাল লেভেলে নিতে চান।",
-        "আপনার যথেষ্ট ধৈর্য্য আছে।",
-    ];
+    const t = useTranslations("Home.areYouRightFit");
+    const FOR_YOU = [t("forYou1"), t("forYou2"), t("forYou3"), t("forYou4")];
 
     const NOT_FOR_YOU = [
-        "আপনি মনে করেন এক ক্লিকে বা 'শর্টকাট' ম্যাজিকে প্রফেশনাল এডিটর হওয়া সম্ভব।",
-        "আপনি শুধু একটি সার্টিফিকেট চান কিন্তু শিখতে বা প্রজেক্ট করতে আগ্রহী নন।",
-        "আপনি এডিটিংকে শুধু একটি ক্যাজুয়াল 'হবি' হিসেবে দেখছেন, প্রফেশন হিসেবে নয়।",
+        t("notForYou1"),
+        t("notForYou2"),
+        t("notForYou3"),
+        t("notForYou4"),
     ];
 
     const cardVariants: Variants = {
@@ -44,9 +42,9 @@ const AreYouTheRightFit = () => {
         <SectionSeparator className="bg-background relative">
             <GradientTopBorder />
             <SectionHeader
-                title="Are you the"
-                titlePrimary="right fit?"
-                subtitle="eligibility check"
+                title={t("title")}
+                titlePrimary={t("titlePrimary")}
+                subtitle={t("subTitle")}
             />
             <div className="w-full">
                 <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-6 md:grid-cols-2 md:gap-8">
@@ -72,7 +70,7 @@ const AreYouTheRightFit = () => {
                                 />
                             </div>
                             <h3 className="font-bengali text-xl font-bold text-primary md:text-2xl">
-                                এইটা আপনার জন্য, যদি...
+                                {t("itsForYouIf")}
                             </h3>
                         </div>
 
@@ -125,7 +123,7 @@ const AreYouTheRightFit = () => {
                                 />
                             </div>
                             <h3 className="font-bengali text-xl font-bold text-destructive md:text-2xl">
-                                এইটা আপনার জন্য না, যদি...
+                                {t("itsNotForYouIf")}
                             </h3>
                         </div>
 
