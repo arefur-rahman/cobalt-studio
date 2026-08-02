@@ -3,7 +3,7 @@
 import { getUserInfo, syncUserCreationWithDb } from "@/app/server/auth";
 import { notify } from "@/components/global/Notify";
 import { app } from "@/firebase/firebase-config";
-import { Role } from "@/generated/prisma/enums";
+import { Role } from "@prisma/client";
 import {
     createUserWithEmailAndPassword,
     getAuth,
