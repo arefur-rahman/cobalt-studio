@@ -8,6 +8,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/providers/auth-provider";
 import {
@@ -22,12 +23,11 @@ import {
     IconZoomExclamation,
 } from "@tabler/icons-react";
 import { Globe, LayoutGrid, LogOut, User } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-import { useLocale, useTranslations } from "next-intl";
-import { usePathname, useRouter } from "@/i18n/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { Button } from "../ui/button";
 import {
     Drawer,
@@ -55,30 +55,22 @@ const TopNavBar = () => {
     const [isScrolledDown, setIsScrolledDown] = useState(false);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { setTheme, resolvedTheme } = useTheme();
+    const [isPending, startTransition] = useTransition();
 
     const translation = useTranslations("TopNavBar");
-
-    useEffect(() => {
-        const savedLocale = localStorage.getItem("preferred_locale");
-        if (
-            savedLocale &&
-            (savedLocale === "en" || savedLocale === "bn") &&
-            savedLocale !== locale
-        ) {
-            router.replace(pathname, { locale: savedLocale });
-        }
-    }, [locale, pathname, router]);
-
-    const toggleLanguage = () => {
-        const nextLocale = locale === "en" ? "bn" : "en";
-        localStorage.setItem("preferred_locale", nextLocale);
-        document.cookie = `NEXT_LOCALE=${nextLocale}; path=/; max-age=31536000; SameSite=Lax`;
-        router.replace(pathname, { locale: nextLocale });
-    };
-
     const { user, logout, loading } = useAuth();
 
-    // console.log(user);
+    const nextLocale = locale === "en" ? "bn" : "en";
+
+    const handleLanguageSwitch = () => {
+        const targetLocale = nextLocale;
+        localStorage.setItem("preferred_locale", targetLocale);
+        document.cookie = `NEXT_LOCALE=${targetLocale}; path=/; max-age=31536000; SameSite=Lax`;
+
+        startTransition(() => {
+            router.replace(pathname, { locale: targetLocale, scroll: false });
+        });
+    };
 
     const name = user?.displayName || user?.email?.split("@")[0] || "User";
     const email = user?.email || "";
@@ -184,7 +176,10 @@ const TopNavBar = () => {
                 <div className="flex items-center gap-3">
                     <Button
                         variant="ghost"
-                        className={cn(iconBtnClass, "hidden md:flex")}
+                        className={cn(
+                            iconBtnClass,
+                            "hidden md:flex cursor-pointer",
+                        )}
                         onClick={() =>
                             setTheme(
                                 resolvedTheme === "dark" ? "light" : "dark",
@@ -200,6 +195,7 @@ const TopNavBar = () => {
                             className="hidden dark:block"
                         />
                     </Button>
+
                     {loading ? (
                         <div className="relative w-12 h-8 flex items-center justify-center overflow-hidden">
                             <span className="absolute size-1 bg-primary rounded-full animate-win-dot-1 shadow-[0_0_6px_rgba(59,130,246,0.6)]" />
@@ -221,7 +217,6 @@ const TopNavBar = () => {
                                 <DropdownMenuContent className="w-80 p-0 overflow-hidden rounded-2xl! bg-white dark:bg-[#0c0a09] border border-gray-100 dark:border-zinc-800 shadow-2xl transition-colors duration-200">
                                     {/* Header Section */}
                                     <div className="p-5 flex items-center gap-4 bg-linear-to-b from-primary/10 to-transparent dark:from-primary/20 dark:to-transparent">
-                                        {/* Avatar */}
                                         <Avatar className="size-14 rounded-2xl after:rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/30">
                                             {user?.photoURL && (
                                                 <AvatarImage
@@ -236,7 +231,6 @@ const TopNavBar = () => {
                                             </AvatarFallback>
                                         </Avatar>
 
-                                        {/* User Details */}
                                         <div className="flex flex-col overflow-hidden">
                                             <h3 className="font-bold text-base text-gray-900 dark:text-white truncate">
                                                 {name}
@@ -273,7 +267,6 @@ const TopNavBar = () => {
                                         </DropdownMenuItem>
                                     </div>
 
-                                    {/* Divider */}
                                     <DropdownMenuSeparator className="my-1" />
 
                                     {/* Logout Action */}
@@ -306,13 +299,17 @@ const TopNavBar = () => {
                             </Button>
                         </Link>
                     )}
+
+                    {/* Desktop Language Button */}
                     <Button
                         variant="ghost"
+                        disabled={isPending}
+                        onClick={handleLanguageSwitch}
                         className={cn(
                             iconBtnClass,
-                            "cursor-pointer text-xs font-bold px-2.5 h-8 rounded-lg md:flex items-center gap-1.5 hidden",
+                            "cursor-pointer text-xs font-bold px-2.5 h-8 rounded-lg md:flex items-center gap-1.5 hidden border border-transparent hover:border-border/50",
+                            isPending && "opacity-50 cursor-wait",
                         )}
-                        onClick={toggleLanguage}
                         title={
                             locale === "en"
                                 ? "Switch to Bangla"
@@ -378,16 +375,24 @@ const TopNavBar = () => {
                                                 size={18}
                                                 className="shrink-0"
                                             />
-                                            {l.label}
+                                            {translation(l.label)}
                                         </Link>
                                     );
                                 })}
                             </nav>
 
                             <div className="mt-auto border-t border-border px-4 py-4 flex flex-col gap-2">
+                                {/* Mobile Language Switcher */}
                                 <button
-                                    className="flex items-center justify-between w-full rounded-lg px-2 py-2 text-sm text-foreground/60 hover:text-foreground hover:bg-foreground/5 transition-colors cursor-pointer"
-                                    onClick={toggleLanguage}
+                                    disabled={isPending}
+                                    onClick={() => {
+                                        handleLanguageSwitch();
+                                        setIsDrawerOpen(false);
+                                    }}
+                                    className={cn(
+                                        "flex items-center justify-between w-full rounded-lg px-2 py-2 text-sm text-foreground/60 hover:text-foreground hover:bg-foreground/5 transition-colors cursor-pointer",
+                                        isPending && "opacity-50 cursor-wait",
+                                    )}
                                 >
                                     <Span className="text-lg">Language</Span>
                                     <span className="h-8 px-2.5 flex items-center justify-center rounded-md border border-border text-xs font-bold uppercase gap-1.5">
@@ -395,8 +400,9 @@ const TopNavBar = () => {
                                         {locale === "en" ? "বাং" : "en"}
                                     </span>
                                 </button>
+
                                 <button
-                                    className="flex items-center justify-between w-full rounded-lg px-2 py-2 text-sm text-foreground/60 hover:text-foreground hover:bg-foreground/5 transition-colors"
+                                    className="flex items-center justify-between w-full rounded-lg px-2 py-2 text-sm text-foreground/60 hover:text-foreground hover:bg-foreground/5 transition-colors cursor-pointer"
                                     onClick={() =>
                                         setTheme(
                                             resolvedTheme === "dark"
@@ -417,15 +423,20 @@ const TopNavBar = () => {
                                         />
                                     </span>
                                 </button>
+
                                 {user ? (
                                     <Button
                                         variant="secondary"
+                                        onClick={logout}
                                         className="w-full rounded-lg cursor-pointer"
                                     >
                                         Sign out
                                     </Button>
                                 ) : (
-                                    <Link href={"/signin"}>
+                                    <Link
+                                        href={"/signin"}
+                                        onClick={() => setIsDrawerOpen(false)}
+                                    >
                                         <Button
                                             variant="secondary"
                                             className="w-full rounded-lg"
