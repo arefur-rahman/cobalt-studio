@@ -10,11 +10,15 @@
   <p><b>Modern Web Development Learning Platform & Developer Utility Suite</b></p>
 
   <p>
+    <a href="https://cobalt-studio-xi.vercel.app/"><img src="https://img.shields.io/badge/Live_Demo-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo"></a>
     <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js" alt="Next.js"></a>
     <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript" alt="TypeScript"></a>
     <a href="https://tailwindcss.com/"><img src="https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind CSS"></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" alt="License"></a>
-    <a href="messages/"><img src="https://img.shields.io/badge/i18n-English%20%7C%20Bengali-blueviolet?style=for-the-badge" alt="i18n"></a>
+  </p>
+
+  <p>
+    🌐 <b>Live Demo:</b> <a href="https://cobalt-studio-xi.vercel.app/">https://cobalt-studio-xi.vercel.app/</a>
   </p>
 </div>
 
