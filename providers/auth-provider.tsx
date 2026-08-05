@@ -92,7 +92,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
     };
 
-    const googleSignIn = async () => {
+    const googleSignIn = async (redirectPath?: string) => {
         setLoading(true);
         try {
             const result = await signInWithPopup(
@@ -101,12 +101,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             );
             console.log("user credential", result?.user);
 
-            await syncUserCreationWithDb(
+            const dbUser = await syncUserCreationWithDb(
                 result?.user?.email || "",
                 "",
                 result?.user?.displayName || "",
                 result?.user?.uid || "",
             );
+
+            if (result?.user) {
+                setUser({
+                    ...result.user,
+                    ...(dbUser ?? {}),
+                } as ExtendedUser);
+            }
+
+            if (redirectPath) {
+                router.push(redirectPath);
+            }
 
             notify.success("Signed in successfully");
         } catch (error) {

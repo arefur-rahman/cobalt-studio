@@ -22,7 +22,7 @@ model User {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   firebaseUid String   @unique
   email       String   @unique
-  phoneNumber String   @unique
+  phoneNumber String?
   name        String
   role        Role     @default(STUDENT)
   createdAt   DateTime @default(now())

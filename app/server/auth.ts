@@ -4,36 +4,68 @@ import { prisma } from "@/lib/prisma";
 
 const syncUserCreationWithDb = async (
     email: string,
-    phoneNumber: string,
+    phoneNumber: string | null | undefined,
     name: string,
     firebaseUid: string,
 ) => {
-    const user = await prisma.user.upsert({
-        where: {
-            firebaseUid,
-        },
-        update: {
-            email,
-            phoneNumber,
-            name,
-        },
-        create: {
-            email,
-            phoneNumber,
-            name,
-            firebaseUid,
-        },
-    });
-    return user;
+    const formattedPhone = phoneNumber?.trim() || null;
+
+    try {
+        // Check if user exists by firebaseUid or email
+        const existingUser = await prisma.user.findFirst({
+            where: {
+                OR: [{ firebaseUid }, ...(email ? [{ email }] : [])],
+            },
+        });
+
+        if (existingUser) {
+            const updateData: {
+                name?: string;
+                email?: string;
+                firebaseUid?: string;
+                phoneNumber?: string;
+            } = {
+                firebaseUid,
+            };
+
+            if (name) updateData.name = name;
+            if (email) updateData.email = email;
+            if (formattedPhone) updateData.phoneNumber = formattedPhone;
+
+            const user = await prisma.user.update({
+                where: { id: existingUser.id },
+                data: updateData,
+            });
+            return user;
+        }
+
+        const user = await prisma.user.create({
+            data: {
+                email,
+                name: name || "User",
+                firebaseUid,
+                ...(formattedPhone ? { phoneNumber: formattedPhone } : {}),
+            },
+        });
+        return user;
+    } catch (error) {
+        console.error("Error in syncUserCreationWithDb:", error);
+        throw error;
+    }
 };
 
 const getUserInfo = async (firebaseUid: string) => {
-    const user = await prisma.user.findUnique({
-        where: {
-            firebaseUid,
-        },
-    });
-    return user;
+    try {
+        const user = await prisma.user.findUnique({
+            where: {
+                firebaseUid,
+            },
+        });
+        return user;
+    } catch (error) {
+        console.error("Error in getUserInfo:", error);
+        return null;
+    }
 };
 
-export { syncUserCreationWithDb, getUserInfo };
+export { getUserInfo, syncUserCreationWithDb };
