@@ -23,6 +23,7 @@ export default function Home() {
             <JoinTheLab />
             <AreYouTheRightFit />
             <Footer />
+            {/* some unexpected behavior */}
             <CursorMashroom />
         </div>
     );
