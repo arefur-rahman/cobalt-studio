@@ -24,7 +24,7 @@
 
 <br />
 
-> **Cobalt Studio** is an advanced, production-grade web application built to deliver hands-on, industry-standard full-stack web development education and an array of essential utility tools for software engineers.
+> **Cobalt Studio** is a modern full-stack learning platform and developer suite empowering engineers with hands-on MERN stack mentorship, real-world project experience, and essential client-side productivity tools.
 
 ---
 
