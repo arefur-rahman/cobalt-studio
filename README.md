@@ -18,7 +18,7 @@
   </p>
 
   <p>
-    🌐 <b>Live Demo:</b> <a href="https://cobalt-studio-xi.vercel.app/">https://cobalt-studio-xi.vercel.app/</a>
+    🌐 <b>Live Demo:</b> <a href="https://cobalt-studio-xi.vercel.app/" target="_blank">https://cobalt-studio-xi.vercel.app/</a>
   </p>
 </div>
 
