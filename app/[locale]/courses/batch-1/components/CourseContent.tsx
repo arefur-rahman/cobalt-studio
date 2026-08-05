@@ -3,8 +3,10 @@
 import OutlineAccordion from "@/components/global/OutlineAccordion";
 import CourseSectionHeader from "./CourseSectionHeader";
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 
 const CourseContent = () => {
+    const t = useTranslations("Batch1");
     return (
         <motion.section
             initial={{ opacity: 0, y: 40 }}
@@ -14,10 +16,10 @@ const CourseContent = () => {
             className="py-16"
         >
             <CourseSectionHeader
-                badgeText="course content"
-                sectionTitle="৬টি মডিউল,"
-                sectionSubtitle="২৬টি লাইভ ক্লাস"
-                sectionDescription="শুরু থেকে প্রফেশনাল লেভেল পর্যন্ত — সম্পূর্ণ জার্নি।"
+                badgeText={t("courseContent")}
+                sectionTitle={t("title1")}
+                sectionSubtitle={t("titlePrimary1")}
+                sectionDescription={t("description1")}
             />
             <div className="mx-auto mt-12 w-full max-w-7xl px-6 md:mt-16 md:px-8">
                 <OutlineAccordion />

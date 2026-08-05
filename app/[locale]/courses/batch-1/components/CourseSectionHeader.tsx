@@ -18,7 +18,6 @@ const CourseSectionHeader = ({
         <div className="flex flex-col items-center gap-3 px-6">
             <PillBadge>{badgeText}</PillBadge>
             {singleLineHeader ? (
-                /* flex বাদ দিয়ে text-center রাখা হয়েছে এবং স্পেসিং এর জন্য mr-3.5 ব্যবহার করা হয়েছে */
                 <H2 className="text-center font-bold text-[clamp(30px,5vw,48px)]">
                     <Span className="mr-3.5">{sectionTitle}</Span>
                     <Span className="text-primary">{sectionSubtitle}</Span>

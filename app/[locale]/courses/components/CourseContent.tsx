@@ -9,10 +9,12 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { IconSearch } from "@tabler/icons-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 
 const CourseContent = () => {
+    const t = useTranslations("Courses");
     return (
         <>
             {/* Search */}
@@ -25,7 +27,7 @@ const CourseContent = () => {
                     />
 
                     <Input
-                        placeholder="Search courses..."
+                        placeholder={t("searchPlaceholder")}
                         className="h-12 w-full rounded-xl border border-border bg-card pl-11 pr-4 text-sm shadow-sm transition-all duration-200 placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-0 dark:bg-card/80 dark:border-border/60 dark:focus-visible:shadow-[0_0_16px_oklch(0.5607_0.2181_266.5346/0.20)]"
                     />
                 </div>
@@ -35,7 +37,7 @@ const CourseContent = () => {
             <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8 pb-16">
                 <div className="mb-8 flex items-center justify-between">
                     <P className="text-sm text-muted-foreground">
-                        Showing 1–1 of 1 course
+                        {t("showingCourses")}
                     </P>
                 </div>
 
@@ -57,16 +59,17 @@ const CourseContent = () => {
                         <CardContent className="flex flex-1 flex-col p-6">
                             <CardTitle>
                                 <H1 className="text-xl font-bold leading-tight text-foreground transition-colors line-clamp-2 group-hover:text-primary">
-                                    Frame Forward — AI Video Editing (Batch 01)
+                                    MTTB - MERN Top 2 Bottom
                                 </H1>
                             </CardTitle>
 
                             <CardDescription className="mt-4">
                                 <P className="text-sm leading-relaxed text-muted-foreground line-clamp-3">
-                                    Master the art of visual storytelling with
-                                    Bangladesh&apos;s top creators. Learn
-                                    aesthetic video editing and motion graphics,
-                                    guided directly by the Voice of Dhaka.
+                                    MongoDB, Express.js, React এবং Node.js দিয়ে
+                                    আধুনিক ওয়েব অ্যাপ্লিকেশন তৈরি ও ডিপ্লয় করুন।
+                                    প্রোডাকশন-গ্রেড রিয়েল-ওয়ার্ল্ড প্রজেক্টের
+                                    মাধ্যমে শিখুন পেশাদার ফুল-স্ট্যাক
+                                    ডেভেলপমেন্ট।
                                 </P>
                             </CardDescription>
                         </CardContent>
@@ -74,7 +77,7 @@ const CourseContent = () => {
                         {/* Footer */}
                         <CardFooter className="mt-auto flex flex-col gap-3 px-6 pb-6 sm:flex-row">
                             <Button className="h-11 w-full rounded-xl font-semibold shadow-md shadow-primary/20 transition-colors hover:bg-primary/90 sm:flex-1">
-                                Enroll Now
+                                {t("enrollNow")}
                             </Button>
 
                             <Button
@@ -82,7 +85,9 @@ const CourseContent = () => {
                                 variant="secondary"
                                 className="h-11 w-full rounded-xl font-semibold transition-colors hover:bg-muted/70 dark:border dark:border-white/10 dark:bg-white/5 dark:text-primary dark:hover:bg-white/10 sm:flex-1"
                             >
-                                <Link href="/courses/batch-1">Details</Link>
+                                <Link href="/courses/batch-1">
+                                    {t("details")}
+                                </Link>
                             </Button>
                         </CardFooter>
                     </Card>

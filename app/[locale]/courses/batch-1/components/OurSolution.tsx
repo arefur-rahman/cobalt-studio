@@ -3,8 +3,10 @@
 import { motion } from "motion/react";
 import CourseSectionHeader from "./CourseSectionHeader";
 import WhyUsGrid from "./WhyUsGrid";
+import { useTranslations } from "next-intl";
 
 const OurSolution = () => {
+    const t = useTranslations("Batch1");
     return (
         <motion.section
             initial={{ opacity: 0, y: 40 }}
@@ -14,10 +16,10 @@ const OurSolution = () => {
             className="bg-muted py-16 md:py-24"
         >
             <CourseSectionHeader
-                badgeText="OUR SOLUTION"
-                sectionTitle="এই কোর্সটি কেন"
-                sectionSubtitle="আলাদা?"
-                sectionDescription="শুধু সফটওয়্যার টুলস শেখানো নয়, আমরা আপনাকে একজন প্রফেশনাল ভিডিও এডিটর হিসেবে মার্কেটপ্লেসের জন্য তৈরি করি।"
+                badgeText={t("ourSolution")}
+                sectionTitle={t("whyThisCourse")}
+                sectionSubtitle={t("different")}
+                sectionDescription={t("valueProposition")}
             />
             <WhyUsGrid />
         </motion.section>

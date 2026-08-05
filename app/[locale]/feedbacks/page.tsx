@@ -1,12 +1,14 @@
 import NavBarWithPageHeader from "@/components/global/NavBarWithPageHeader";
 import { STUDENT_REVIEWS } from "@/lib/studentReviews";
+import { useTranslations } from "next-intl";
 
-const page = () => {
+const Page = () => {
+    const t = useTranslations("Feedbacks");
     return (
         <NavBarWithPageHeader
-            sectionTag="our students"
-            mainHeading="Reviews and"
-            subHeading="Showcase"
+            sectionTag={t("sectionTag")}
+            mainHeading={t("mainHeading")}
+            subHeading={t("subHeading")}
         >
             <div className="mx-auto max-w-7xl px-6 py-16 md:py-24">
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -42,4 +44,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Page;

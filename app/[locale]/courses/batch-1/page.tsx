@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import getStartDateStr from "@/lib/getClosestMondayStr";
 import { IconSparkles } from "@tabler/icons-react";
 import { motion } from "motion/react";
+import { useLocale, useTranslations } from "next-intl";
 import Bonus from "./components/Bonus";
 import CountdownTimer from "./components/CountdownTimer";
 import CourseContent from "./components/CourseContent";
@@ -15,8 +16,10 @@ import MeetYourMentor from "./components/MeetYourMentor";
 import NightOwlOffer from "./components/NightOwlOffer";
 import OurSolution from "./components/OurSolution";
 
-const page = () => {
-    const endDate = getStartDateStr();
+const Page = () => {
+    const locale = useLocale();
+    const t = useTranslations("Batch1");
+    const endDate = getStartDateStr(locale);
     return (
         <>
             <TopNavBar />
@@ -29,9 +32,9 @@ const page = () => {
                         className="flex flex-col items-center gap-10 pb-14 md:gap-8 md:pb-20"
                     >
                         <CourseSectionHeader
-                            badgeText={`${endDate} পর্যন্ত`}
-                            sectionTitle="নাইট আউল অফার চলছে"
-                            sectionSubtitle={`${endDate} পর্যন্ত`}
+                            badgeText={t("badge", { date: endDate })}
+                            sectionTitle={t("title")}
+                            sectionSubtitle={t("subtitle", { date: endDate })}
                             singleLineHeader={false}
                         />
                         <motion.div
@@ -66,7 +69,7 @@ const page = () => {
                         >
                             <Button className="hover-bounce-btn mt-3 cursor-pointer rounded-full px-6 py-3 text-lg">
                                 <IconSparkles stroke={1.5} />
-                                এখনই এনরোল করুন
+                                {t("enrollNow")}
                             </Button>
                         </motion.div>
                     </motion.section>
@@ -83,4 +86,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Page;

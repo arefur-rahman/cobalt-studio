@@ -8,40 +8,38 @@ import {
     IconUserStar,
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 
 const WhyUsGrid = () => {
+    const t = useTranslations("Batch1");
     const FEATURES = [
         {
             number: "01",
             icon: IconUserStar,
             color: "text-amber-500",
-            title: "Cobaltএর নিজস্ব ইন্ট্রাক্টর",
-            description:
-                "০.০৩৬k সাবস্ক্রাইবার চ্যানেলের মূল ইন্ট্রাক্টর থেকে সরাসরি শেখার সুযোগ, যার কাজ দেখে আপনি অনুপ্রাণিত হয়েছেন।",
+            title: t("features.01.title"),
+            description: t("features.01.description"),
         },
         {
             number: "02",
             icon: IconPlayerPlay,
             color: "text-rose-500",
-            title: "২৬টি লাইভ ক্লাস",
-            description:
-                "রেকর্ডেড ভিডিওর ভিড়ে হারিয়ে যাওয়া নয়, সরাসরি প্রশ্ন করুন এবং রিয়েল-টাইম ফিডব্যাক নিয়ে স্কিল ঝালাই করুন।",
+            title: t("features.02.title"),
+            description: t("features.02.description"),
         },
         {
             number: "03",
             icon: IconRocket,
             color: "text-emerald-500",
-            title: "৬টি পোর্টফোলিও প্রজেক্ট",
-            description:
-                "কোর্স শেষে আপনার হাতে থাকবে ৬টি প্রফেশনাল প্রজেক্ট, যা দিয়ে ইন্টারন্যাশনালি ক্লায়েন্ট ধরা অনেক সহজ হবে।",
+            title: t("features.03.title"),
+            description: t("features.03.description"),
         },
         {
             number: "04",
             icon: IconBrain,
             color: "text-violet-500",
-            title: "AI Workflow + YouTube Growth",
-            description:
-                "শুধু এডিটিং নয়, AI টুলস ব্যবহার এবং ইউটিউব এসইও সহ ভবিষ্যতের এডিটর হওয়ার কমপ্লিট রোডম্যাপ।",
+            title: t("features.04.title"),
+            description: t("features.04.description"),
         },
     ];
 

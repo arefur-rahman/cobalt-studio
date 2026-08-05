@@ -7,12 +7,15 @@ import { useMemo, useState } from "react";
 import { DUMMY_ARTICLES } from "./articles";
 import ArticleCard from "./components/ArticleCard";
 import FilterBar from "./components/FilterBar";
+import { useTranslations } from "next-intl";
 
 const ResourcesPage = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [sortBy, setSortBy] = useState("newest");
     const [copiedSlug, setCopiedSlug] = useState<string | null>(null);
+
+    const t = useTranslations("Resources");
 
     const handleCopySlug = (e: React.MouseEvent, slug: string) => {
         e.stopPropagation();
@@ -72,9 +75,9 @@ const ResourcesPage = () => {
 
     return (
         <NavBarWithPageHeader
-            sectionTag="resources"
-            mainHeading="Curated"
-            subHeading="Articles"
+            sectionTag={t("sectionTag")}
+            mainHeading={t("mainHeading")}
+            subHeading={t("subHeading")}
         >
             <section className="relative w-full py-16 md:py-24 bg-background min-h-screen text-foreground">
                 {/* Ambient glow blobs */}

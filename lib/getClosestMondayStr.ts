@@ -3,9 +3,9 @@ import enToBnNumber from "@/lib/numberEn2Bn";
 const getStartDateStr = (locale: string = "bn") => {
     const date = new Date();
     const currentDay = date.getDay();
-    // Offsets to the closest Monday (0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday)
-    const offsets = [1, 0, -1, -2, -3, 3, 2];
-    date.setDate(date.getDate() + offsets[currentDay]);
+    // Calculate days to add to get to the upcoming Monday (0 = Sunday, 1 = Monday, 2 = Tuesday, etc.)
+    const daysToAdd = (1 - currentDay + 7) % 7;
+    date.setDate(date.getDate() + daysToAdd);
 
     const day = date.getDate();
     const month = date.getMonth();

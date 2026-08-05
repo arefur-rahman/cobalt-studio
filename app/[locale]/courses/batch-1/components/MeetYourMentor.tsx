@@ -1,8 +1,10 @@
 import MentorDetails from "@/components/global/MentorDetails";
 import CourseSectionHeader from "./CourseSectionHeader";
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 
 const MeetYourMentor = () => {
+    const t = useTranslations("Batch1");
     return (
         <motion.section
             initial={{ opacity: 0, y: 40 }}
@@ -12,10 +14,10 @@ const MeetYourMentor = () => {
             className="bg-muted py-24"
         >
             <CourseSectionHeader
-                badgeText="Meet Your Mentor"
-                sectionTitle="Meet Your"
-                sectionSubtitle="mentor"
-                sectionDescription="এই কোর্সের মেন্টর হলেন বাংলাদেশের শীর্ষস্থানীয় ইনফোটেইনমেন্ট চ্যানেল Voice of Dhaka-র ফাউন্ডার ও প্রধান ভিডিও এডিটর। তার কাছ থেকে শেখার সুযোগ পেয়ে আপনি নিজেকে ভাগ্যবান মনে করবেন।"
+                badgeText={t("meetMentor")}
+                sectionTitle={t("title2")}
+                sectionSubtitle={t("titlePrimary2")}
+                sectionDescription={t("description2")}
             />
             <div className="pt-10 px-7 md:pt-20 md:px-30">
                 <MentorDetails />

@@ -1,9 +1,10 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import enToBnNumber from "@/lib/numberEn2Bn";
 import { CircleCheck } from "lucide-react";
 import { motion } from "motion/react";
-import { Button } from "@/components/ui/button";
+import { useLocale, useTranslations } from "next-intl";
 import CourseSectionHeader from "./CourseSectionHeader";
 
 type Feature = {
@@ -11,19 +12,36 @@ type Feature = {
     price?: number;
 };
 
-function FeatureRow({ label, price }: Feature) {
+function FeatureRow({ label, price, locale }: Feature & { locale: string }) {
+    const formattedPrice =
+        price !== undefined
+            ? typeof price === "number"
+                ? price.toLocaleString()
+                : price
+            : undefined;
+    const displayPrice =
+        formattedPrice !== undefined
+            ? locale === "bn"
+                ? enToBnNumber(formattedPrice)
+                : formattedPrice
+            : undefined;
+
     return (
         <li className="flex items-start gap-3">
             <CircleCheck
                 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500"
                 strokeWidth={2}
             />
-            <span className="font-bengali text-sm leading-relaxed text-foreground/90 md:text-base">
+            <span
+                className={`${
+                    locale === "bn" ? "font-bengali" : ""
+                } text-sm leading-relaxed text-foreground/90 md:text-base`}
+            >
                 {label}
-                {price !== undefined && (
-                    <span className="font-bengali text-muted-foreground">
+                {displayPrice !== undefined && (
+                    <span className="text-muted-foreground">
                         {" "}
-                        (৳{enToBnNumber(Number(price).toLocaleString())})
+                        ({displayPrice})
                     </span>
                 )}
             </span>
@@ -32,19 +50,16 @@ function FeatureRow({ label, price }: Feature) {
 }
 
 const NightOwlOffer = () => {
-    const LEFT_FEATURES: Feature[] = [
-        { label: "২৬টি লাইভ ক্লাস — Premiere Pro + After Effects" },
-        { label: "Voice of Dhaka-স্টাইল Effect Pack", price: 2000 },
-        { label: "Weekly Mentor Session", price: 3000 },
-        { label: "Premium Resource Pack", price: 3000 },
-    ];
+    const locale = useLocale();
+    const t = useTranslations("Batch1.nightOwlOffer");
 
-    const RIGHT_FEATURES: Feature[] = [
-        { label: "৬টি portfolio project" },
-        { label: "Career Roadmap PDF", price: 1500 },
-        { label: "Private VIP Community", price: 2000 },
-        { label: "Lifetime class recording access" },
-    ];
+    const formatNumber = (num: number | string) => {
+        const formatted = typeof num === "number" ? num.toLocaleString() : num;
+        return locale === "bn" ? enToBnNumber(formatted) : formatted;
+    };
+
+    const leftFeatures = (t.raw("leftFeatures") as Feature[]) || [];
+    const rightFeatures = (t.raw("rightFeatures") as Feature[]) || [];
 
     return (
         <motion.section
@@ -55,10 +70,10 @@ const NightOwlOffer = () => {
             className="bg-muted md:px-24 px-3 py-7 md:py-28 space-y-6 md:space-y-16"
         >
             <CourseSectionHeader
-                badgeText="লিমিটেড নাইট আউল অফার"
-                sectionTitle="ভিডিও এডিটিং ক্যারিয়ার শুরু"
-                sectionSubtitle="আজই"
-                sectionDescription="২৬টি লাইভ ক্লাস, ৬টি প্রজেক্ট, প্রিমিয়াম বোনাস ও মেন্টরশিপে ফ্রিল্যান্সিং-রেডি ভিডিও এডিটর হয়ে উঠুন দ্রুত।"
+                badgeText={t("badgeText")}
+                sectionTitle={t("sectionTitle")}
+                sectionSubtitle={t("sectionSubtitle")}
+                sectionDescription={t("sectionDescription")}
             />
             <div className="w-full">
                 <div className="mx-auto max-w-3xl px-6">
@@ -72,24 +87,43 @@ const NightOwlOffer = () => {
                         {/* header row */}
                         <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-start">
                             <div>
-                                <span className="font-bengali text-sm font-bold text-primary">
-                                    ({enToBnNumber(29)}% ডিসকাউন্ট)
+                                <span
+                                    className={`${
+                                        locale === "bn" ? "font-bengali" : ""
+                                    } text-sm font-bold text-primary`}
+                                >
+                                    {t("discountBadge", {
+                                        percent: formatNumber(50),
+                                    })}
                                 </span>
                                 <h3 className="mt-2 text-2xl font-bold text-foreground sm:text-3xl">
-                                    Video Editing Mastery
+                                    {t("courseTitle")}
                                 </h3>
                             </div>
 
                             <div className="text-right">
-                                <span className="font-bengali block text-sm text-muted-foreground line-through">
-                                    ৳{enToBnNumber((12000).toLocaleString())}
+                                <span
+                                    className={`${
+                                        locale === "bn" ? "font-bengali" : ""
+                                    } block text-sm text-muted-foreground line-through`}
+                                >
+                                    ৳{formatNumber(15500)}
                                 </span>
-                                <span className="font-bengali block text-4xl font-extrabold text-primary sm:text-5xl">
-                                    ৳{enToBnNumber((8500).toLocaleString())}
+                                <span
+                                    className={`${
+                                        locale === "bn" ? "font-bengali" : ""
+                                    } block text-4xl font-extrabold text-primary sm:text-5xl`}
+                                >
+                                    ৳{formatNumber(13570)}
                                 </span>
-                                <span className="font-bengali mt-1 block text-xs font-semibold text-emerald-500 sm:text-sm">
-                                    ৳{enToBnNumber((3500).toLocaleString())}{" "}
-                                    সাশ্রয় করুন
+                                <span
+                                    className={`${
+                                        locale === "bn" ? "font-bengali" : ""
+                                    } mt-1 block text-xs font-semibold text-emerald-500 sm:text-sm`}
+                                >
+                                    {t("saveText", {
+                                        amount: formatNumber(1930),
+                                    })}
                                 </span>
                             </div>
                         </div>
@@ -98,11 +132,19 @@ const NightOwlOffer = () => {
 
                         {/* feature checklist */}
                         <div className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
-                            {LEFT_FEATURES.map((f) => (
-                                <FeatureRow key={f.label} {...f} />
+                            {leftFeatures.map((f) => (
+                                <FeatureRow
+                                    key={f.label}
+                                    {...f}
+                                    locale={locale}
+                                />
                             ))}
-                            {RIGHT_FEATURES.map((f) => (
-                                <FeatureRow key={f.label} {...f} />
+                            {rightFeatures.map((f) => (
+                                <FeatureRow
+                                    key={f.label}
+                                    {...f}
+                                    locale={locale}
+                                />
                             ))}
                         </div>
 
@@ -110,15 +152,18 @@ const NightOwlOffer = () => {
                         <Button
                             asChild
                             size="lg"
-                            className="font-bengali mt-8 w-full rounded-2xl py-3.5 text-center text-base font-bold shadow-lg shadow-primary/25 transition-colors sm:text-lg h-auto"
+                            className={`${
+                                locale === "bn" ? "font-bengali" : ""
+                            } mt-8 w-full rounded-2xl py-3.5 text-center text-base font-bold shadow-lg shadow-primary/25 transition-colors sm:text-lg h-auto`}
                         >
                             <motion.a
                                 href="#enroll"
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                             >
-                                এখনই এনরোল করুন — ৳
-                                {enToBnNumber((8500).toLocaleString())}
+                                {t("enrollNowBtn", {
+                                    price: formatNumber(13570),
+                                })}
                             </motion.a>
                         </Button>
                     </motion.div>
@@ -133,29 +178,40 @@ const NightOwlOffer = () => {
                             delay: 0.15,
                             ease: "easeOut",
                         }}
-                        className="font-bengali mt-10 text-center text-sm text-muted-foreground sm:text-base"
+                        className={`${
+                            locale === "bn" ? "font-bengali" : ""
+                        } mt-10 text-center text-sm text-muted-foreground sm:text-base`}
                     >
                         <p className="font-semibold text-foreground/70">
-                            এনরোলের পর পাচ্ছেন
+                            {t("summaryTitle")}
                         </p>
                         <p className="mt-2">
-                            কোর্স ভ্যালু{" "}
-                            <span className="text-muted-foreground/60 line-through">
-                                ৳ {enToBnNumber((12000).toLocaleString())}
-                            </span>{" "}
-                            + বোনাস{" "}
-                            <span className="text-muted-foreground/60 line-through">
-                                ৳ {enToBnNumber((11500).toLocaleString())}
-                            </span>{" "}
-                            ={" "}
-                            <span className="font-bold text-primary line-through">
-                                ৳ {enToBnNumber((23500).toLocaleString())}
-                            </span>{" "}
-                            এর সবকিছুই পাচ্ছেন মাত্র{" "}
-                            <span className="font-extrabold text-foreground underline decoration-primary decoration-2 underline-offset-4">
-                                ৳ {enToBnNumber((8500).toLocaleString())}
-                            </span>
-                            -এ।
+                            {t.rich("summaryDescription", {
+                                courseValuePrice: formatNumber(15500),
+                                bonusValuePrice: formatNumber(11500),
+                                totalValuePrice: formatNumber(27000),
+                                finalPriceAmount: formatNumber(13570),
+                                courseValue: (chunks) => (
+                                    <span className="text-muted-foreground/60 line-through">
+                                        {chunks}
+                                    </span>
+                                ),
+                                bonusValue: (chunks) => (
+                                    <span className="text-muted-foreground/60 line-through">
+                                        {chunks}
+                                    </span>
+                                ),
+                                totalValue: (chunks) => (
+                                    <span className="font-bold text-primary line-through">
+                                        {chunks}
+                                    </span>
+                                ),
+                                finalPrice: (chunks) => (
+                                    <span className="font-extrabold text-foreground underline decoration-primary decoration-2 underline-offset-4">
+                                        {chunks}
+                                    </span>
+                                ),
+                            })}
                         </p>
                     </motion.div>
                 </div>

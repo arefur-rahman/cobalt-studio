@@ -6,8 +6,11 @@ import {
 } from "@/components/ui/accordion";
 import { motion } from "motion/react";
 import CourseSectionHeader from "./CourseSectionHeader";
+import { useTranslations } from "next-intl";
 
 const Faq = () => {
+    const t = useTranslations("Batch1");
+
     type FaqItem = {
         question: string;
         answer: string;
@@ -15,28 +18,28 @@ const Faq = () => {
 
     const FAQS: FaqItem[] = [
         {
-            question: "আমি একদম beginner — এই কোর্স কি আমার জন্য?",
-            answer: "হ্যাঁ, একদম। কোর্সটি beginner থেকে advanced পর্যন্ত সবার জন্য ডিজাইন করা। প্রথম ৩টি ক্লাসেই সফটওয়্যার install থেকে শুরু হবে।",
+            question: t("FAQ.1.question"),
+            answer: t("FAQ.1.answer"),
         },
         {
-            question: "লাইভ ক্লাস মিস হলে কি পাব?",
-            answer: "সব লাইভ ক্লাসের রেকর্ডিং পাবেন। যেকোনো সময় দেখতে পারবেন।",
+            question: t("FAQ.2.question"),
+            answer: t("FAQ.2.answer"),
         },
         {
-            question: "কোন software লাগবে? দাম কত?",
-            answer: "Adobe Premiere Pro ও After Effects লাগবে। Adobe Creative Cloud-এ ৭ দিনের free trial আছে। Class 1-এ সব setup করা শেখানো হবে।",
+            question: t("FAQ.3.question"),
+            answer: t("FAQ.3.answer"),
         },
         {
-            question: "পেমেন্ট কীভাবে করব?",
-            answer: "bKash, Nagad, Rocket, ব্যাংক ট্রান্সফার এবং card সব মাধ্যমে পেমেন্ট করা যাবে। EMI সুবিধাও আছে।",
+            question: t("FAQ.4.question"),
+            answer: t("FAQ.4.answer"),
         },
         {
-            question: "ফ্রিল্যান্সিং শুরু করতে কতদিন লাগবে?",
-            answer: "কোর্স শেষে সরাসরি portfolio দিয়ে কাজ শুরু করতে পারবেন। অনেক স্টুডেন্ট কোর্স চলাকালীনই প্রথম অর্ডার পেয়েছেন।",
+            question: t("FAQ.5.question"),
+            answer: t("FAQ.5.answer"),
         },
         {
-            question: "মানি-ব্যাক গ্যারান্টি কীভাবে কাজ করে?",
-            answer: "এনরোলের ৭ দিনের মধ্যে সন্তুষ্ট না হলে সম্পূর্ণ টাকা ফেরত দেওয়া হবে। কোনো প্রশ্ন করা হবে না।",
+            question: t("FAQ.6.question"),
+            answer: t("FAQ.6.answer"),
         },
     ];
 
@@ -46,13 +49,13 @@ const Faq = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="md:px-24 px-3 py-7 md:py-28 space-y-6 md:space-y-16 bg-muted"
+            className="md:px-24 px-3 py-7 md:py-28 space-y-6 md:space-y-16"
         >
             <CourseSectionHeader
-                badgeText="FAQ"
-                sectionTitle="সাধারণ"
-                sectionSubtitle="প্রশ্ন"
-                sectionDescription="কোর্স সম্পর্কে সবচেয়ে সাধারণ প্রশ্নগুলোর উত্তর এখানে দেওয়া হলো।"
+                badgeText={t("FAQ.0.badgeText")}
+                sectionTitle={t("FAQ.0.sectionTitle")}
+                sectionSubtitle={t("FAQ.0.sectionSubtitle")}
+                sectionDescription={t("FAQ.0.sectionDescription")}
             />
             <div className="w-full">
                 <div className="mx-auto max-w-3xl md:px-6">

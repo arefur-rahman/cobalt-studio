@@ -6,6 +6,30 @@
         "Resources": "Resources",
         "Dev Tools": "Dev Tools"
     },
+    "footer": {
+        "brandTagline": "Empowering the next generation of engineers through scalable system architecture and hands-on full-stack development.",
+        "quickLink": "Quick Links",
+        "links": {
+            "home": "Home",
+            "about": "About Us",
+            "privacyPolicy": "Privacy Policy",
+            "terms": "Terms & Conditions",
+            "refund": "Refund Policy"
+        },
+        "info": "Info",
+        "support": "Support",
+        "allRightReserved": "© 2026 Cobalt Studio | All rights reserved.",
+        "privacy": "Privacy"
+    },
+    "NotFound": {
+        "title": "Page not found",
+        "description": "The page you're looking for might have been moved, renamed, or never existed in the first place.",
+        "backToHome": "Back to home",
+        "goBack": "Go back",
+        "rights": "© 2026 Cobalt Studio | All rights reserved.",
+        "refundPolicy": "Refund Policy",
+        "privacy": "Privacy"
+    },
     "Home": {
         "hero": {
             "enrollmentIsOpen": "Enrollment is open now",
@@ -129,28 +153,171 @@
             "notForYou4": "You don't have the capability to learn by yourself, or won't try."
         }
     },
-    "footer": {
-        "brandTagline": "Empowering the next generation of engineers through scalable system architecture and hands-on full-stack development.",
-        "quickLink": "Quick Links",
-        "links": {
-            "home": "Home",
-            "about": "About Us",
-            "privacyPolicy": "Privacy Policy",
-            "terms": "Terms & Conditions",
-            "refund": "Refund Policy"
-        },
-        "info": "Info",
-        "support": "Support",
-        "allRightReserved": "© 2026 Cobalt Studio | All rights reserved.",
-        "privacy": "Privacy"
+    "Courses": {
+        "subtitle": "STRUCTURED LEARNING PATHS",
+        "title": "Explore Our",
+        "titlePrimary": "Courses",
+        "showingCourses": "Showing 1–1 of 1 course",
+        "searchPlaceholder": "Search courses...",
+        "enrollNow": "Enroll Now",
+        "details": "Details"
     },
-    "NotFound": {
-        "title": "Page not found",
-        "description": "The page you're looking for might have been moved, renamed, or never existed in the first place.",
-        "backToHome": "Back to home",
-        "goBack": "Go back",
-        "rights": "© 2026 Cobalt Studio | All rights reserved.",
-        "refundPolicy": "Refund Policy",
-        "privacy": "Privacy"
+    "Batch1": {
+        "badge": "Until {date}",
+        "title": "Night Owl Offer Live",
+        "subtitle": "Until {date}",
+        "enrollNow": "Enroll Now",
+        "ourSolution": "OUR SOLUTION",
+        "whyThisCourse": "Why This Course",
+        "different": "Different?",
+        "valueProposition": "Beyond just teaching code syntax and tools, we transform you into a production-ready Full-Stack MERN Engineer prepared for global industry standards.",
+        "features": {
+            "01": {
+                "number": "01",
+                "title": "Industry Veteran Mentorship",
+                "description": "Learn directly from software engineers building real-world production systems, moving far beyond basic theory."
+            },
+            "02": {
+                "number": "02",
+                "title": "Live Interactive Sessions",
+                "description": "Don't get stuck in tutorial hell—ask live coding questions, solve bugs, and receive real-time code reviews."
+            },
+            "03": {
+                "number": "03",
+                "title": "Production-Ready Projects",
+                "description": "Graduate with full-stack MERN applications in your portfolio, engineered to help you land global remote roles."
+            },
+            "04": {
+                "number": "04",
+                "title": "System Architecture & AI Workflows",
+                "description": "Master modern AI coding workflows, backend architecture, and database design to engineer scalable systems."
+            }
+        },
+        "courseContent": "course content",
+        "title1": "10 Modules,",
+        "titlePrimary1": "61 Classes",
+        "description1": "The full MERN stack journey, from foundational concepts to advanced engineering, designed to get you job-ready.",
+        "meetMentor": "Know Your Mentor",
+        "title2": "Know Your",
+        "titlePrimary2": "Mentor",
+        "description2": "Guided by an industry-seasoned Full-Stack Software Engineer actively architecting real-world applications, helping you transform from writing syntax to engineering production-grade systems.",
+        "bonuses": [
+            {
+                "title": "Production MERN Boilerplates & Starter Kits",
+                "description": "Ready-to-use templates with Auth, Payment Gateway, and Role Management",
+                "price": "500"
+            },
+            {
+                "title": "Full-Stack Career & Remote Job Roadmap PDF",
+                "description": "Resume building, GitHub optimization, and client/job hunting guide",
+                "price": "1000"
+            },
+            {
+                "title": "Weekly Live Mentor & Bug Fixing Sessions",
+                "description": "Interactive problem solving, live Q&A, and 1-on-1 code reviews",
+                "price": "2000"
+            },
+            {
+                "title": "Private VIP Developer Community",
+                "description": "Client leads, job referrals, developer networking, and exclusive assets",
+                "price": "1000"
+            },
+            {
+                "title": "Premium Dev Resource Vault",
+                "description": "UI component library, DB schemas, System Design cheat sheets & Interview prep",
+                "price": "3500"
+            }
+        ],
+        "bonusBadgeText": "Bonus",
+        "totalValueText": "Total Value",
+        "totalValue": "8,000",
+        "title3": "Night Owl",
+        "titlePrimary3": "Bonus",
+        "description3": "৳8,000 worth of bonus completely free",
+        "nightOwlOffer": {
+            "badgeText": "Late Night Limited Offer",
+            "sectionTitle": "Start MERN stack journey",
+            "sectionSubtitle": "Today!",
+            "sectionDescription": "Learn full-stack web development with expert mentors—master JavaScript, React, Node.js, Express.js, and modern tech stack.",
+            "discountBadge": "({percent}% Discount)",
+            "courseTitle": "MERN Stack Industry Master",
+            "saveText": "Save ৳{amount}",
+            "leftFeatures": [
+                {
+                    "label": "60+ Live Interactive Classes (React, Node.js & Next.js)"
+                },
+                {
+                    "label": "Full MERN Stack Premium Starter Kit & Boilerplate",
+                    "price": 3500
+                },
+                {
+                    "label": "1-on-1 Weekly Code Review & Mentor Session",
+                    "price": 4000
+                },
+                {
+                    "label": "Exclusive Dev Resource & UI Component Library",
+                    "price": 3000
+                }
+            ],
+            "rightFeatures": [
+                {
+                    "label": "6+ Industry Standard Full-Stack Portfolio Projects"
+                },
+                {
+                    "label": "MERN Stack Job & Freelancing Roadmap PDF",
+                    "price": 2000
+                },
+                {
+                    "label": "Private VIP Developer Community & Job Placement Support",
+                    "price": 3000
+                },
+                { "label": "Lifetime Class Recording & Source Code Access" }
+            ],
+            "enrollNowBtn": "Enroll Now — ৳{price}",
+            "summaryTitle": "What you get after enrollment",
+            "summaryDescription": "Course Value <courseValue>৳ {courseValuePrice}</courseValue> + Bonus <bonusValue>৳ {bonusValuePrice}</bonusValue> = <totalValue>৳ {totalValuePrice}</totalValue> — get everything for only <finalPrice>৳ {finalPriceAmount}</finalPrice>."
+        },
+        "FAQ": [
+            {
+                "badgeText": "FAQ",
+                "sectionTitle": "FREQUENTLY ASKED",
+                "sectionSubtitle": "QUESTIONS",
+                "sectionDescription": "Common questions from students about MERN stack, live classes, projects, payment, and course access."
+            },
+            {
+                "question": "I'm a complete beginner. Is this course for me?",
+                "answer": "Absolutely! The course is structured from beginner to advanced level, covering fundamentals of HTML, CSS, JavaScript, up to complex MERN stack production workflows."
+            },
+            {
+                "question": "What happens if I miss a live class?",
+                "answer": "You will get lifetime access to full HD recorded sessions of every live class on your dashboard."
+            },
+            {
+                "question": "What software or tools will I need?",
+                "answer": "We will use free industry-standard tools like VS Code, Node.js, Git, and MongoDB. Complete setup guidance will be provided in Class 1."
+            },
+            {
+                "question": "How can I complete the payment?",
+                "answer": "You can pay using bKash, Nagad, Rocket, Bank Transfers, or Credit/Debit Cards. EMI option is also available."
+            },
+            {
+                "question": "Can I start job hunting or freelancing after this course?",
+                "answer": "Yes, you will build 6+ industry-level projects that can be featured directly in your portfolio to target local or remote tech jobs and freelancing."
+            },
+            {
+                "question": "How does the money-back guarantee work?",
+                "answer": "If you are not satisfied within 7 days of enrollment, you can claim a 100% refund with no questions asked."
+            }
+        ]
+    },
+    "Feedbacks": {
+        "sectionTag": "our students",
+        "mainHeading": "Reviews and",
+        "subHeading": "Showcase"
+    },
+    "Resources": {
+        "sectionTag": "Resources",
+        "mainHeading": "Curated",
+        "subHeading": "Articles"
     }
 }
