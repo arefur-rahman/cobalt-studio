@@ -54,7 +54,7 @@ const FilterBar = ({
                     </div>
 
                     {/* Sort Selector */}
-                    <div className="relative min-w-[160px]">
+                    <div className="relative min-w-40">
                         <select
                             value={sortBy}
                             onChange={(e) => onSortChange(e.target.value)}
