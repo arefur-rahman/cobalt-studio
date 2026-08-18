@@ -2,8 +2,8 @@
 
 import { H2, P, Span } from "@/components/global/Texts";
 import {
-    IconBrandFacebook,
-    IconBrandInstagram,
+    IconBrandGithub,
+    IconBrandLinkedin,
     IconWorld,
 } from "@tabler/icons-react";
 import { Award, ShieldCheck } from "lucide-react";
@@ -14,9 +14,21 @@ import Image from "next/image";
 const MentorDetails = () => {
     const t = useTranslations("Home.mentorDetails");
     const SOCIALS = [
-        { icon: IconBrandInstagram, href: "#", label: "Instagram" },
-        { icon: IconBrandFacebook, href: "#", label: "Facebook" },
-        { icon: IconWorld, href: "#", label: "Website" },
+        {
+            icon: IconBrandLinkedin,
+            href: "https://www.linkedin.com/in/md-arefur-rahman-khan-74188232b",
+            label: "Linkedin",
+        },
+        {
+            icon: IconBrandGithub,
+            href: "https://github.com/arefur-rahman",
+            label: "Github",
+        },
+        {
+            icon: IconWorld,
+            href: "https://arefolio.vercel.app",
+            label: "Website",
+        },
     ];
 
     const STATS = [

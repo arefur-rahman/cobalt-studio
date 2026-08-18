@@ -3,11 +3,11 @@
 import NavBarWithPageHeader from "@/components/global/NavBarWithPageHeader";
 import { IconSearch } from "@tabler/icons-react";
 import { AnimatePresence } from "motion/react";
+import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { DUMMY_ARTICLES } from "./articles";
 import ArticleCard from "./components/ArticleCard";
 import FilterBar from "./components/FilterBar";
-import { useTranslations } from "next-intl";
 
 const ResourcesPage = () => {
     const [searchQuery, setSearchQuery] = useState("");

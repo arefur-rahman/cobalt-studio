@@ -104,7 +104,7 @@ const Footer = () => {
                                 className="size-9 text-muted-foreground/70 border border-border/80 rounded-xl hover:text-primary hover:border-primary/60 hover:bg-primary/5 transition-all"
                             >
                                 <a
-                                    href="#"
+                                    href="https://arefolio.vercel.app"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="Website"
@@ -124,7 +124,7 @@ const Footer = () => {
                             {quickLinks.map((link) => (
                                 <li key={link.href}>
                                     <Link
-                                        href={"#"}
+                                        href={link.href}
                                         className="text-sm text-foreground/80 hover:text-primary transition-colors duration-200"
                                     >
                                         {link.label}
@@ -155,7 +155,7 @@ const Footer = () => {
                                     className="text-primary mt-0.5 shrink-0"
                                 />
                                 <span className="text-sm text-foreground/80">
-                                    367, Ibrahimpur, Kafrul, Dhaka 1206
+                                    House 423, Pirojpur, Bangladesh
                                 </span>
                             </li>
                         </ul>

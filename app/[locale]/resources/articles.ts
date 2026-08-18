@@ -343,6 +343,81 @@ function addItemPure(currentItems, newItem) {
 Write code that explains itself. If you need a block comment to explain *what* the code does, consider renaming your variables or breaking the block into helper functions.
 `,
     },
+    {
+        slug: "digital-marketing-complete-guide",
+        title: "Digital Marketing: A Complete Guide to Online Marketing",
+        category: "Marketing",
+        publishDate: "2026-08-18T14:00:00Z",
+        readTime: 5,
+        excerpt:
+            "Digital Marketing is the modern way to promote products, services, and ideas through the internet, electronic devices, and digital content. Learn its major segments and benefits.",
+        content: `# Digital Marketing: A Complete Guide to Online Marketing
+
+Digital Marketing is one of the most important parts of modern marketing. It means promoting a product, service, or idea by using the internet, electronic devices, and content. Today, almost every product, service, or idea has two interfaces: physical and digital. Therefore, businesses need digital marketing to reach their potential customers through online platforms.
+
+Traditional marketing includes offline events, leaflets, radio advertisements, newspapers, miking, and billboards. On the other hand, Digital Marketing includes online events, Social Media Marketing (SMM), email marketing, Search Engine Marketing (SEM), display advertising, and video marketing. This makes Digital Marketing an important method for businesses that want to communicate with customers online.
+
+### Major Segments of Digital Marketing
+
+There are several important segments of Digital Marketing:
+
+- **Social Media Marketing (SMM)**: Includes Facebook Marketing, Instagram Marketing, and YouTube Marketing. Businesses can use social media to publish content, communicate with audiences, increase engagement, and promote products or services.
+- **Content Marketing**: Has two major parts: *Content Creation* and *Content Distribution*. Content Creation means creating useful and relevant content, while Content Distribution means distributing that content to the target audience. Unique content is especially important because post uniqueness is a vital key to organic reach.
+- **Search Engine Optimization (SEO)**: The science of improving a webpage to increase its visibility when people search for it in a search engine. SEO is divided into three major parts: On-Page SEO, Technical SEO, and Off-Page SEO.
+
+### Importance of SEO in Digital Marketing
+
+SEO helps a website become more visible in search engines. When a webpage gets a better position in search results, searchers can find the webpage more easily. As a result, the website can receive visitors from search engines who can potentially be converted into customers or encouraged to take a desired action.
+
+One important part of SEO is **Keyword Research**. Keywords are the words and phrases that searchers enter into search engines to discover content. Keyword Research is the process of finding and analyzing the search terms that people enter into search engines.
+
+Keywords can be classified according to word count:
+- **Head Keywords**: Contain one word.
+- **Short Tail Keywords**: Contain up to three words (e.g., *"Digital Marketing"*).
+- **Long Tail Keywords**: Contain four or more words (e.g., *"best digital marketing course in Dhaka"*).
+
+### Content Marketing and Brand Identity
+
+Content plays an important role in Digital Marketing. Good content can help a business communicate with its audience and build a brand. Post uniqueness is a vital key to organic reach—captions, text, or articles should be written by the creator, pictures taken by the creator, and videos shot by the creator.
+
+A brand should also maintain consistency in core content materials such as:
+- **Logo**
+- **Colour Palette**
+- **Typography / Font**
+
+Maintaining consistency in these elements helps create a recognizable brand identity.
+
+### Paid vs. Organic Digital Marketing
+
+Digital Marketing leverages both organic and paid channels:
+
+1. **Paid**: Platforms such as Meta Ads and Google Ads (e.g., Sponsored Posts).
+2. **Owned**: Channels you control directly, like a business website, blog, and social media pages.
+3. **Earned**: Organic reach, social shares, backlinks, mentions, and customer reviews.
+
+### Technical SEO and Website Visibility
+
+Technical SEO focuses on the underlying technical health of a website. Major tasks include indexing webpages in search engines, conducting site audits, and troubleshooting webpages.
+
+A web crawler (or bot) analyzes webpages and assists with crawling and indexing:
+- **Crawling**: Analyzing the text, images, and code structure of webpages.
+- **Indexing**: Adding webpages into a search engine's database.
+
+Key technical SEO steps include installing and configuring Google Site Kit, generating a clean sitemap, submitting the sitemap to Google Search Console, performing URL inspections, conducting live URL tests, and inviting crawlers for regular indexing.
+
+### Benefits of Digital Marketing
+
+Digital Marketing provides businesses with expansive opportunities. A business can promote products or services across Facebook, Instagram, YouTube, websites, search engines, and other digital platforms. It allows targeted campaigns tailored for:
+- Brand and business awareness
+- Page visits and follower growth
+- Phone calls, leads, and direct messages
+- High-intent website visitors and conversions
+
+### Conclusion
+
+Digital Marketing is the process of promoting products, services, or ideas through the internet, electronic devices, and content. By creating unique content, researching appropriate keywords, optimizing webpages, and distributing content effectively across paid, owned, and earned channels, businesses can improve their online presence and reach their target audience.
+`,
+    },
 ];
 
 // Extract distinct categories dynamically

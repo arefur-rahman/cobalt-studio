@@ -319,5 +319,265 @@
         "sectionTag": "Resources",
         "mainHeading": "Curated",
         "subHeading": "Articles"
+    },
+    "About": {
+        "sectionTag": "About Cobalt Studio",
+        "mainHeading": "Empowering",
+        "subHeading": "Engineers",
+        "hero": {
+            "badge": "OUR MISSION & VISION",
+            "title": "Bridging the gap between syntax tutorials and production engineering.",
+            "description": "At Cobalt Studio, we believe true full-stack engineering goes beyond remembering code syntax. We train developers to think like architects—building high-performance web applications, mastering system architecture, writing clean maintainable code, and leveraging modern AI workflows."
+        },
+        "stats": {
+            "students": { "value": "4,349+", "label": "Active Students" },
+            "subscribers": { "value": "999K+", "label": "Community Techies" },
+            "projects": { "value": "6+", "label": "Full-Stack Portfolio Systems" },
+            "satisfaction": { "value": "99.4%", "label": "Positive Feedback Rate" }
+        },
+        "pillars": {
+            "badge": "OUR PHILOSOPHY",
+            "title": "Built on 4 Core Engineering Pillars",
+            "description": "How we elevate standard developers into senior-grade tech leaders.",
+            "items": [
+                {
+                    "title": "Production-Grade Codebase",
+                    "description": "Say goodbye to simple to-do apps. Build scalable Next.js, Node.js REST APIs, and MongoDB database architectures built for real enterprise workloads."
+                },
+                {
+                    "title": "Direct PR & Code Reviews",
+                    "description": "Get real, line-by-line code reviews on GitHub pull requests. We inspect performance, memory leaks, component modularity, and security."
+                },
+                {
+                    "title": "AI-Powered Development",
+                    "description": "Learn how top engineers leverage modern AI tools to debug faster, write automated test suites, and boost development speed by 5x."
+                },
+                {
+                    "title": "Career & Market Readiness",
+                    "description": "Equip yourself with the exact skills, portfolio projects, and engineering mindset required for high-paying remote roles, local tech jobs, and freelancing."
+                }
+            ]
+        },
+        "mentor": {
+            "badge": "LEAD INSTRUCTOR",
+            "title": "Learn directly from an experienced system architect.",
+            "subtitle": "Guided by Arefur Rahman Khan"
+        },
+        "comparison": {
+            "badge": "THE DIFFERENCE",
+            "title": "Why Cobalt Studio is Different",
+            "traditionalTitle": "Traditional Video Tutorials",
+            "cobaltTitle": "Cobalt Studio Methodology",
+            "features": [
+                { "trad": "Copy-pasted syntax without system architecture context", "cobalt": "Scalable system design & production-grade architecture" },
+                { "trad": "Simple surface-level toy projects (To-Do lists, static sites)", "cobalt": "Complex full-stack apps (CMS, Dashboards, Auth, Real-time APIs)" },
+                { "trad": "Zero code feedback or automated quizzes", "cobalt": "Personalized 1-on-1 GitHub pull request code reviews" },
+                { "trad": "Outdated practices & traditional workflow", "cobalt": "Modern React 19, Next.js, Tailwind v4, & AI-assisted development" }
+            ]
+        },
+        "timeline": {
+            "badge": "OUR JOURNEY",
+            "title": "The Evolution of Cobalt Studio",
+            "steps": [
+                {
+                    "year": "2023",
+                    "title": "The Vision Begins",
+                    "description": "Started sharing in-depth web development tutorials to fix the gap in tech education."
+                },
+                {
+                    "year": "2024",
+                    "title": "999K+ Community",
+                    "description": "Grew a passionate community of thousands of aspiring developers hungry for real engineering."
+                },
+                {
+                    "year": "2025",
+                    "title": "Cobalt Studio Launch",
+                    "description": "Launched intensive bootcamps focused on MERN stack, system design, and 1-on-1 PR reviews."
+                },
+                {
+                    "year": "2026",
+                    "title": "Next-Gen Engineering",
+                    "description": "Incorporating AI-assisted developer workflows and enterprise-grade tech stack standards."
+                }
+            ]
+        },
+        "cta": {
+            "title": "Ready to Transform Your Engineering Career?",
+            "subtitle": "Join thousands of developers building production-ready web applications with Cobalt Studio.",
+            "exploreCourses": "Explore Courses",
+            "viewTools": "Dev Tools"
+        }
+    },
+    "Privacy": {
+        "sectionTag": "PRIVACY POLICY",
+        "mainHeading": "Privacy &",
+        "subHeading": "Data Protection",
+        "lastUpdated": "Effective Date: August 11, 2026",
+        "intro": "At Cobalt Studio, we respect your privacy and are dedicated to safeguarding your personal data. This Privacy Policy explains how we collect, use, disclose, and protect your information when you interact with our website, course portal, and developer tools.",
+        "sections": {
+            "collection": {
+                "title": "1. Information We Collect",
+                "description": "We collect information to provide better services to our students and community members. This includes:",
+                "items": [
+                    "Account Information: Name, email address, avatar photo, and role when you sign in via Firebase Authentication.",
+                    "Enrollment & Transaction Details: Course registrations, batch selections, payment confirmation metadata (processed securely via bKash, Nagad, Rocket, or Bank Transfers).",
+                    "Technical & Log Data: IP address, browser type, operating system, and usage telemetry via Vercel Analytics."
+                ]
+            },
+            "usage": {
+                "title": "2. How We Use Your Information",
+                "description": "Your information is used strictly for operational and educational purposes, including:",
+                "items": [
+                    "Providing access to enrolled courses, live class sessions, dashboard materials, and developer tools.",
+                    "Facilitating 1-on-1 GitHub pull request code reviews and mentor feedback.",
+                    "Sending essential course announcements, schedule updates, and security alerts.",
+                    "Analyzing platform performance to optimize loading speeds and user interface experience."
+                ]
+            },
+            "sharing": {
+                "title": "3. Data Sharing & Third-Party Services",
+                "description": "We do not sell, rent, or trade your personal data to third parties or advertisers. We share data only with trusted infrastructure providers required to operate Cobalt Studio:",
+                "items": [
+                    "Firebase (Google): User authentication, secure database storage, and session tokens.",
+                    "Vercel: Web hosting and privacy-focused site analytics.",
+                    "Payment Partners: Secured payment gateways for bKash, Nagad, Rocket, and card transactions."
+                ]
+            },
+            "security": {
+                "title": "4. Data Security & Storage",
+                "description": "We employ robust technical and organizational security measures, including HTTPS encryption, Firebase Security Rules, and restricted access protocols to safeguard your personal data from unauthorized access or disclosure."
+            },
+            "rights": {
+                "title": "5. Your Data Rights & Choices",
+                "description": "You have the right to inspect, update, or request the deletion of your personal data at any time. You can modify your account details directly from your Cobalt Studio Profile or contact us to request full account removal."
+            },
+            "cookies": {
+                "title": "6. Cookies & Local Storage",
+                "description": "We use essential cookies and browser local storage solely to retain your session authentication, language preference (English/Bangla), and color theme (Dark/Light mode). No intrusive tracking cookies are utilized."
+            },
+            "contact": {
+                "title": "7. Contact Privacy Support",
+                "description": "If you have questions, concerns, or requests regarding this Privacy Policy or your personal data, please reach out to our team at:",
+                "email": "studioredlabbd@gmail.com",
+                "address": "House 423, Pirojpur, Bangladesh"
+            }
+        }
+    },
+    "Terms": {
+        "sectionTag": "TERMS & CONDITIONS",
+        "mainHeading": "Terms of",
+        "subHeading": "Service",
+        "lastUpdated": "Effective Date: August 11, 2026",
+        "intro": "Welcome to Cobalt Studio. These Terms and Conditions govern your access to and use of our platform, courses, digital tools, and community services. By registering an account or enrolling in a course, you agree to these terms.",
+        "sections": {
+            "account": {
+                "title": "1. Account Registration & Security",
+                "description": "To access Cobalt Studio courses and tools, you must create an account via Firebase Authentication. You agree to provide accurate information and maintain the security of your login credentials.",
+                "items": [
+                    "Accounts are personal and non-transferable under any circumstances.",
+                    "You are responsible for all activities occurring under your account.",
+                    "Notify our support team immediately if you suspect unauthorized account access."
+                ]
+            },
+            "enrollment": {
+                "title": "2. Course Access & Bootcamp Enrollment",
+                "description": "Enrollment grants you personal, non-exclusive access to live sessions, recorded modules, GitHub code reviews, and dashboard resources.",
+                "items": [
+                    "Students receive lifetime access to recorded class sessions and course materials.",
+                    "Live class schedules and mentor sessions are subject to announced timetables.",
+                    "Cobalt Studio reserves the right to update curriculum contents to reflect modern industry standards."
+                ]
+            },
+            "ip": {
+                "title": "3. Intellectual Property & Code Sharing",
+                "description": "All course videos, curriculum design, branding, and instructional assets remain the exclusive intellectual property of Cobalt Studio.",
+                "items": [
+                    "You may NOT record, redistribute, re-sell, or publicly upload course video materials.",
+                    "Code written by students during assignments and portfolio projects remains the student's property for personal portfolio showcase.",
+                    "Commercial redistribution of Cobalt Studio starter templates without permission is prohibited."
+                ]
+            },
+            "conduct": {
+                "title": "4. Community Conduct & Guidelines",
+                "description": "We foster a collaborative, professional, and inclusive learning environment across our live classes, code reviews, and community channels.",
+                "items": [
+                    "Zero tolerance for harassment, hate speech, spam, or disruptive behavior.",
+                    "Sharing pirated software, credentials, or malicious scripts will result in immediate ban without refund.",
+                    "Engage respectfully with mentors, peer developers, and code reviewers."
+                ]
+            },
+            "payments": {
+                "title": "5. Payments, Pricing & Refunds",
+                "description": "Course pricing and payment schedules are specified at enrollment. All payments are processed through secure gateways (bKash, Nagad, Rocket, Bank Transfers, Cards).",
+                "items": [
+                    "Refund requests are governed by our 7-Day Money-Back Guarantee policy.",
+                    "Installment/EMI payments must be completed according to agreed timelines.",
+                    "Cobalt Studio reserves the right to adjust promotional pricing for future batches."
+                ]
+            },
+            "limitation": {
+                "title": "6. Limitation of Liability",
+                "description": "Cobalt Studio provides educational content and digital tools on an 'as is' basis. While we maintain high uptime and production standards, we are not liable for indirect damages, third-party internet outages, or external service interruptions."
+            },
+            "law": {
+                "title": "7. Modifications & Governing Law",
+                "description": "We may revise these Terms & Conditions from time to time. Continued platform usage after updates constitutes acceptance of the modified terms. These terms are governed by the laws of Bangladesh."
+            },
+            "contact": {
+                "title": "8. Questions & Support",
+                "description": "For any inquiries regarding these Terms and Conditions, please contact us at:",
+                "email": "studioredlabbd@gmail.com",
+                "address": "House 423, Pirojpur, Bangladesh"
+            }
+        }
+    },
+    "Refund": {
+        "sectionTag": "REFUND POLICY",
+        "mainHeading": "Money-Back",
+        "subHeading": "Guarantee",
+        "lastUpdated": "Effective Date: August 11, 2026",
+        "intro": "We stand behind the quality of our bootcamps and courses. Cobalt Studio offers a hassle-free 7-Day Money-Back Guarantee so you can enroll with 100% confidence.",
+        "badge": "100% RISK-FREE GUARANTEE",
+        "guaranteeTitle": "7-Day No-Questions-Asked Refund Policy",
+        "guaranteeDescription": "If within 7 days of enrollment or class start date you feel the course isn't a perfect fit for your learning goals, simply send us a request and we will refund 100% of your payment.",
+        "sections": {
+            "eligibility": {
+                "title": "1. Eligibility & Guarantee Period",
+                "description": "Our refund policy is designed to give you complete peace of mind when starting your learning journey:",
+                "items": [
+                    "Refund requests must be submitted within 7 calendar days of your enrollment date.",
+                    "Applies to full course fee payments as well as initial installment payments.",
+                    "No minimum progress restriction — if you're not satisfied, you get a full refund."
+                ]
+            },
+            "process": {
+                "title": "2. How to Request a Refund",
+                "description": "Requesting a refund is quick and straightforward. Follow these simple steps:",
+                "items": [
+                    "Email Support: Send an email to studioredlabbd@gmail.com with subject 'Refund Request - [Your Name]'.",
+                    "Provide Details: Mention your registered account email and payment Transaction ID (bKash, Nagad, Rocket, or Bank Reference).",
+                    "Verification: Our support team will verify your transaction within 24 hours and initiate the refund."
+                ]
+            },
+            "payout": {
+                "title": "3. Payout Method & Timeline",
+                "description": "Refunds are disbursed directly back to your original payment method:",
+                "items": [
+                    "Mobile Financial Services (bKash/Nagad/Rocket): Refund credited within 3 to 5 business days.",
+                    "Bank Transfers & Cards: Refund credited within 5 to 7 business days depending on bank clearance.",
+                    "Zero Deduction: You will receive 100% of the amount paid without any hidden charges or processing fees."
+                ]
+            },
+            "access": {
+                "title": "4. Course Access Revocation",
+                "description": "Once your refund request is approved and processed, your access to live classes, dashboard video modules, GitHub PR reviews, and VIP developer channels will be closed."
+            },
+            "contact": {
+                "title": "5. Refund Support & Enquiries",
+                "description": "If you have any questions or need assistance with your refund, please reach out to our dedicated support team:",
+                "email": "studioredlabbd@gmail.com",
+                "address": "House 423, Pirojpur, Bangladesh"
+            }
+        }
     }
 }
