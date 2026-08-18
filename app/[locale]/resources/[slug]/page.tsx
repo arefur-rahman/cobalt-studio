@@ -11,6 +11,9 @@ interface Props {
     params: Promise<{ slug: string }>;
 }
 
+export const revalidate = 60; // Revalidate dynamic articles every 60s
+export const dynamicParams = true; // Allow on-demand rendering of newly added articles
+
 // Generate static routes for the articles at build time (SSG)
 export async function generateStaticParams() {
     const slugs = await getAllArticleSlugs();

@@ -1,10 +1,9 @@
-"use client";
-
 import { IconChevronDown, IconSearch, IconX } from "@tabler/icons-react";
-import { CATEGORIES } from "../articles";
+
 interface FilterBarProps {
     searchQuery: string;
     selectedCategory: string;
+    categories: string[];
     sortBy: string;
     totalCount: number;
     filteredCount: number;
@@ -17,6 +16,7 @@ interface FilterBarProps {
 const FilterBar = ({
     searchQuery,
     selectedCategory,
+    categories,
     sortBy,
     totalCount,
     filteredCount,
@@ -74,7 +74,7 @@ const FilterBar = ({
                     <span className="text-xs uppercase tracking-wider text-zinc-400 font-semibold mr-2">
                         Categories:
                     </span>
-                    {CATEGORIES.map((category) => {
+                    {categories.map((category) => {
                         const isActive = selectedCategory === category;
                         return (
                             <button
