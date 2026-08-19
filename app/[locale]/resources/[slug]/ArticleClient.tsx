@@ -1,15 +1,21 @@
 "use client";
 
+import { deleteArticleAction } from "@/app/server/articles";
 import Footer from "@/components/global/Footer";
+import { notify } from "@/components/global/Notify";
 import TopNavBar from "@/components/global/TopNavBar";
+import { auth, useAuth } from "@/providers/auth-provider";
 import { IconList } from "@tabler/icons-react";
 import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
+import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Article } from "../articles";
 import ArticleHeader from "./components/ArticleHeader";
 import KeepReading from "./components/KeepReading";
 import ShareSidebar from "./components/ShareSidebar";
 import TableOfContents from "./components/TableOfContents";
+
+const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL || "";
 
 interface HeadingItem {
     level: number;
@@ -30,10 +36,56 @@ export default function ArticleClient({
     prevArticle,
     nextArticle,
 }: ArticleClientProps) {
+    const { user } = useAuth();
+    const router = useRouter();
     const [copiedLink, setCopiedLink] = useState(false);
     const [activeId, setActiveId] = useState<string>("");
     const [isMobileTocOpen, setIsMobileTocOpen] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
     const articleContainerRef = useRef<HTMLDivElement>(null);
+
+    const isAdmin = user?.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase();
+
+    const handleDeleteArticle = async () => {
+        if (!isAdmin) {
+            notify.error("Unauthorized operation.");
+            return;
+        }
+
+        const confirmed = window.confirm(
+            `Are you sure you want to delete "${article.title}"? This action cannot be undone.`,
+        );
+        if (!confirmed) return;
+
+        setIsDeleting(true);
+
+        try {
+            const idToken = await auth.currentUser?.getIdToken();
+            if (!idToken) {
+                notify.error("Session expired. Please sign in again.");
+                return;
+            }
+
+            const res = await deleteArticleAction(
+                article.id || article.slug,
+                idToken,
+            );
+
+            if (res.success) {
+                notify.success("Article deleted successfully!");
+                router.push("/resources");
+            } else {
+                notify.error(res.error || "Failed to delete article.");
+            }
+        } catch (err) {
+            console.error("Error deleting article:", err);
+            notify.error(
+                "An unexpected error occurred while deleting article.",
+            );
+        } finally {
+            setIsDeleting(false);
+        }
+    };
 
     // 1. Framer motion native page scroll progress tracker
     const { scrollYProgress } = useScroll();
@@ -58,38 +110,67 @@ export default function ArticleClient({
         });
     }, [article.content]);
 
-    // 3. Highlight TOC item based on viewport scroll position
+    // 3. Highlight TOC item dynamically based on viewport scroll position
     useEffect(() => {
         if (headings.length === 0) return;
 
-        const headingElements = headings
-            .map((h) => document.getElementById(h.id))
-            .filter((el): el is HTMLElement => el !== null);
+        let ticking = false;
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                const visibleEntries = entries.filter(
-                    (entry) => entry.isIntersecting,
-                );
-                if (visibleEntries.length > 0) {
-                    const topVisible = visibleEntries.reduce((prev, curr) => {
-                        return prev.boundingClientRect.top <
-                            curr.boundingClientRect.top
-                            ? prev
-                            : curr;
-                    });
-                    setActiveId(topVisible.target.id);
+        const updateActiveHeading = () => {
+            const scrollOffset = 130; // Offset from top of viewport (below top navbar)
+
+            // If near top of page, default to first heading
+            if (window.scrollY < 150 && headings[0]) {
+                setActiveId(headings[0].id);
+                return;
+            }
+
+            // If near bottom of page, select last heading
+            if (
+                window.innerHeight + window.scrollY >=
+                document.documentElement.scrollHeight - 50
+            ) {
+                setActiveId(headings[headings.length - 1].id);
+                return;
+            }
+
+            // Find the heading currently active at the top of the reading area
+            let currentActiveId = headings[0].id;
+            for (const h of headings) {
+                const el = document.getElementById(h.id);
+                if (el) {
+                    const top = el.getBoundingClientRect().top;
+                    if (top <= scrollOffset) {
+                        currentActiveId = h.id;
+                    } else {
+                        break;
+                    }
                 }
-            },
-            {
-                rootMargin: "-100px 0px -70% 0px",
-                threshold: 0.1,
-            },
-        );
+            }
 
-        headingElements.forEach((el) => observer.observe(el));
+            setActiveId(currentActiveId);
+        };
+
+        // Run initial check after DOM mount
+        const timer = setTimeout(updateActiveHeading, 100);
+
+        const onScroll = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    updateActiveHeading();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll, { passive: true });
+
         return () => {
-            headingElements.forEach((el) => observer.unobserve(el));
+            clearTimeout(timer);
+            window.removeEventListener("scroll", onScroll);
+            window.removeEventListener("resize", onScroll);
         };
     }, [headings]);
 
@@ -199,7 +280,12 @@ export default function ArticleClient({
             />
 
             {/* Title Hero Banner */}
-            <ArticleHeader article={article} />
+            <ArticleHeader
+                article={article}
+                isAdmin={isAdmin}
+                onDelete={handleDeleteArticle}
+                isDeleting={isDeleting}
+            />
 
             {/* Content & Sidebars */}
             <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 relative">

@@ -8,7 +8,7 @@ import {
 import ArticleClient from "./ArticleClient";
 
 interface Props {
-    params: Promise<{ slug: string }>;
+    params: Promise<{ slug: string; locale?: string }>;
 }
 
 export const revalidate = 60; // Revalidate dynamic articles every 60s
@@ -24,8 +24,8 @@ export async function generateStaticParams() {
 
 // Generate dynamic SEO metadata
 export async function generateMetadata({ params }: Props) {
-    const { slug } = await params;
-    const article = await getArticleBySlug(slug);
+    const { locale, slug } = await params;
+    const article = await getArticleBySlug(slug, locale);
 
     if (!article) {
         return {
@@ -52,8 +52,8 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function ArticlePage({ params }: Props) {
-    const { slug } = await params;
-    const article = await getArticleBySlug(slug);
+    const { locale, slug } = await params;
+    const article = await getArticleBySlug(slug, locale);
 
     if (!article) {
         notFound();
@@ -75,10 +75,10 @@ export default async function ArticlePage({ params }: Props) {
     localMarked.use({ renderer });
 
     // Parse markdown to HTML on the server to keep client bundles lightweight
-    const htmlContent = await localMarked.parse(article.content);
+    const htmlContent = await localMarked.parse(article.content || "");
 
     // Fetch next and previous articles for engagement navigation
-    const { prev, next } = await getAdjacentArticles(slug);
+    const { prev, next } = await getAdjacentArticles(slug, locale);
 
     return (
         <ArticleClient

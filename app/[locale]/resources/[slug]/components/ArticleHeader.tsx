@@ -1,14 +1,29 @@
 import { Badge } from "@/components/ui/badge";
-import { IconArrowLeft, IconCalendar, IconClock } from "@tabler/icons-react";
+import {
+    IconArrowLeft,
+    IconCalendar,
+    IconClock,
+    IconEdit,
+    IconLoader2,
+    IconTrash,
+} from "@tabler/icons-react";
 import Link from "next/link";
 import { Article } from "../../articles";
 import { formatDate } from "../../components/utils";
 
 interface ArticleHeaderProps {
     article: Article;
+    isAdmin?: boolean;
+    onDelete?: () => void;
+    isDeleting?: boolean;
 }
 
-export default function ArticleHeader({ article }: ArticleHeaderProps) {
+export default function ArticleHeader({
+    article,
+    isAdmin,
+    onDelete,
+    isDeleting,
+}: ArticleHeaderProps) {
     return (
         <header className="relative py-16 md:py-24 bg-linear-to-b from-zinc-50 to-background dark:from-zinc-950/20 dark:to-background border-b border-zinc-200 dark:border-zinc-800/40 overflow-hidden">
             {/* Accent glow graphics */}
@@ -17,14 +32,44 @@ export default function ArticleHeader({ article }: ArticleHeaderProps) {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="max-w-3xl">
-                    {/* Back Arrow link */}
-                    <Link
-                        href="/resources"
-                        className="inline-flex items-center gap-2 text-sm font-semibold text-zinc-500 hover:text-primary transition-all duration-200 mb-8 group/back"
-                    >
-                        <IconArrowLeft className="h-4 w-4 group-hover/back:-translate-x-1 transition-transform duration-200" />
-                        <span>Back to resources</span>
-                    </Link>
+                    {/* Back Arrow link & Admin Actions */}
+                    <div className="flex items-center justify-between gap-4 mb-8">
+                        <Link
+                            href="/resources"
+                            className="inline-flex items-center gap-2 text-sm font-semibold text-zinc-500 hover:text-primary transition-all duration-200 group/back"
+                        >
+                            <IconArrowLeft className="h-4 w-4 group-hover/back:-translate-x-1 transition-transform duration-200" />
+                            <span>Back to resources</span>
+                        </Link>
+
+                        {isAdmin && (
+                            <div className="flex items-center gap-2">
+                                <Link
+                                    href={`/resources/edit/${article.slug}`}
+                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-zinc-700 dark:text-zinc-300 hover:border-primary/40 hover:text-primary transition-all"
+                                >
+                                    <IconEdit className="h-3.5 w-3.5" />
+                                    <span>Edit Article</span>
+                                </Link>
+
+                                {onDelete && (
+                                    <button
+                                        type="button"
+                                        onClick={onDelete}
+                                        disabled={isDeleting}
+                                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg border border-red-200 dark:border-red-900/60 bg-red-50/50 dark:bg-red-950/30 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/60 transition-all disabled:opacity-50"
+                                    >
+                                        {isDeleting ? (
+                                            <IconLoader2 className="h-3.5 w-3.5 animate-spin" />
+                                        ) : (
+                                            <IconTrash className="h-3.5 w-3.5" />
+                                        )}
+                                        <span>Delete Article</span>
+                                    </button>
+                                )}
+                            </div>
+                        )}
+                    </div>
 
                     {/* Metadata indicators */}
                     <div className="flex flex-wrap items-center gap-3 text-xs mb-6 text-zinc-500">

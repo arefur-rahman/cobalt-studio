@@ -1,11 +1,18 @@
 "use client";
 
-import { IconSearch } from "@tabler/icons-react";
+import { deleteArticleAction } from "@/app/server/articles";
+import { notify } from "@/components/global/Notify";
+import { auth, useAuth } from "@/providers/auth-provider";
+import { IconPlus, IconSearch } from "@tabler/icons-react";
 import { AnimatePresence } from "motion/react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { Article } from "./articles";
 import ArticleCard from "./components/ArticleCard";
 import FilterBar from "./components/FilterBar";
+
+const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL || "";
 
 interface ResourcesClientProps {
     articles: Article[];
@@ -16,10 +23,20 @@ export default function ResourcesClient({
     articles,
     categories,
 }: ResourcesClientProps) {
+    const { user } = useAuth();
+    const router = useRouter();
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [sortBy, setSortBy] = useState("newest");
     const [copiedSlug, setCopiedSlug] = useState<string | null>(null);
+    const [deletingSlug, setDeletingSlug] = useState<string | null>(null);
+    const [deletedSlugs, setDeletedSlugs] = useState<string[]>([]);
+
+    const isAdmin = user?.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase();
+
+    const itemList = useMemo(() => {
+        return articles.filter((a) => !deletedSlugs.includes(a.slug));
+    }, [articles, deletedSlugs]);
 
     const handleCopySlug = (e: React.MouseEvent, slug: string) => {
         e.stopPropagation();
@@ -30,6 +47,54 @@ export default function ResourcesClient({
         });
     };
 
+    const handleDeleteArticle = async (
+        e: React.MouseEvent,
+        article: Article,
+    ) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (!isAdmin) {
+            notify.error("Unauthorized operation.");
+            return;
+        }
+
+        const confirmed = window.confirm(
+            `Are you sure you want to delete "${article.title}"? This action cannot be undone.`,
+        );
+        if (!confirmed) return;
+
+        setDeletingSlug(article.slug);
+
+        try {
+            const idToken = await auth.currentUser?.getIdToken();
+            if (!idToken) {
+                notify.error("Session expired. Please sign in again.");
+                return;
+            }
+
+            const res = await deleteArticleAction(
+                article.id || article.slug,
+                idToken,
+            );
+
+            if (res.success) {
+                notify.success("Article deleted successfully!");
+                setDeletedSlugs((prev) => [...prev, article.slug]);
+                router.refresh();
+            } else {
+                notify.error(res.error || "Failed to delete article.");
+            }
+        } catch (err) {
+            console.error("Error deleting article:", err);
+            notify.error(
+                "An unexpected error occurred while deleting the article.",
+            );
+        } finally {
+            setDeletingSlug(null);
+        }
+    };
+
     const handleReset = () => {
         setSearchQuery("");
         setSelectedCategory("All");
@@ -37,7 +102,7 @@ export default function ResourcesClient({
 
     // Filtered + sorted articles
     const filteredArticles = useMemo(() => {
-        let results = [...articles];
+        let results = [...itemList];
 
         if (searchQuery.trim()) {
             const q = searchQuery.toLowerCase();
@@ -75,7 +140,7 @@ export default function ResourcesClient({
         });
 
         return results;
-    }, [articles, searchQuery, selectedCategory, sortBy]);
+    }, [itemList, searchQuery, selectedCategory, sortBy]);
 
     return (
         <section className="relative w-full py-16 md:py-24 bg-background min-h-screen text-foreground">
@@ -84,12 +149,24 @@ export default function ResourcesClient({
             <div className="absolute bottom-40 right-1/4 w-96 h-96 bg-indigo-500/10 dark:bg-indigo-500/5 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                {isAdmin && (
+                    <div className="mb-6 flex justify-end">
+                        <Link
+                            href="/resources/create"
+                            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary hover:opacity-90 text-white text-xs font-semibold shadow-md transition-all"
+                        >
+                            <IconPlus className="h-4 w-4" />
+                            Post New Article
+                        </Link>
+                    </div>
+                )}
+
                 <FilterBar
                     searchQuery={searchQuery}
                     selectedCategory={selectedCategory}
                     categories={categories}
                     sortBy={sortBy}
-                    totalCount={articles.length}
+                    totalCount={itemList.length}
                     filteredCount={filteredArticles.length}
                     onSearchChange={setSearchQuery}
                     onCategoryChange={setSelectedCategory}
@@ -108,6 +185,9 @@ export default function ResourcesClient({
                                     index={index}
                                     copiedSlug={copiedSlug}
                                     onCopySlug={handleCopySlug}
+                                    isAdmin={isAdmin}
+                                    onDelete={handleDeleteArticle}
+                                    isDeleting={deletingSlug === article.slug}
                                 />
                             ))}
                         </AnimatePresence>

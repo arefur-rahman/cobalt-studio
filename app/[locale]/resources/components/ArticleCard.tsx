@@ -5,7 +5,10 @@ import {
     IconCalendar,
     IconCheck,
     IconClock,
+    IconEdit,
     IconLink,
+    IconLoader2,
+    IconTrash,
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import Link from "next/link";
@@ -17,6 +20,9 @@ interface ArticleCardProps {
     index: number;
     copiedSlug: string | null;
     onCopySlug: (e: React.MouseEvent, slug: string) => void;
+    isAdmin?: boolean;
+    onDelete?: (e: React.MouseEvent, article: Article) => void;
+    isDeleting?: boolean;
 }
 
 const ArticleCard = ({
@@ -24,26 +30,28 @@ const ArticleCard = ({
     index,
     copiedSlug,
     onCopySlug,
+    isAdmin,
+    onDelete,
+    isDeleting,
 }: ArticleCardProps) => {
     return (
-        <Link href={`/resources/${article.slug}`} className="block group">
-            <motion.article
-                layout
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="h-full flex flex-col justify-between p-6 bg-zinc-50/50 dark:bg-zinc-900/20 hover:bg-zinc-50 dark:hover:bg-zinc-900/40 border border-zinc-200/60 dark:border-zinc-800/80 hover:border-primary/40 dark:hover:border-primary/40 rounded-2xl shadow-2xs hover:shadow-md transition-all duration-300 relative overflow-hidden"
-            >
-                {/* Corner decorative accent */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full translate-x-4 -translate-y-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 pointer-events-none" />
+        <motion.article
+            layout
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.3, delay: index * 0.05 }}
+            className="h-full flex flex-col justify-between p-6 bg-zinc-50/50 dark:bg-zinc-900/20 hover:bg-zinc-50 dark:hover:bg-zinc-900/40 border border-zinc-200/60 dark:border-zinc-800/80 hover:border-primary/40 dark:hover:border-primary/40 rounded-2xl shadow-2xs hover:shadow-md transition-all duration-300 relative overflow-hidden group"
+        >
+            {/* Corner decorative accent */}
+            <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full translate-x-4 -translate-y-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 pointer-events-none" />
 
             <div>
                 {/* Header metadata */}
                 <div className="flex items-center justify-between gap-2 mb-4">
                     <Badge
                         variant="outline"
-                        className="bg-primary/5 text-primary border-primary/20 text-[10px] font-semibold tracking-wide uppercase px-2 py-0.5 rounded-md"
+                        className="bg-primary/5 text-primary border-primary/20 text-[10px] font-semibold tracking-wide uppercase px-2 py-0.5 rounded-md relative z-10"
                     >
                         {article.category}
                     </Badge>
@@ -53,9 +61,14 @@ const ArticleCard = ({
                     </div>
                 </div>
 
-                {/* Title */}
+                {/* Title (Stretched Link for full card clickability) */}
                 <h3 className="text-lg md:text-xl font-bold text-zinc-950 dark:text-white group-hover:text-primary transition-colors duration-200 leading-snug tracking-tight mb-3 text-wrap: balance">
-                    {article.title}
+                    <Link
+                        href={`/resources/${article.slug}`}
+                        className="after:absolute after:inset-0 focus:outline-none"
+                    >
+                        {article.title}
+                    </Link>
                 </h3>
 
                 {/* Excerpt */}
@@ -71,10 +84,37 @@ const ArticleCard = ({
                     <span>{formatDate(article.publishDate)}</span>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 relative z-10">
+                    {isAdmin && (
+                        <Link
+                            href={`/resources/edit/${article.slug}`}
+                            className="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-zinc-500 hover:text-primary hover:border-primary/30 transition-all"
+                            title="Edit article"
+                        >
+                            <IconEdit className="h-3.5 w-3.5" />
+                        </Link>
+                    )}
+
+                    {isAdmin && onDelete && (
+                        <button
+                            type="button"
+                            onClick={(e) => onDelete(e, article)}
+                            disabled={isDeleting}
+                            className="p-1.5 rounded-lg border border-red-200 dark:border-red-900/50 bg-red-50/50 dark:bg-red-950/30 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/60 transition-all disabled:opacity-50 cursor-pointer"
+                            title="Delete article"
+                        >
+                            {isDeleting ? (
+                                <IconLoader2 className="h-3.5 w-3.5 animate-spin" />
+                            ) : (
+                                <IconTrash className="h-3.5 w-3.5" />
+                            )}
+                        </button>
+                    )}
+
                     <button
+                        type="button"
                         onClick={(e) => onCopySlug(e, article.slug)}
-                        className="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-zinc-500 hover:text-primary hover:border-primary/30 transition-all"
+                        className="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-zinc-500 hover:text-primary hover:border-primary/30 transition-all cursor-pointer"
                         title="Copy link to article"
                     >
                         {copiedSlug === article.slug ? (
@@ -103,8 +143,7 @@ const ArticleCard = ({
                     </span>
                 </div>
             </div>
-            </motion.article>
-        </Link>
+        </motion.article>
     );
 };
 
