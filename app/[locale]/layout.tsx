@@ -30,7 +30,7 @@ export const anekBangla = Anek_Bangla({
 });
 
 export const siteConfig: SiteConfig = {
-    baseUrl: "https://site_url.com",
+    baseUrl: "https://cobalt-studio-xi.vercel.app",
     siteName: "Cobalt Studio",
     title: "Cobalt Studio",
     description: "Cobalt Studio",
