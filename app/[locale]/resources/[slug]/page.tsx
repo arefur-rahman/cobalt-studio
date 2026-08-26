@@ -70,7 +70,11 @@ export default async function ArticlePage({ params }: Props) {
             return `<h${depth} id="${id}">${text}</h${depth}>`;
         },
         code({ text, lang }: { text: string; lang?: string }) {
-            const language = (lang || "code").trim();
+            const language = (lang || "").trim();
+            const displayLang =
+                !language || language === "code"
+                    ? "TEXT"
+                    : language.toUpperCase();
             const escapedText = text
                 .replace(/&/g, "&amp;")
                 .replace(/</g, "&lt;")
@@ -83,18 +87,21 @@ export default async function ArticlePage({ params }: Props) {
             return `<div class="code-block-wrapper relative group my-6 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl overflow-hidden bg-zinc-50/50 dark:bg-zinc-900/30 shadow-2xs">
 <div class="code-header flex items-center justify-between px-4 py-2.5 border-b border-zinc-200/70 dark:border-zinc-800/80 bg-zinc-100/80 dark:bg-zinc-900/80 text-xs font-mono text-zinc-500 font-medium select-none">
 <span class="uppercase tracking-wider text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
-<span class="w-1.5 h-1.5 rounded-full bg-primary/70 inline-block"></span>${language}
+<span class="w-1.5 h-1.5 rounded-full bg-primary/70 inline-block"></span>${displayLang}
 </span>
 <button type="button" class="copy-code-btn px-2.5 py-1 rounded-md bg-white hover:bg-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 transition-all text-xs flex items-center gap-1.5 border border-zinc-200 dark:border-zinc-700 shadow-2xs cursor-pointer">
 ${copyIcon}<span>Copy</span>
 </button>
 </div>
-<pre class="p-4 overflow-x-auto m-0! bg-transparent! border-0! rounded-none!"><code class="language-${language} font-mono text-xs text-zinc-800 dark:text-zinc-100 block w-full">${escapedText}</code></pre>
+<pre class="p-4 overflow-x-auto m-0! bg-transparent! border-0! rounded-none! shadow-none!"><code class="language-${language || "text"} font-mono text-xs text-zinc-800 dark:text-zinc-100 block w-full">${escapedText}</code></pre>
 </div>`;
         },
     };
 
-    const localMarked = new Marked();
+    const localMarked = new Marked({
+        gfm: true,
+        breaks: true,
+    });
     localMarked.use({ renderer });
 
     // Parse markdown to HTML on the server to keep client bundles lightweight

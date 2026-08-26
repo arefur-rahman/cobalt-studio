@@ -97,9 +97,9 @@ export default function ArticleClient({
 
     // 2. Extract Headings dynamically for the Table of Contents
     const headings = useMemo<HeadingItem[]>(() => {
-        const matches = [...article.content.matchAll(/^(##|###) +(.*)$/gm)];
+        const matches = [...article.content.matchAll(/^(#{1,3}) +(.*)$/gm)];
         return matches.map((m) => {
-            const level = m[1].length; // 2 for H2, 3 for H3
+            const level = m[1].length; // 1 for H1, 2 for H2, 3 for H3
             const text = m[2].trim();
             const id = text
                 .toLowerCase()
@@ -303,15 +303,16 @@ export default function ArticleClient({
                             ref={articleContainerRef}
                             dangerouslySetInnerHTML={{ __html: htmlContent }}
                             className="markdown-content text-zinc-850 dark:text-zinc-200 leading-relaxed text-base md:text-[17px] space-y-6 select-text
-                                [&_h1]:hidden
-                                [&_h2]:text-2xl [&_h2]:md:text-3xl [&_h2]:font-bold [&_h2]:text-zinc-950 [&_h2]:dark:text-white [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:tracking-tight [&_h2]:text-wrap:balance [&_h2]:scroll-mt-28
-                                [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-zinc-950 [&_h3]:dark:text-white [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:tracking-tight [&_h3]:scroll-mt-28
+                                [&_h1]:text-2xl [&_h1]:md:text-3xl [&_h1]:font-bold [&_h1]:text-zinc-950 [&_h1]:dark:text-white [&_h1]:mt-10 [&_h1]:mb-4 [&_h1]:tracking-tight [&_h1]:text-wrap:balance [&_h1]:scroll-mt-28
+                                [&_h2]:text-xl [&_h2]:md:text-2xl [&_h2]:font-bold [&_h2]:text-zinc-950 [&_h2]:dark:text-white [&_h2]:mt-8 [&_h2]:mb-4 [&_h2]:tracking-tight [&_h2]:text-wrap:balance [&_h2]:scroll-mt-28
+                                [&_h3]:text-lg [&_h3]:md:text-xl [&_h3]:font-bold [&_h3]:text-zinc-950 [&_h3]:dark:text-white [&_h3]:mt-6 [&_h3]:mb-3 [&_h3]:tracking-tight [&_h3]:scroll-mt-28
                                 [&_p]:my-4 [&_p]:text-zinc-650 [&_p]:dark:text-zinc-300 [&_p]:text-wrap:pretty [&_p]:leading-relaxed
                                 [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary/80 [&_a]:font-medium
                                 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2 [&_ul]:my-4
                                 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:space-y-2 [&_ol]:my-4
                                 [&_li]:text-zinc-650 [&_li]:dark:text-zinc-300
                                 [&_blockquote]:border-l-4 [&_blockquote]:border-primary [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:my-6 [&_blockquote]:text-zinc-600 [&_blockquote]:dark:text-zinc-400 [&_blockquote]:bg-primary/5 [&_blockquote]:py-3 [&_blockquote]:pr-4 [&_blockquote]:rounded-r-xl
+                                [&_.code-block-wrapper_pre]:m-0 [&_.code-block-wrapper_pre]:bg-transparent [&_.code-block-wrapper_pre]:border-0 [&_.code-block-wrapper_pre]:rounded-none [&_.code-block-wrapper_pre]:shadow-none [&_.code-block-wrapper_pre]:p-4
                                 [&_pre]:bg-zinc-50/50 [&_pre]:dark:bg-zinc-900/30 [&_pre]:border [&_pre]:border-zinc-200/80 [&_pre]:dark:border-zinc-800 [&_pre]:p-4 [&_pre]:rounded-2xl [&_pre]:overflow-x-auto [&_pre]:my-6 [&_pre]:shadow-xs
                                 [&_code]:font-mono [&_code]:text-xs [&_code]:bg-zinc-100 [&_code]:dark:bg-zinc-800/60 [&_code]:text-primary [&_code]:dark:text-primary-foreground/90 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded-md
                                 [&_pre_code]:bg-transparent [&_pre_code]:dark:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-zinc-800 [&_pre_code]:dark:text-zinc-100 [&_pre_code]:block [&_pre_code]:w-full [&_pre_code]:text-xs"
