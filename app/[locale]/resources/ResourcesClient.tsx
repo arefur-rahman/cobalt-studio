@@ -28,32 +28,19 @@ export default function ResourcesClient({
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [sortBy, setSortBy] = useState("newest");
-    const [copiedSlug, setCopiedSlug] = useState<string | null>(null);
-    const [deletingSlug, setDeletingSlug] = useState<string | null>(null);
     const [deletedSlugs, setDeletedSlugs] = useState<string[]>([]);
 
-    const isAdmin = user?.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase();
+    const isAdmin = Boolean(
+        ADMIN_EMAIL && user?.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase(),
+    );
 
     const itemList = useMemo(() => {
-        return articles.filter((a) => !deletedSlugs.includes(a.slug));
+        if (deletedSlugs.length === 0) return articles;
+        const deletedSet = new Set(deletedSlugs);
+        return articles.filter((a) => !deletedSet.has(a.slug));
     }, [articles, deletedSlugs]);
 
-    const handleCopySlug = (e: React.MouseEvent, slug: string) => {
-        e.stopPropagation();
-        const url = `${window.location.origin}/resources#${slug}`;
-        navigator.clipboard.writeText(url).then(() => {
-            setCopiedSlug(slug);
-            setTimeout(() => setCopiedSlug(null), 2000);
-        });
-    };
-
-    const handleDeleteArticle = async (
-        e: React.MouseEvent,
-        article: Article,
-    ) => {
-        e.preventDefault();
-        e.stopPropagation();
-
+    const handleDeleteArticle = async (article: Article) => {
         if (!isAdmin) {
             notify.error("Unauthorized operation.");
             return;
@@ -63,8 +50,6 @@ export default function ResourcesClient({
             `Are you sure you want to delete "${article.title}"? This action cannot be undone.`,
         );
         if (!confirmed) return;
-
-        setDeletingSlug(article.slug);
 
         try {
             const idToken = await auth.currentUser?.getIdToken();
@@ -90,8 +75,6 @@ export default function ResourcesClient({
             notify.error(
                 "An unexpected error occurred while deleting the article.",
             );
-        } finally {
-            setDeletingSlug(null);
         }
     };
 
@@ -102,7 +85,7 @@ export default function ResourcesClient({
 
     // Filtered + sorted articles
     const filteredArticles = useMemo(() => {
-        let results = [...itemList];
+        let results = itemList;
 
         if (searchQuery.trim()) {
             const q = searchQuery.toLowerCase();
@@ -118,26 +101,29 @@ export default function ResourcesClient({
             results = results.filter((a) => a.category === selectedCategory);
         }
 
-        results.sort((a, b) => {
-            switch (sortBy) {
-                case "newest":
-                    return (
-                        new Date(b.publishDate).getTime() -
-                        new Date(a.publishDate).getTime()
-                    );
-                case "oldest":
-                    return (
-                        new Date(a.publishDate).getTime() -
-                        new Date(b.publishDate).getTime()
-                    );
-                case "shortest":
-                    return a.readTime - b.readTime;
-                case "longest":
-                    return b.readTime - a.readTime;
-                default:
-                    return 0;
-            }
-        });
+        // Sort results
+        if (sortBy) {
+            results = [...results].sort((a, b) => {
+                switch (sortBy) {
+                    case "newest":
+                        return (
+                            Date.parse(b.publishDate) -
+                            Date.parse(a.publishDate)
+                        );
+                    case "oldest":
+                        return (
+                            Date.parse(a.publishDate) -
+                            Date.parse(b.publishDate)
+                        );
+                    case "shortest":
+                        return a.readTime - b.readTime;
+                    case "longest":
+                        return b.readTime - a.readTime;
+                    default:
+                        return 0;
+                }
+            });
+        }
 
         return results;
     }, [itemList, searchQuery, selectedCategory, sortBy]);
@@ -183,11 +169,8 @@ export default function ResourcesClient({
                                     key={article.slug}
                                     article={article}
                                     index={index}
-                                    copiedSlug={copiedSlug}
-                                    onCopySlug={handleCopySlug}
                                     isAdmin={isAdmin}
                                     onDelete={handleDeleteArticle}
-                                    isDeleting={deletingSlug === article.slug}
                                 />
                             ))}
                         </AnimatePresence>

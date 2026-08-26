@@ -198,39 +198,39 @@ export default function ArticleClient({
         }
     };
 
-    // 5. Injects copy button inside code blocks dynamically
+    // 5. Handles copy button clicks inside code blocks via event delegation
     useEffect(() => {
-        if (!articleContainerRef.current) return;
+        const container = articleContainerRef.current;
+        if (!container) return;
 
-        const preElements = articleContainerRef.current.querySelectorAll("pre");
-        preElements.forEach((pre) => {
-            if (pre.querySelector(".copy-code-btn")) return;
+        const handleContainerClick = (e: MouseEvent) => {
+            const target = e.target as HTMLElement;
+            const btn = target.closest(
+                ".copy-code-btn",
+            ) as HTMLButtonElement | null;
+            if (!btn) return;
 
-            pre.style.position = "relative";
-            pre.classList.add("group");
-
-            const btn = document.createElement("button");
-            btn.className =
-                "copy-code-btn absolute top-3 right-3 p-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-850 text-zinc-400 hover:text-foreground transition-all text-xs flex items-center gap-1 border border-zinc-250 dark:border-zinc-800 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity duration-200 z-10 backdrop-blur-xs shadow-xs cursor-pointer";
+            e.stopPropagation();
+            const wrapper =
+                btn.closest(".code-block-wrapper") || btn.closest("pre");
+            const codeEl = wrapper?.querySelector("code");
+            const codeText = codeEl?.innerText || codeEl?.textContent || "";
 
             const copyIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" /><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" /></svg>`;
-            const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-emerald-450 dark:text-emerald-400" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>`;
+            const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-emerald-500" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>`;
 
-            btn.innerHTML = `${copyIcon}<span>Copy</span>`;
-
-            btn.addEventListener("click", (e) => {
-                e.stopPropagation();
-                const codeText = pre.querySelector("code")?.innerText || "";
-                navigator.clipboard.writeText(codeText).then(() => {
-                    btn.innerHTML = `${checkIcon}<span class="text-emerald-500 font-semibold">Copied!</span>`;
-                    setTimeout(() => {
-                        btn.innerHTML = `${copyIcon}<span>Copy</span>`;
-                    }, 2000);
-                });
+            navigator.clipboard.writeText(codeText).then(() => {
+                btn.innerHTML = `${checkIcon}<span class="text-emerald-500 font-semibold">Copied!</span>`;
+                setTimeout(() => {
+                    btn.innerHTML = `${copyIcon}<span>Copy</span>`;
+                }, 2000);
             });
+        };
 
-            pre.appendChild(btn);
-        });
+        container.addEventListener("click", handleContainerClick);
+        return () => {
+            container.removeEventListener("click", handleContainerClick);
+        };
     }, [htmlContent]);
 
     // 6. Sharing & URL utilities

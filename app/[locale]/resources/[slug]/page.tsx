@@ -59,7 +59,7 @@ export default async function ArticlePage({ params }: Props) {
         notFound();
     }
 
-    // Configure marked to inject ids for table of contents navigation
+    // Configure marked to inject ids for headings and custom code block wrappers
     const renderer = {
         heading({ text, depth }: { text: string; depth: number }) {
             const id = text
@@ -68,6 +68,29 @@ export default async function ArticlePage({ params }: Props) {
                 .replace(/[^a-z0-9]+/g, "-")
                 .replace(/(^-|-$)/g, "");
             return `<h${depth} id="${id}">${text}</h${depth}>`;
+        },
+        code({ text, lang }: { text: string; lang?: string }) {
+            const language = (lang || "code").trim();
+            const escapedText = text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+            const copyIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" /><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" /></svg>`;
+
+            return `<div class="code-block-wrapper relative group my-6 border border-zinc-200/80 dark:border-zinc-800 rounded-2xl overflow-hidden bg-zinc-50/50 dark:bg-zinc-900/30 shadow-2xs">
+<div class="code-header flex items-center justify-between px-4 py-2.5 border-b border-zinc-200/70 dark:border-zinc-800/80 bg-zinc-100/80 dark:bg-zinc-900/80 text-xs font-mono text-zinc-500 font-medium select-none">
+<span class="uppercase tracking-wider text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary/70 inline-block"></span>${language}
+</span>
+<button type="button" class="copy-code-btn px-2.5 py-1 rounded-md bg-white hover:bg-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 transition-all text-xs flex items-center gap-1.5 border border-zinc-200 dark:border-zinc-700 shadow-2xs cursor-pointer">
+${copyIcon}<span>Copy</span>
+</button>
+</div>
+<pre class="p-4 overflow-x-auto m-0! bg-transparent! border-0! rounded-none!"><code class="language-${language} font-mono text-xs text-zinc-800 dark:text-zinc-100 block w-full">${escapedText}</code></pre>
+</div>`;
         },
     };
 

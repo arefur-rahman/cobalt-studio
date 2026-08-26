@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import {
     IconCalendar,
@@ -18,22 +19,41 @@ import { formatDate } from "./utils";
 interface ArticleCardProps {
     article: Article;
     index: number;
-    copiedSlug: string | null;
-    onCopySlug: (e: React.MouseEvent, slug: string) => void;
     isAdmin?: boolean;
-    onDelete?: (e: React.MouseEvent, article: Article) => void;
-    isDeleting?: boolean;
+    onDelete?: (article: Article) => Promise<void> | void;
 }
 
 const ArticleCard = ({
     article,
     index,
-    copiedSlug,
-    onCopySlug,
     isAdmin,
     onDelete,
-    isDeleting,
 }: ArticleCardProps) => {
+    const [copied, setCopied] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    const handleCopySlug = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const url = `${window.location.origin}/resources/${article.slug}`;
+        navigator.clipboard.writeText(url).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        });
+    };
+
+    const handleDelete = async (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!onDelete || isDeleting) return;
+        setIsDeleting(true);
+        try {
+            await onDelete(article);
+        } finally {
+            setIsDeleting(false);
+        }
+    };
+
     return (
         <motion.article
             layout
@@ -98,7 +118,7 @@ const ArticleCard = ({
                     {isAdmin && onDelete && (
                         <button
                             type="button"
-                            onClick={(e) => onDelete(e, article)}
+                            onClick={handleDelete}
                             disabled={isDeleting}
                             className="p-1.5 rounded-lg border border-red-200 dark:border-red-900/50 bg-red-50/50 dark:bg-red-950/30 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/60 transition-all disabled:opacity-50 cursor-pointer"
                             title="Delete article"
@@ -113,11 +133,11 @@ const ArticleCard = ({
 
                     <button
                         type="button"
-                        onClick={(e) => onCopySlug(e, article.slug)}
+                        onClick={handleCopySlug}
                         className="p-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-zinc-500 hover:text-primary hover:border-primary/30 transition-all cursor-pointer"
                         title="Copy link to article"
                     >
-                        {copiedSlug === article.slug ? (
+                        {copied ? (
                             <IconCheck className="h-3.5 w-3.5 text-emerald-500" />
                         ) : (
                             <IconLink className="h-3.5 w-3.5" />
