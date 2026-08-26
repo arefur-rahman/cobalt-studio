@@ -223,3 +223,46 @@
   animation: winDots 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   animation-delay: 0.36s;
 }
+
+/* Print / PDF CSS */
+@media print {
+
+  /* 1. Hide non-essential layout UI elements */
+  header,
+  footer,
+  nav,
+  aside,
+  .copy-code-btn,
+  .mobile-toc-trigger {
+    display: none !important;
+  }
+
+  /* 2. Reset page background for clean printing */
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* 3. Expand article container to full width */
+  main,
+  article {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* 4. Prevent awkward page breaks inside code blocks & images */
+  .code-block-wrapper,
+  img,
+  blockquote {
+    break-inside: avoid;
+  }
+
+  /* 5. Keep headings attached to the paragraph that follows */
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+}

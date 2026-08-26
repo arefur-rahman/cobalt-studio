@@ -5,6 +5,7 @@ import enToBnNumber from "@/lib/numberEn2Bn";
 import { CircleCheck } from "lucide-react";
 import { motion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
+import { ReactNode } from "react";
 import CourseSectionHeader from "./CourseSectionHeader";
 
 type Feature = {
@@ -191,22 +192,22 @@ const NightOwlOffer = () => {
                                 bonusValuePrice: formatNumber(11500),
                                 totalValuePrice: formatNumber(27000),
                                 finalPriceAmount: formatNumber(13570),
-                                courseValue: (chunks) => (
+                                courseValue: (chunks: ReactNode) => (
                                     <span className="text-muted-foreground/60 line-through">
                                         {chunks}
                                     </span>
                                 ),
-                                bonusValue: (chunks) => (
+                                bonusValue: (chunks: ReactNode) => (
                                     <span className="text-muted-foreground/60 line-through">
                                         {chunks}
                                     </span>
                                 ),
-                                totalValue: (chunks) => (
+                                totalValue: (chunks: ReactNode) => (
                                     <span className="font-bold text-primary line-through">
                                         {chunks}
                                     </span>
                                 ),
-                                finalPrice: (chunks) => (
+                                finalPrice: (chunks: ReactNode) => (
                                     <span className="font-extrabold text-foreground underline decoration-primary decoration-2 underline-offset-4">
                                         {chunks}
                                     </span>

@@ -5,8 +5,13 @@ import {
     IconCopy,
 } from "@tabler/icons-react";
 import Link from "next/link";
+import DownloadArticle from "./DownloadArticle";
+
+import { Article } from "../../articles";
 
 interface ShareSidebarProps {
+    article?: Article;
+    articleTitle?: string;
     handleShareTwitter: () => void;
     handleShareLinkedin: () => void;
     handleCopyLink: () => void;
@@ -14,6 +19,8 @@ interface ShareSidebarProps {
 }
 
 export default function ShareSidebar({
+    article,
+    articleTitle,
     handleShareTwitter,
     handleShareLinkedin,
     handleCopyLink,
@@ -62,6 +69,10 @@ export default function ShareSidebar({
                                 </>
                             )}
                         </button>
+                        <DownloadArticle
+                            article={article}
+                            title={articleTitle}
+                        />
                     </div>
                 </div>
 

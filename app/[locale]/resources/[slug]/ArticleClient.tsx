@@ -338,6 +338,8 @@ export default function ArticleClient({
 
                     {/* Right Toolbar */}
                     <ShareSidebar
+                        article={article}
+                        articleTitle={article.title}
                         handleShareTwitter={handleShareTwitter}
                         handleShareLinkedin={handleShareLinkedin}
                         handleCopyLink={handleCopyLink}
