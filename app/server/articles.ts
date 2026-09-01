@@ -64,6 +64,15 @@ interface CreateArticleInput {
     contentEn?: string;
     contentBn?: string;
     readTime?: number;
+    metaTitleEn?: string;
+    metaTitleBn?: string;
+    metaDescriptionEn?: string;
+    metaDescriptionBn?: string;
+    keywordsEn?: string;
+    keywordsBn?: string;
+    ogImage?: string;
+    canonicalUrl?: string;
+    noIndex?: boolean;
 }
 
 export async function createArticleAction(
@@ -203,13 +212,24 @@ export async function createArticleAction(
                 contentEn,
                 contentBn,
                 readTime,
+                metaTitleEn: input.metaTitleEn?.trim() || null,
+                metaTitleBn: input.metaTitleBn?.trim() || null,
+                metaDescriptionEn: input.metaDescriptionEn?.trim() || null,
+                metaDescriptionBn: input.metaDescriptionBn?.trim() || null,
+                keywordsEn: input.keywordsEn?.trim() || null,
+                keywordsBn: input.keywordsBn?.trim() || null,
+                ogImage: input.ogImage?.trim() || null,
+                canonicalUrl: input.canonicalUrl?.trim() || null,
+                noIndex: Boolean(input.noIndex),
                 publishDate: new Date(),
             },
         });
 
-        // Revalidate cache for resources list and new article route
+        // Revalidate cache for resources list and new article route (including locales)
         revalidatePath("/resources");
         revalidatePath(`/resources/${slug}`);
+        revalidatePath(`/en/resources/${slug}`);
+        revalidatePath(`/bn/resources/${slug}`);
 
         const pubDateStr = newArticle.publishDate
             ? newArticle.publishDate.toISOString()
@@ -377,6 +397,15 @@ interface UpdateArticleInput {
     contentEn?: string;
     contentBn?: string;
     readTime?: number;
+    metaTitleEn?: string;
+    metaTitleBn?: string;
+    metaDescriptionEn?: string;
+    metaDescriptionBn?: string;
+    keywordsEn?: string;
+    keywordsBn?: string;
+    ogImage?: string;
+    canonicalUrl?: string;
+    noIndex?: boolean;
 }
 
 export async function updateArticleAction(
@@ -537,14 +566,27 @@ export async function updateArticleAction(
                 contentEn,
                 contentBn,
                 readTime,
+                metaTitleEn: input.metaTitleEn?.trim() || null,
+                metaTitleBn: input.metaTitleBn?.trim() || null,
+                metaDescriptionEn: input.metaDescriptionEn?.trim() || null,
+                metaDescriptionBn: input.metaDescriptionBn?.trim() || null,
+                keywordsEn: input.keywordsEn?.trim() || null,
+                keywordsBn: input.keywordsBn?.trim() || null,
+                ogImage: input.ogImage?.trim() || null,
+                canonicalUrl: input.canonicalUrl?.trim() || null,
+                noIndex: Boolean(input.noIndex),
                 updatedAt: new Date(),
             },
         });
 
-        // Revalidate cache for resources list and updated article routes
+        // Revalidate cache for resources list and updated article routes (including localized paths)
         revalidatePath("/resources");
         revalidatePath(`/resources/${existingArticle.slug}`);
         revalidatePath(`/resources/${newSlug}`);
+        revalidatePath(`/en/resources/${existingArticle.slug}`);
+        revalidatePath(`/en/resources/${newSlug}`);
+        revalidatePath(`/bn/resources/${existingArticle.slug}`);
+        revalidatePath(`/bn/resources/${newSlug}`);
 
         const pubDateStr = updatedArticle.publishDate
             ? updatedArticle.publishDate.toISOString()

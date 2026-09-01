@@ -12,13 +12,19 @@ import {
     IconAlertCircle,
     IconArrowLeft,
     IconCheck,
+    IconChevronDown,
+    IconChevronUp,
     IconEdit,
     IconEye,
+    IconLink,
     IconLoader2,
     IconLock,
+    IconPhoto,
     IconPlus,
     IconShieldX,
     IconSparkles,
+    IconTag,
+    IconWorld,
 } from "@tabler/icons-react";
 import { marked } from "marked";
 import Link from "next/link";
@@ -59,6 +65,18 @@ export default function CreateArticleClient() {
     const [excerptBn, setExcerptBn] = useState("");
     const [contentEn, setContentEn] = useState("");
     const [contentBn, setContentBn] = useState("");
+
+    // SEO & Social sharing states
+    const [metaTitleEn, setMetaTitleEn] = useState("");
+    const [metaTitleBn, setMetaTitleBn] = useState("");
+    const [metaDescriptionEn, setMetaDescriptionEn] = useState("");
+    const [metaDescriptionBn, setMetaDescriptionBn] = useState("");
+    const [keywordsEn, setKeywordsEn] = useState("");
+    const [keywordsBn, setKeywordsBn] = useState("");
+    const [ogImage, setOgImage] = useState("");
+    const [canonicalUrl, setCanonicalUrl] = useState("");
+    const [noIndex, setNoIndex] = useState(false);
+    const [isSeoOpen, setIsSeoOpen] = useState(false);
 
     const [editorLang, setEditorLang] = useState<"en" | "bn">("en");
     const [activeTab, setActiveTab] = useState<"write" | "preview">("write");
@@ -197,6 +215,15 @@ export default function CreateArticleClient() {
                     contentEn: contentEn.trim(),
                     contentBn: contentBn.trim() || contentEn.trim(),
                     readTime: finalReadTime,
+                    metaTitleEn: metaTitleEn.trim(),
+                    metaTitleBn: metaTitleBn.trim(),
+                    metaDescriptionEn: metaDescriptionEn.trim(),
+                    metaDescriptionBn: metaDescriptionBn.trim(),
+                    keywordsEn: keywordsEn.trim(),
+                    keywordsBn: keywordsBn.trim(),
+                    ogImage: ogImage.trim(),
+                    canonicalUrl: canonicalUrl.trim(),
+                    noIndex,
                 },
                 idToken,
             );
@@ -542,6 +569,199 @@ export default function CreateArticleClient() {
                                 empty.
                             </p>
                         </div>
+                    </div>
+
+                    {/* Collapsible SEO & Social Sharing Settings */}
+                    <div className="border border-zinc-200 dark:border-zinc-800 rounded-2xl bg-zinc-50/50 dark:bg-zinc-900/40 overflow-hidden transition-all">
+                        <button
+                            type="button"
+                            onClick={() => setIsSeoOpen(!isSeoOpen)}
+                            className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-zinc-100/50 dark:hover:bg-zinc-800/40 transition-colors cursor-pointer"
+                        >
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 rounded-xl bg-primary/10 text-primary">
+                                    <IconWorld className="h-5 w-5" />
+                                </div>
+                                <div>
+                                    <h3 className="text-sm font-bold text-foreground">
+                                        SEO & Social Sharing Metadata
+                                    </h3>
+                                    <p className="text-xs text-zinc-400">
+                                        Configure meta titles, descriptions, keywords, OpenGraph card images, and indexing.
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="text-zinc-400">
+                                {isSeoOpen ? (
+                                    <IconChevronUp className="h-5 w-5" />
+                                ) : (
+                                    <IconChevronDown className="h-5 w-5" />
+                                )}
+                            </div>
+                        </button>
+
+                        {isSeoOpen && (
+                            <div className="p-6 border-t border-zinc-200 dark:border-zinc-800 space-y-6 bg-white dark:bg-zinc-950/40">
+                                {/* Meta Title (EN & BN) */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <div className="flex justify-between items-center mb-2">
+                                            <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                                                Meta Title (English)
+                                            </label>
+                                            <span className={`text-[11px] font-mono ${metaTitleEn.length > 60 ? "text-amber-500 font-bold" : "text-zinc-400"}`}>
+                                                {metaTitleEn.length}/60 chars {metaTitleEn.length > 60 && "(warn: >60)"}
+                                            </span>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            value={metaTitleEn}
+                                            onChange={(e) => setMetaTitleEn(e.target.value)}
+                                            placeholder="Leave empty to use Article Title"
+                                            className="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-sm focus:outline-none focus:border-primary transition-all"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <div className="flex justify-between items-center mb-2">
+                                            <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                                                Meta Title (Bangla)
+                                            </label>
+                                            <span className={`text-[11px] font-mono ${metaTitleBn.length > 60 ? "text-amber-500 font-bold" : "text-zinc-400"}`}>
+                                                {metaTitleBn.length}/60 chars {metaTitleBn.length > 60 && "(warn: >60)"}
+                                            </span>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            value={metaTitleBn}
+                                            onChange={(e) => setMetaTitleBn(e.target.value)}
+                                            placeholder="Leave empty to use Bangla Title"
+                                            className="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-sm focus:outline-none focus:border-primary transition-all"
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Meta Description (EN & BN) */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <div className="flex justify-between items-center mb-2">
+                                            <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                                                Meta Description (English)
+                                            </label>
+                                            <span className={`text-[11px] font-mono ${metaDescriptionEn.length > 160 ? "text-amber-500 font-bold" : "text-zinc-400"}`}>
+                                                {metaDescriptionEn.length}/160 chars {metaDescriptionEn.length > 160 && "(warn: >160)"}
+                                            </span>
+                                        </div>
+                                        <textarea
+                                            rows={3}
+                                            value={metaDescriptionEn}
+                                            onChange={(e) => setMetaDescriptionEn(e.target.value)}
+                                            placeholder="Leave empty to use English Excerpt"
+                                            className="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-sm focus:outline-none focus:border-primary transition-all resize-y"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <div className="flex justify-between items-center mb-2">
+                                            <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                                                Meta Description (Bangla)
+                                            </label>
+                                            <span className={`text-[11px] font-mono ${metaDescriptionBn.length > 160 ? "text-amber-500 font-bold" : "text-zinc-400"}`}>
+                                                {metaDescriptionBn.length}/160 chars {metaDescriptionBn.length > 160 && "(warn: >160)"}
+                                            </span>
+                                        </div>
+                                        <textarea
+                                            rows={3}
+                                            value={metaDescriptionBn}
+                                            onChange={(e) => setMetaDescriptionBn(e.target.value)}
+                                            placeholder="Leave empty to use Bangla Excerpt"
+                                            className="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-sm focus:outline-none focus:border-primary transition-all resize-y"
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Keywords / Tags (EN & BN) */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-2">
+                                            <IconTag className="h-3.5 w-3.5 text-primary" /> Keywords / Meta Tags (English)
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={keywordsEn}
+                                            onChange={(e) => setKeywordsEn(e.target.value)}
+                                            placeholder="system design, database, caching, performance"
+                                            className="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-sm focus:outline-none focus:border-primary transition-all"
+                                        />
+                                        <p className="mt-1 text-[11px] text-zinc-400">Comma-separated tags.</p>
+                                    </div>
+
+                                    <div>
+                                        <label className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-2">
+                                            <IconTag className="h-3.5 w-3.5 text-primary" /> Keywords / Meta Tags (Bangla)
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={keywordsBn}
+                                            onChange={(e) => setKeywordsBn(e.target.value)}
+                                            placeholder="সিস্টেম ডিজাইন, ডাটাবেস, ক্যাশিং"
+                                            className="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-sm focus:outline-none focus:border-primary transition-all"
+                                        />
+                                        <p className="mt-1 text-[11px] text-zinc-400">কমা দ্বারা বিভক্ত ট্যাগ।</p>
+                                    </div>
+                                </div>
+
+                                {/* OG Image & Canonical URL */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-2">
+                                            <IconPhoto className="h-3.5 w-3.5 text-primary" /> OpenGraph / Social Preview Image URL
+                                        </label>
+                                        <input
+                                            type="url"
+                                            value={ogImage}
+                                            onChange={(e) => setOgImage(e.target.value)}
+                                            placeholder="https://example.com/images/og-banner.png"
+                                            className="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-sm focus:outline-none focus:border-primary transition-all font-mono"
+                                        />
+                                        {ogImage && !ogImage.startsWith("http") && (
+                                            <p className="mt-1 text-[11px] text-amber-500">Must be a valid absolute URL starting with http:// or https://</p>
+                                        )}
+                                    </div>
+
+                                    <div>
+                                        <label className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-2">
+                                            <IconLink className="h-3.5 w-3.5 text-primary" /> Canonical URL Override
+                                        </label>
+                                        <input
+                                            type="url"
+                                            value={canonicalUrl}
+                                            onChange={(e) => setCanonicalUrl(e.target.value)}
+                                            placeholder="https://cobalt.studio/resources/original-article"
+                                            className="w-full px-4 py-2.5 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-sm focus:outline-none focus:border-primary transition-all font-mono"
+                                        />
+                                        <p className="mt-1 text-[11px] text-zinc-400">Optional. Use if republished from another domain.</p>
+                                    </div>
+                                </div>
+
+                                {/* Indexing options (noIndex) */}
+                                <div className="flex items-center justify-between p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800">
+                                    <div>
+                                        <p className="text-xs font-bold text-foreground">Block Search Engines (noIndex)</p>
+                                        <p className="text-[11px] text-zinc-400">If enabled, search engines will be instructed not to index this article or show it in search results.</p>
+                                    </div>
+                                    <label className="relative inline-flex items-center cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            checked={noIndex}
+                                            onChange={(e) => setNoIndex(e.target.checked)}
+                                            className="sr-only peer"
+                                        />
+                                        <div className="w-11 h-6 bg-zinc-300 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:after:border-zinc-600 peer-checked:bg-red-500"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     {/* Content Editor & Preview Tabs */}

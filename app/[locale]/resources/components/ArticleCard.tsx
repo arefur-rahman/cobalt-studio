@@ -13,6 +13,7 @@ import {
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import Link from "next/link";
+import { useLocale } from "next-intl";
 import { Article } from "../articles";
 import { formatDate } from "./utils";
 
@@ -29,6 +30,21 @@ const ArticleCard = ({
     isAdmin,
     onDelete,
 }: ArticleCardProps) => {
+    const locale = useLocale();
+    const isBn = locale === "bn";
+    const title =
+        (isBn
+            ? article.titleBn || article.titleEn
+            : article.titleEn || article.titleBn) ||
+        article.title ||
+        "";
+    const excerpt =
+        (isBn
+            ? article.excerptBn || article.excerptEn
+            : article.excerptEn || article.excerptBn) ||
+        article.excerpt ||
+        "";
+
     const [copied, setCopied] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
 
@@ -87,13 +103,13 @@ const ArticleCard = ({
                         href={`/resources/${article.slug}`}
                         className="after:absolute after:inset-0 focus:outline-none"
                     >
-                        {article.title}
+                        {title}
                     </Link>
                 </h3>
 
                 {/* Excerpt */}
                 <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3 leading-relaxed mb-6 text-wrap: pretty">
-                    {article.excerpt}
+                    {excerpt}
                 </p>
             </div>
 
@@ -144,7 +160,7 @@ const ArticleCard = ({
                         )}
                     </button>
 
-                    <span className="text-xs font-semibold text-primary group-hover:translate-x-1 transition-transform duration-200 flex items-center gap-1">
+                    <span className="text-xs font-semibold text-primary group-hover:translate-x-1 transition-transform duration-200 flex items-center gap-1 cursor-pointer hover:underline">
                         Read
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

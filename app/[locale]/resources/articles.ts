@@ -16,6 +16,18 @@ export interface Article {
     content: string; // Markdown format
     contentEn?: string;
     contentBn?: string;
+    metaTitle?: string;
+    metaTitleEn?: string;
+    metaTitleBn?: string;
+    metaDescription?: string;
+    metaDescriptionEn?: string;
+    metaDescriptionBn?: string;
+    keywords?: string[];
+    keywordsEn?: string;
+    keywordsBn?: string;
+    ogImage?: string;
+    canonicalUrl?: string;
+    noIndex?: boolean;
 }
 
 // Helper to format Prisma article to client Article object
@@ -40,6 +52,27 @@ function formatArticle(doc: any, locale: string = "en"): Article {
     const excerpt = isBn ? (excerptBn || excerptEn) : (excerptEn || excerptBn);
     const content = isBn ? (contentBn || contentEn) : (contentEn || contentBn);
 
+    // Localized SEO fields with fallbacks
+    const metaTitleEn = doc.metaTitleEn || "";
+    const metaTitleBn = doc.metaTitleBn || metaTitleEn;
+    const metaTitleRaw = isBn ? (metaTitleBn || metaTitleEn) : (metaTitleEn || metaTitleBn);
+    const metaTitle = (metaTitleRaw && metaTitleRaw.trim()) ? metaTitleRaw.trim() : title;
+
+    const metaDescriptionEn = doc.metaDescriptionEn || "";
+    const metaDescriptionBn = doc.metaDescriptionBn || metaDescriptionEn;
+    const metaDescriptionRaw = isBn ? (metaDescriptionBn || metaDescriptionEn) : (metaDescriptionEn || metaDescriptionBn);
+    const metaDescription = (metaDescriptionRaw && metaDescriptionRaw.trim()) ? metaDescriptionRaw.trim() : excerpt;
+
+    const keywordsEn = doc.keywordsEn || "";
+    const keywordsBn = doc.keywordsBn || keywordsEn;
+    const keywordsRaw = isBn ? (keywordsBn || keywordsEn) : (keywordsEn || keywordsBn);
+    const keywords = keywordsRaw
+        ? keywordsRaw
+              .split(",")
+              .map((k: string) => k.trim())
+              .filter(Boolean)
+        : [];
+
     return {
         id: doc.id,
         slug: doc.slug,
@@ -55,6 +88,18 @@ function formatArticle(doc: any, locale: string = "en"): Article {
         content: content || "",
         contentEn,
         contentBn,
+        metaTitle,
+        metaTitleEn: doc.metaTitleEn || "",
+        metaTitleBn: doc.metaTitleBn || "",
+        metaDescription,
+        metaDescriptionEn: doc.metaDescriptionEn || "",
+        metaDescriptionBn: doc.metaDescriptionBn || "",
+        keywords,
+        keywordsEn: doc.keywordsEn || "",
+        keywordsBn: doc.keywordsBn || "",
+        ogImage: doc.ogImage || "",
+        canonicalUrl: doc.canonicalUrl || "",
+        noIndex: Boolean(doc.noIndex),
     };
 }
 

@@ -22,31 +22,77 @@ export async function generateStaticParams() {
     }));
 }
 
+const SITE_URL = (
+    process.env.NEXT_PUBLIC_SITE_URL || "https://cobalt-studio-xi.vercel.app"
+).replace(/\/$/, "");
+const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.png`;
+
 // Generate dynamic SEO metadata
 export async function generateMetadata({ params }: Props) {
-    const { locale, slug } = await params;
+    const { locale = "en", slug } = await params;
     const article = await getArticleBySlug(slug, locale);
 
     if (!article) {
         return {
             title: "Article Not Found | Cobalt Studio",
+            robots: { index: false, follow: false },
         };
     }
 
+    const title = article.metaTitle || article.title;
+    const description = article.metaDescription || article.excerpt;
+    const pageTitle = `${title} | Cobalt Studio`;
+    const canonicalUrl = article.canonicalUrl || `${SITE_URL}/${locale}/resources/${slug}`;
+
+    const ogImages = article.ogImage
+        ? [
+              {
+                  url: article.ogImage,
+                  width: 1200,
+                  height: 630,
+                  alt: title,
+              },
+          ]
+        : [
+              {
+                  url: DEFAULT_OG_IMAGE,
+                  width: 1200,
+                  height: 630,
+                  alt: "Cobalt Studio",
+              },
+          ];
+
     return {
-        title: `${article.title} | Cobalt Studio`,
-        description: article.excerpt,
+        title: pageTitle,
+        description,
+        keywords: article.keywords && article.keywords.length > 0 ? article.keywords : [article.category, "Cobalt Studio"],
+        robots: {
+            index: !article.noIndex,
+            follow: !article.noIndex,
+        },
+        alternates: {
+            canonical: canonicalUrl,
+            languages: {
+                en: `${SITE_URL}/en/resources/${slug}`,
+                bn: `${SITE_URL}/bn/resources/${slug}`,
+            },
+        },
         openGraph: {
-            title: article.title,
-            description: article.excerpt,
+            title,
+            description,
             type: "article",
             publishedTime: article.publishDate,
-            authors: ["Arefur Rahman Khan"],
+            authors: ["Cobalt Studio", "Arefur Rahman Khan"],
+            images: ogImages,
+            locale: locale === "bn" ? "bn_BD" : "en_US",
+            siteName: "Cobalt Studio",
+            url: `${SITE_URL}/${locale}/resources/${slug}`,
         },
         twitter: {
-            card: "summary_large_image",
-            title: article.title,
-            description: article.excerpt,
+            card: article.ogImage ? "summary_large_image" : "summary",
+            title,
+            description,
+            images: ogImages,
         },
     };
 }

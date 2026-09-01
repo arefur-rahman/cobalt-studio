@@ -46,17 +46,26 @@ model BluePrintBn {
 }
 
 model Article {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  slug        String   @unique
-  titleEn     String
-  titleBn     String
-  category    String
-  publishDate DateTime @default(now())
-  readTime    Int
-  excerptEn   String
-  excerptBn   String
-  contentEn   String
-  contentBn   String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  slug              String   @unique
+  titleEn           String
+  titleBn           String
+  category          String
+  publishDate       DateTime @default(now())
+  readTime          Int
+  excerptEn         String
+  excerptBn         String
+  contentEn         String
+  contentBn         String
+  metaTitleEn       String?
+  metaTitleBn       String?
+  metaDescriptionEn String?
+  metaDescriptionBn String?
+  keywordsEn        String[]
+  keywordsBn        String[]
+  ogImage           String?
+  canonicalUrl      String?
+  noIndex           Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }

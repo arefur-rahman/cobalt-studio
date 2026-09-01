@@ -30,12 +30,12 @@ interface ArticleClientProps {
     nextArticle: Article | null;
 }
 
-export default function ArticleClient({
+const ArticleClient = ({
     article,
     htmlContent,
     prevArticle,
     nextArticle,
-}: ArticleClientProps) {
+}: ArticleClientProps) => {
     const { user } = useAuth();
     const router = useRouter();
     const [copiedLink, setCopiedLink] = useState(false);
@@ -268,9 +268,93 @@ export default function ArticleClient({
             "noopener,noreferrer",
         );
     };
+    // 7. Structured Data (JSON-LD) for Search Engines
+    const SITE_URL = (
+        process.env.NEXT_PUBLIC_SITE_URL || "https://cobalt-studio-xi.vercel.app"
+    ).replace(/\/$/, "");
+    const canonicalUrl =
+        article.canonicalUrl || `${SITE_URL}/resources/${article.slug}`;
+
+    const articleJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: article.metaTitle || article.title,
+        description: article.metaDescription || article.excerpt,
+        image: article.ogImage
+            ? [article.ogImage]
+            : [`${SITE_URL}/og-default.png`],
+        datePublished: article.publishDate,
+        dateModified: article.publishDate,
+        author: {
+            "@type": "Person",
+            name: "Arefur Rahman Khan",
+            url: `${SITE_URL}/about`,
+        },
+        publisher: {
+            "@type": "Organization",
+            name: "Cobalt Studio",
+            url: SITE_URL,
+            logo: {
+                "@type": "ImageObject",
+                url: `${SITE_URL}/logo.png`,
+            },
+        },
+        mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": canonicalUrl,
+        },
+        articleSection: article.category || "General",
+        keywords:
+            article.keywords && article.keywords.length > 0
+                ? article.keywords.join(", ")
+                : article.category,
+    };
+
+    const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: SITE_URL,
+            },
+            {
+                "@type": "ListItem",
+                position: 2,
+                name: "Resources",
+                item: `${SITE_URL}/resources`,
+            },
+            {
+                "@type": "ListItem",
+                position: 3,
+                name: article.category || "General",
+                item: `${SITE_URL}/resources?category=${encodeURIComponent(article.category || "General")}`,
+            },
+            {
+                "@type": "ListItem",
+                position: 4,
+                name: article.title,
+                item: canonicalUrl,
+            },
+        ],
+    };
 
     return (
         <div className="min-h-screen bg-background text-foreground flex flex-col">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(articleJsonLd),
+                }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(breadcrumbJsonLd),
+                }}
+            />
             <TopNavBar />
 
             {/* Reading progress bar */}
@@ -402,8 +486,9 @@ export default function ArticleClient({
                     </>
                 )}
             </AnimatePresence>
-
             <Footer />
         </div>
     );
-}
+};
+
+export default ArticleClient;
