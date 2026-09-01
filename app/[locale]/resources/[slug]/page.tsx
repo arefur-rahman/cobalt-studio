@@ -42,7 +42,8 @@ export async function generateMetadata({ params }: Props) {
     const title = article.metaTitle || article.title;
     const description = article.metaDescription || article.excerpt;
     const pageTitle = `${title} | Cobalt Studio`;
-    const canonicalUrl = article.canonicalUrl || `${SITE_URL}/${locale}/resources/${slug}`;
+    const canonicalUrl =
+        article.canonicalUrl || `${SITE_URL}/${locale}/resources/${slug}`;
 
     const ogImages = article.ogImage
         ? [
@@ -65,7 +66,10 @@ export async function generateMetadata({ params }: Props) {
     return {
         title: pageTitle,
         description,
-        keywords: article.keywords && article.keywords.length > 0 ? article.keywords : [article.category, "Cobalt Studio"],
+        keywords:
+            article.keywords && article.keywords.length > 0
+                ? article.keywords
+                : [article.category, "Cobalt Studio"],
         robots: {
             index: !article.noIndex,
             follow: !article.noIndex,

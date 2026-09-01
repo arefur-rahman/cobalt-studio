@@ -5,6 +5,15 @@ import { revalidatePath } from "next/cache";
 
 const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL || "";
 
+function parseKeywords(input?: string | string[]): string[] {
+    if (!input) return [];
+    if (Array.isArray(input)) return input.map((k) => k.trim()).filter(Boolean);
+    return input
+        .split(",")
+        .map((k) => k.trim())
+        .filter(Boolean);
+}
+
 export async function checkSlugAvailability(
     slug: string,
     currentSlugOrId?: string,
@@ -68,8 +77,8 @@ interface CreateArticleInput {
     metaTitleBn?: string;
     metaDescriptionEn?: string;
     metaDescriptionBn?: string;
-    keywordsEn?: string;
-    keywordsBn?: string;
+    keywordsEn?: string | string[];
+    keywordsBn?: string | string[];
     ogImage?: string;
     canonicalUrl?: string;
     noIndex?: boolean;
@@ -216,8 +225,8 @@ export async function createArticleAction(
                 metaTitleBn: input.metaTitleBn?.trim() || null,
                 metaDescriptionEn: input.metaDescriptionEn?.trim() || null,
                 metaDescriptionBn: input.metaDescriptionBn?.trim() || null,
-                keywordsEn: input.keywordsEn?.trim() || null,
-                keywordsBn: input.keywordsBn?.trim() || null,
+                keywordsEn: parseKeywords(input.keywordsEn),
+                keywordsBn: parseKeywords(input.keywordsBn),
                 ogImage: input.ogImage?.trim() || null,
                 canonicalUrl: input.canonicalUrl?.trim() || null,
                 noIndex: Boolean(input.noIndex),
@@ -401,8 +410,8 @@ interface UpdateArticleInput {
     metaTitleBn?: string;
     metaDescriptionEn?: string;
     metaDescriptionBn?: string;
-    keywordsEn?: string;
-    keywordsBn?: string;
+    keywordsEn?: string | string[];
+    keywordsBn?: string | string[];
     ogImage?: string;
     canonicalUrl?: string;
     noIndex?: boolean;
@@ -570,8 +579,8 @@ export async function updateArticleAction(
                 metaTitleBn: input.metaTitleBn?.trim() || null,
                 metaDescriptionEn: input.metaDescriptionEn?.trim() || null,
                 metaDescriptionBn: input.metaDescriptionBn?.trim() || null,
-                keywordsEn: input.keywordsEn?.trim() || null,
-                keywordsBn: input.keywordsBn?.trim() || null,
+                keywordsEn: parseKeywords(input.keywordsEn),
+                keywordsBn: parseKeywords(input.keywordsBn),
                 ogImage: input.ogImage?.trim() || null,
                 canonicalUrl: input.canonicalUrl?.trim() || null,
                 noIndex: Boolean(input.noIndex),

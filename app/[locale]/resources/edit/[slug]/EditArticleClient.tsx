@@ -98,8 +98,16 @@ export default function EditArticleClient({ article }: EditArticleClientProps) {
     const [metaDescriptionBn, setMetaDescriptionBn] = useState(
         article.metaDescriptionBn || "",
     );
-    const [keywordsEn, setKeywordsEn] = useState(article.keywordsEn || "");
-    const [keywordsBn, setKeywordsBn] = useState(article.keywordsBn || "");
+    const [keywordsEn, setKeywordsEn] = useState(
+        Array.isArray(article.keywordsEn)
+            ? article.keywordsEn.join(", ")
+            : article.keywordsEn || "",
+    );
+    const [keywordsBn, setKeywordsBn] = useState(
+        Array.isArray(article.keywordsBn)
+            ? article.keywordsBn.join(", ")
+            : article.keywordsBn || "",
+    );
     const [ogImage, setOgImage] = useState(article.ogImage || "");
     const [canonicalUrl, setCanonicalUrl] = useState(
         article.canonicalUrl || "",
@@ -830,7 +838,7 @@ export default function EditArticleClient({ article }: EditArticleClientProps) {
                                             }
                                             className="sr-only peer"
                                         />
-                                        <div className="w-11 h-6 bg-zinc-300 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:after:border-zinc-600 peer-checked:bg-red-500"></div>
+                                        <div className="w-11 h-6 bg-zinc-300 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:after:border-zinc-600 peer-checked:bg-red-500"></div>
                                     </label>
                                 </div>
                             </div>
