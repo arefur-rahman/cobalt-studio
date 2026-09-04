@@ -1,20 +1,20 @@
+import "@/app/globals.css";
 import ScrollToTop from "@/components/global/ScrollToTop";
+import { routing } from "@/i18n/routing";
 import {
     constructMetadata,
     constructViewport,
     SiteConfig,
 } from "@/lib/metadata";
-import { ThemeProvider } from "@/providers/theme-provider";
-import type { Metadata, Viewport } from "next";
-import { Analytics } from "@vercel/analytics/next";
-import { Anek_Bangla, Inter } from "next/font/google";
-import "@/app/globals.css";
-import { Toaster } from "sonner";
 import { AuthProvider } from "@/providers/auth-provider";
+import { ThemeProvider } from "@/providers/theme-provider";
+import { Analytics } from "@vercel/analytics/next";
+import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
-import { routing } from "@/i18n/routing";
+import { Anek_Bangla, Inter } from "next/font/google";
 import { notFound } from "next/navigation";
+import { Toaster } from "sonner";
 
 export const inter = Inter({
     subsets: ["latin"],

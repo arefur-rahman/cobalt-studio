@@ -12,6 +12,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import BrandLogo from "./BrandLogo";
 import GradientTopBorder from "./GradientTopBorder";
 import { P } from "./Texts";
 
@@ -34,20 +35,7 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
                     {/* Brand Column */}
                     <div className="space-y-5">
-                        <Image
-                            src="/cobalt-studio-light.png"
-                            alt="Cobalt Studio logo"
-                            width={150}
-                            height={40}
-                            className="h-9 w-auto object-contain dark:hidden"
-                        />
-                        <Image
-                            src="/cobalt-studio-dark.png"
-                            alt="Cobalt Studio logo"
-                            width={150}
-                            height={40}
-                            className="h-9 w-auto object-contain hidden dark:block"
-                        />
+                        <BrandLogo />
                         <P className="text-sm text-muted-foreground dark:text-foreground leading-relaxed max-w-50">
                             {t("brandTagline")}
                         </P>

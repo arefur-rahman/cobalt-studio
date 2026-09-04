@@ -1,5 +1,6 @@
 "use client";
 
+import BrandLogo from "@/components/global/BrandLogo";
 import {
     BookOpen,
     DollarSign,
@@ -7,7 +8,6 @@ import {
     LayoutGrid,
     Settings,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -67,24 +67,7 @@ export default function DashboardLayout({
             <Sidebar className="border-r border-sidebar-border bg-sidebar">
                 {/* Header / Logo */}
                 <SidebarHeader className="p-4 border-b border-sidebar-border/50">
-                    <Link href="/" className="relative block h-8 w-35">
-                        <Image
-                            src="/cobalt-studio-dark.png"
-                            alt="cobalt studio logo"
-                            width={140}
-                            height={32}
-                            priority
-                            className="hidden dark:block"
-                        />
-                        <Image
-                            src="/cobalt-studio-light.png"
-                            alt="cobalt studio logo"
-                            width={140}
-                            height={32}
-                            priority
-                            className="block dark:hidden"
-                        />
-                    </Link>
+                    <BrandLogo priority />
                 </SidebarHeader>
 
                 {/* Main Content */}

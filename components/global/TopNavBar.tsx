@@ -25,7 +25,6 @@ import {
 import { Globe, LayoutGrid, LogOut, User } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
 import { Button } from "../ui/button";
@@ -36,6 +35,7 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "../ui/drawer";
+import BrandLogo from "./BrandLogo";
 import Navlink from "./Navlink";
 import { Span } from "./Texts";
 
@@ -119,38 +119,7 @@ const TopNavBar = () => {
             >
                 {/* Logo */}
                 <div>
-                    <Link href="/" className="relative block h-8 w-35">
-                        <Image
-                            src="/cobalt-studio-dark.png"
-                            alt="cobalt studio logo"
-                            width={140}
-                            height={32}
-                            priority
-                            className={cn("hidden", "dark:block")}
-                        />
-                        <Image
-                            src="/cobalt-studio-light.png"
-                            alt="cobalt studio logo"
-                            width={140}
-                            height={32}
-                            priority
-                            className={cn(
-                                scrolled ? "block" : "hidden",
-                                "dark:hidden",
-                            )}
-                        />
-                        <Image
-                            src="/cobalt-studio-light-bg-dark.png"
-                            alt="cobalt studio logo"
-                            width={140}
-                            height={32}
-                            priority
-                            className={cn(
-                                scrolled ? "hidden" : "block",
-                                "dark:hidden",
-                            )}
-                        />
-                    </Link>
+                    <BrandLogo scrolled={scrolled} isHome={isRoot} priority />
                 </div>
 
                 {/* Nav links (desktop) */}
